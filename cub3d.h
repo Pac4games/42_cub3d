@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 00:49:12 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/26 22:13:13 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_node	t_node;
 
 typedef struct s_node
 {
-	char			*symbol;
+	int				*symbol;
+	int				tot_cols;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -44,12 +45,12 @@ typedef struct s_list
 
 typedef struct s_map
 {
-	char	**map;
-	int		tot_rows;
-	int		tot_cols;
+	int	**map;
+	int	tot_rows;
+	int	tot_cols;
 }	t_map;
 
-enum e_map
+enum e_map_txt
 {
 	ZERO = '0',
 	WALL = '1',
@@ -66,6 +67,25 @@ enum e_map
 	DOWN_DOOR_AT_DOWN = 'd',
 	DOWN_DOOR_AT_LEFT = 'l',
 	DOWN_DOOR_AT_RIGHT = 'r',
+};
+
+enum e_map_num
+{
+	NZERO,
+	NWALL,
+	NSPACE,
+	NNORTH,
+	NSOUTH,
+	NEAST,
+	NWEST,
+	NUP_DOOR_AT_UP,
+	NUP_DOOR_AT_DOWN,
+	NUP_DOOR_AT_LEFT,
+	NUP_DOOR_AT_RIGHT,
+	NDOWN_DOOR_AT_UP,
+	NDOWN_DOOR_AT_DOWN,
+	NDOWN_DOOR_AT_LEFT,
+	NDOWN_DOOR_AT_RIGHT,
 };
 
 typedef struct s_txtr
@@ -98,9 +118,8 @@ enum e_texture
 	TOT,
 };
 
-typedef struct s_cub3d
+typedef struct s_data
 {
-	/*
 	void		*mlx;
 	void		*mlx_win;
 	void		*img;
@@ -108,10 +127,16 @@ typedef struct s_cub3d
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	*/
+	t_map		*map;
+}	t_data;
+
+typedef struct s_cub3d
+{
 	t_map		*map;
 	t_all_txtrs	*textures;
+	t_all_txtrs	*cur_txtrs;
 	int			map_cols;
+	t_data		*display;
 }	t_cub3d;
 
 typedef struct s_vector
@@ -130,59 +155,59 @@ typedef struct s_vector
 # define PRT_CEIL "C"
 # define PRT_UP "UP"
 # define PRT_LOW "LO"
-/*
-// Blocks
-int			smlnum(int rows, int cols);
-void		corr_blocky(int rows, int cols, double **blocky);
-double		**creat_blocky(t_matrix *matrix, int y, int x);
-void		corr_blockx(int rows, int cols, double **blockx);
-double		**creat_blockx(t_matrix *matrix, int y, int x);
 
-// Display
-int			quits(t_data *img);
-int			read_keys(int key_pressed, void *param);
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		draw_line(t_data *data, t_vector *vector, int zi, int zf);
-void		display_in_canvas(t_matrix *matrix);
+// CONV_ENUMS
+int			conv_to_map_num(char c);
+char		*conv_to_txtr_text(char c);
 
-// Draw utils
-void		begin_coord(t_vector *vector, int x, int y);
-void		end_coord(t_vector *vector, int x, int y);
-void		corr_blockz(int tab, int rows, int cols, double **blockz);
-int			max_z(int rows, int cols, double **blockz);
-int			min_z(int rows, int cols, double **blockz);
+// DISPLAY
+void		display_in_canvas(t_cub3d *cub3d);
+void		draw_line(t_data *data, t_vector *vector, int color);
 
-// Draw
-void		draw_midlines(t_data *img, t_matrix *mat, double **bx, double **by);
-int			recolor(int zi, int rf, int gf, int bf);
-void		colorize(t_matrix *matrix);
-void		draw_hedges(t_data *img, t_matrix *mat, double **bx, double **by);
-void		draw_vedges(t_data *img, t_matrix *mat, double **bx, double **by);
-*/
-// Init_End
+// DRAW
+void		draw_midlines(t_data *img, t_map *map, int **mapx, int **mapy);
+void		draw_hedges(t_data *img, t_map *map, int **mapx, int **mapy);
+void		draw_vedges(t_data *img, t_map *map, int **mapx, int **mapy);
+void		draw_doors(t_data *img, t_map *map, int **mapx, int **mapy);
+
+// END STRUCTURES
+void		destroy_split(char ***split_location);
+void		destroy_list(t_list **list);
+void		destroy_cub(t_cub3d **cub);
+void		destroy_txtrs_list(t_all_txtrs **txtrs);
+void		destroy_matrix(t_map **mat);
+
+//INIT STRUCTURES
 t_node		*init_node(void);
 t_list		*init_list(void);
 t_cub3d		*init_cub(void);
 t_all_txtrs	*init_txtrs(void);
 t_txtr		*init_single_txtr(void);
+
+//INSERT NODES
 t_map		*init_matrix(int tot_rows, int tot_cols);
-void		destroy_list(t_list **list);
-void		destroy_cub(t_cub3d **cub);
-/*
-// Scale
-void		corr_b(int rows, int cols, double corr, double **block);
-void		rescale(t_matrix *mat, double **bx, double **by);
-int			bignum(int first, int second);
-*/
-// Utils
-void		insert_map_tail(t_list *list, char *data);
+void		insert_map_tail(t_list *list, int *data, int len);
 void		insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type);
-void		destroy_split(char ***split_location);
-double		**solo_matrix(int rows, int cols);
-void		free_blocks(int rows, double **blockx, double **blocky);
-/*
-// main
-t_matrix	*list_to_matrix(t_list **list);
-t_list		*file_to_dll(int fd);
-*/
+t_map		*list_to_map(t_list **list, int map_cols);
+void		insert_txtrs(t_cub3d **cub3d, char *line, int txtr_type);
+
+//UTILITY PRINTS
+void		print_map(t_map *map, int cols);
+void		print_txtrs(t_all_txtrs *txtrs);
+
+// UTILITIES
+int			ft_isspace(int c);
+int			is_only_spaces(char *str);
+int			ft_str_end_trim(char *line);
+int			**solo_matrix(int rows, int cols);
+
+//VALIDATE MAP
+int			map_line_is_valid(char *line);
+int			is_valid_elem(char *line);
+
+//MAIN
+int			*fill_line_of_list(char *line);
+t_cub3d		*fill_in_cub(int fd);
+void		display_in_canvas(t_cub3d *cub);
+
 #endif

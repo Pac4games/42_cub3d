@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 17:06:25 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:26:09 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	*fill_line_of_list(char *line)
 	int	i;
 
 	len = ft_str_end_trim(line);
-	map_line = malloc(sizeof(*map_line) * len);
+	map_line = malloc(sizeof(map_line) * len);
 	if (!map_line)
 		return (0);
 	i = 0;
@@ -31,82 +31,67 @@ int	*fill_line_of_list(char *line)
 	return (map_line);
 }
 
-t_cub3d	*fill_in_cub(int fd)
+int	fill_in_cub(t_cub3d *cub, int fd)
 {
-	t_cub3d	*cub3d;
-	t_list	*list;
+	t_list	list;
 	char	*line;
 	int		i;
 
-	cub3d = init_cub();
-	list = init_list();
-	if (!list)
-	{
-		free(cub3d);
-		return (NULL);
-	}
+	init_list(&list);
 	line = (char *)1;
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (line && !is_only_spaces(line) && ft_strlen(line) > 0)
+		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 && line[0] != '\n')
 		{
 			i = 0;
 			while (ft_isspace(line[i]))
 				i++;
 			if (line[i] && is_valid_elem(&line[i]) > 0 && is_valid_elem(&line[i]) != TOT)
-				insert_txtrs(&cub3d, &line[i], is_valid_elem(&line[i]));
+				insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
 			else if (line[i] && is_valid_elem(&line[i]) == TOT && map_line_is_valid(line))
 			{
-				insert_map_tail(list, fill_line_of_list(line), ft_str_end_trim(line));
-				if (ft_str_end_trim(line) > cub3d->map_cols)
-					cub3d->map_cols = ft_str_end_trim(line);
+				insert_map_tail(&list, fill_line_of_list(line), ft_str_end_trim(line));
+				if (ft_str_end_trim(line) > cub->map_cols)
+					cub->map_cols = ft_str_end_trim(line);
 			}
 			else
 			{
 				free(line);
 				destroy_list(&list);
-				if (cub3d)
-					destroy_cub(&cub3d);
-				return (NULL);
+				if (cub)
+					destroy_cub(cub);
+				return (0);
 			}
 		}
 		free(line);
 	}
-	if (list && cub3d)
+	if (list.head && cub)
 	{
-		cub3d->map = list_to_map(&list, cub3d->map_cols);
+		list_to_map(&list, cub);
 		destroy_list(&list);
 	}
-	return (cub3d);
+	return (1);
 }
 
 int	main(int ac, char *av[])
 {
-	t_cub3d	*cub3d;
+	t_cub3d	cub;
 	int		fd;
 
 	if (ac == 2 && ft_strnstr(&av[1][ft_strlen(av[1]) \
 	- 4], ".cub", ft_strlen(av[1])))
 	{
 		fd = open(av[1], O_RDONLY, 0777);
-		if (fd <= 0)
+		if (fd <= 0 || !init_cub(&cub) || !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
-		cub3d = fill_in_cub(fd);
 		close(fd);
-		//print_map(cub3d->map);
-		//display_in_canvas(cub3d);
-		if (cub3d)
-		{
-			//if (cub3d->textures)
-			//	print_txtrs(cub3d->textures);
-			if (cub3d->cur_txtrs)
-				print_txtrs(cub3d->cur_txtrs);
-			if (cub3d->map)
-				print_map(cub3d->map, cub3d->map_cols);
-			display_in_canvas(cub3d);
-			destroy_cub(&cub3d);
-		}
+		if ((&cub)->cur_txtrs)
+			print_txtrs((&cub)->cur_txtrs);
+		if ((&cub)->map)
+			print_map((&cub)->map, (&cub)->map_cols);
+		display_in_canvas(&cub);
+		destroy_cub(&cub);
 	}
 	return (0);
 }

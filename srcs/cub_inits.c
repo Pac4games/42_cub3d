@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 16:24:02 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:05:28 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,11 @@ t_node	*init_node(void)
 	return (node);
 }
 
-t_list	*init_list(void)
+void	init_list(t_list *list)
 {
-	t_list	*list;
-
-	list = malloc(sizeof(*list));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->tail = NULL;
-	list->tot_rows = 0;
-	return (list);
+	(*list).head = NULL;
+	(*list).tail = NULL;
+	(*list).tot_rows = 0;
 }
 
 t_txtr	*init_single_txtr(void)
@@ -68,21 +62,36 @@ t_all_txtrs	*init_txtrs(void)
 	return (txtrs);
 }
 
-t_cub3d	*init_cub(void)
+int	init_cub(t_cub3d *cub)
 {
-	t_cub3d	*cub;
+	cub->textures = NULL;
+	cub->cur_txtrs = NULL;
+	cub->map = NULL;
+	cub->map_cols = 0;
+	return (1);
+}
 
+/*
+int	init_cub(t_cub3d *cub)
+{
 	cub = malloc(sizeof(*cub));
 	if (!cub)
-		return (NULL);
+		return (1);
 	cub->textures = init_txtrs();
-	cub->cur_txtrs = init_txtrs();
 	if (!cub->textures)
 	{
 		free(cub);
-		return (NULL);
+		return (1);
+	}
+	cub->cur_txtrs = init_txtrs();
+	if (!cub->cur_txtrs)
+	{
+		free(cub);
+		free(cub->textures);
+		return (1);
 	}
 	cub->map = NULL;
 	cub->map_cols = 0;
-	return (cub);
+	return (0);
 }
+*/

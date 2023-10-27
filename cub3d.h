@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 22:13:13 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:28:45 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,14 @@ enum e_texture
 	TOT,
 };
 
+typedef struct s_cub3d
+{
+	t_map		*map;
+	t_all_txtrs	*textures;
+	t_all_txtrs	*cur_txtrs;
+	int			map_cols;
+}	t_cub3d;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -127,17 +135,11 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	t_cub3d		*cub;
 	t_map		*map;
+	int			**mapx;
+	int			**mapy;
 }	t_data;
-
-typedef struct s_cub3d
-{
-	t_map		*map;
-	t_all_txtrs	*textures;
-	t_all_txtrs	*cur_txtrs;
-	int			map_cols;
-	t_data		*display;
-}	t_cub3d;
 
 typedef struct s_vector
 {
@@ -165,35 +167,37 @@ void		display_in_canvas(t_cub3d *cub3d);
 void		draw_line(t_data *data, t_vector *vector, int color);
 
 // DRAW
-void		draw_midlines(t_data *img, t_map *map, int **mapx, int **mapy);
-void		draw_hedges(t_data *img, t_map *map, int **mapx, int **mapy);
-void		draw_vedges(t_data *img, t_map *map, int **mapx, int **mapy);
-void		draw_doors(t_data *img, t_map *map, int **mapx, int **mapy);
+void		draw_midlines(t_data *img, t_map *map);
+void		draw_hedges(t_data *img, t_map *map);
+void		draw_vedges(t_data *img, t_map *map);
+void		draw_doors(t_data *img, t_map *map);
 
 // END STRUCTURES
 void		destroy_split(char ***split_location);
-void		destroy_list(t_list **list);
-void		destroy_cub(t_cub3d **cub);
-void		destroy_txtrs_list(t_all_txtrs **txtrs);
-void		destroy_matrix(t_map **mat);
+void		destroy_list(t_list *list);
+void		destroy_cub(t_cub3d *cub);
+void		destroy_txtrs_list(t_all_txtrs *txtrs);
+void		destroy_map(t_map **mat);
+void		destroy_matrix(int **mat, int tot_rows);
 
 //INIT STRUCTURES
 t_node		*init_node(void);
-t_list		*init_list(void);
-t_cub3d		*init_cub(void);
+void		init_list(t_list *list);
+int			init_cub(t_cub3d *cub);
 t_all_txtrs	*init_txtrs(void);
 t_txtr		*init_single_txtr(void);
 
 //INSERT NODES
-t_map		*init_matrix(int tot_rows, int tot_cols);
+void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 void		insert_map_tail(t_list *list, int *data, int len);
 void		insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type);
-t_map		*list_to_map(t_list **list, int map_cols);
-void		insert_txtrs(t_cub3d **cub3d, char *line, int txtr_type);
+void		list_to_map(t_list *list, t_cub3d *cub);
+void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
 //UTILITY PRINTS
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
+void		print_cur_txtrs(t_txtr **txtrs);
 
 // UTILITIES
 int			ft_isspace(int c);
@@ -207,7 +211,7 @@ int			is_valid_elem(char *line);
 
 //MAIN
 int			*fill_line_of_list(char *line);
-t_cub3d		*fill_in_cub(int fd);
+int			fill_in_cub(t_cub3d *cub, int fd);
 void		display_in_canvas(t_cub3d *cub);
 
 #endif

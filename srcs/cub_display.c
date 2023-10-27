@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/10/26 22:00:00 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:59:29 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static int	quits(t_data *img)
 	mlx_destroy_window (img->mlx, img->mlx_win);
 	mlx_destroy_display(img->mlx);
 	free(img->mlx);
-	destroy_matrix(&img->map);
+	destroy_matrix(img->mapx, img->cub->map->tot_rows);
+	destroy_matrix(img->mapy, img->cub->map->tot_rows);
+	destroy_cub(img->cub);
 	exit(EXIT_SUCCESS);
 }
 
@@ -77,20 +79,20 @@ void	draw_line(t_data *data, t_vector *vector, int color)
 	}
 }
 
-static int	**update_display_x(t_map *map, int y, int x)
+static int	**update_display_x(int rows, int cols, int y, int x)
 {
 	int		**newmap;
 	int		sml;
 	int		smltab;
 	int		tempx;
 
-	newmap = solo_matrix(map->tot_rows, map->tot_cols);
-	sml = (WHEI * 0.55) / smlnum(map->tot_rows, map->tot_cols);
-	smltab = smlnum(map->tot_rows, map->tot_cols) - 1;
-	while (++y < map->tot_rows)
+	newmap = solo_matrix(rows, cols);
+	sml = (WHEI * 0.55) / smlnum(rows, cols);
+	smltab = smlnum(rows, cols) - 1;
+	while (++y < rows)
 	{
 		x = -1;
-		while (++x < map->tot_cols)
+		while (++x < cols)
 		{
 			tempx = (WWID - sml * smltab) * 0.05 + x * sml;
 			newmap[y][x] = tempx;
@@ -99,21 +101,21 @@ static int	**update_display_x(t_map *map, int y, int x)
 	return (newmap);
 }
 
-static int	**update_display_y(t_map *map, int y, int x)
+static int	**update_display_y(int rows, int cols, int y, int x)
 {
 	int		**newmap;
 	int		sml;
 	int		smltab;
 	int		tempy;
 
-	newmap = solo_matrix(map->tot_rows, map->tot_cols);
-	sml = (WHEI * 0.55) / smlnum(map->tot_rows, map->tot_cols);
-	smltab = smlnum(map->tot_rows, map->tot_cols) - 1;
-	while (++y < map->tot_rows)
+	newmap = solo_matrix(rows, cols);
+	sml = (WHEI * 0.55) / smlnum(rows, cols);
+	smltab = smlnum(rows, cols) - 1;
+	while (++y < rows)
 	{
 		x = -1;
 		tempy = (WHEI - sml * smltab) * 0.1 + y * sml;
-		while (++x < map->tot_cols)
+		while (++x < cols)
 			newmap[y][x] = tempy;
 	}
 	return (newmap);
@@ -122,22 +124,20 @@ static int	**update_display_y(t_map *map, int y, int x)
 void	display_in_canvas(t_cub3d *cub3d)
 {
 	t_data	img;
-	int		**mapx;
-	int		**mapy;
 
-	cub3d->display = &img;
 	img.mlx = mlx_init();
 	img.mlx_win = mlx_new_window(img.mlx, WWID, WHEI, "cub3D");
 	img.img = mlx_new_image(img.mlx, WWID, WHEI);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, \
 	&img.line_length, &img.endian);
+	img.cub = cub3d;
 	img.map = cub3d->map;
-	mapx = update_display_x(cub3d->map, -1, -1);
-	mapy = update_display_y(cub3d->map, -1, -1);
-	draw_midlines(&img, cub3d->map, mapx, mapy);
-	draw_hedges(&img, cub3d->map, mapx, mapy);
-	draw_vedges(&img, cub3d->map, mapx, mapy);
-	draw_doors(&img, cub3d->map, mapx, mapy);
+	img.mapx = update_display_x(cub3d->map->tot_rows, cub3d->map_cols, -1, -1);
+	img.mapy = update_display_y(cub3d->map->tot_rows, cub3d->map_cols, -1, -1);
+	draw_midlines(&img, cub3d->map);
+	draw_hedges(&img, cub3d->map);
+	draw_vedges(&img, cub3d->map);
+	draw_doors(&img, cub3d->map);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_key_hook (img.mlx_win, read_keys, &img);
 	mlx_hook(img.mlx_win, 17, (1L << 0), quits, &img);

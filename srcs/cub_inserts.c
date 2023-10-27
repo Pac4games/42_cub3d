@@ -6,28 +6,23 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 16:27:47 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:19:06 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_map	*init_matrix(int tot_rows, int tot_cols)
+void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)
 {
-	t_map	*map;
-
-	map = malloc(sizeof(*map));
-	if (!map)
-		return (NULL);
-	map->tot_rows = tot_rows;
-	map->tot_cols = tot_cols;
-	map->map = malloc(sizeof(*(map->map)) * tot_rows);
-	if (!map->map)
+	cub->map = malloc(sizeof(*cub->map));
+	cub->map->tot_rows = tot_rows;
+	cub->map->tot_cols = tot_cols;
+	cub->map->map = malloc(sizeof(*(cub->map->map)) * tot_rows);
+	if (!cub->map->map)
 	{
-		free(map);
-		return (NULL);
+		free(cub->map);
+		return ;
 	}
-	return (map);
 }
 
 void	insert_map_tail(t_list *list, int *data, int len)
@@ -47,18 +42,25 @@ void	insert_map_tail(t_list *list, int *data, int len)
 	else
 		list->head = new_node;
 	list->tail = new_node;
-	(list->tot_rows)++;
+	list->tot_rows++;
 }
 
 void	insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type)
 {
 	t_txtr	*new_txtr;
+	size_t	i;
 
 	new_txtr = init_single_txtr();
 	if (!new_txtr)
 		return ;
 	new_txtr->type = txtr_type;
-	new_txtr->path = data;
+	new_txtr->path = malloc(sizeof(char) * (ft_strlen(data) + 1));
+	if (!new_txtr->path)
+		return ;
+	i = -1;
+	while (++i < ft_strlen(data))
+		new_txtr->path[i] = data[i];
+	new_txtr->path[i] = '\0';
 	if (txtrs->tail)
 	{
 		new_txtr->prev = txtrs->tail;
@@ -70,36 +72,32 @@ void	insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type)
 	(txtrs->tot_txtrs)++;
 }
 
-t_map	*list_to_map(t_list **list, int map_cols)
+void	list_to_map(t_list *list, t_cub3d *cub)
 {
-	t_map	*map;
 	t_node	*cur;
 	int		i;
 	int		f;
 
-	map = init_matrix((*list)->tot_rows, map_cols);
-	cur = (*list)->head;
+	init_matrix(cub, list->tot_rows, cub->map_cols);
+	cur = list->head;
 	i = 0;
-	while (i < map->tot_rows)
+	while (i < cub->map->tot_rows)
 	{
-		map->map[i] = cur->symbol;
+		cub->map->map[i] = cur->symbol;
 		f = cur->tot_cols;
-		while (f < map_cols)
+		while (f < cub->map_cols)
 		{
-			map->map[i][f] = NSPACE;
+			cub->map->map[i][f] = NSPACE;
 			f++;
 		}
 		cur->symbol = NULL;
 		cur = cur->next;
 		i++;
 	}
-	destroy_list(list);
-	return (map);
 }
 
-void	insert_txtrs(t_cub3d **cub3d, char *line, int txtr_type)
+void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
 {
-	t_txtr	*new_txtr;
 	char	**split;
 	int		i;
 
@@ -109,23 +107,15 @@ void	insert_txtrs(t_cub3d **cub3d, char *line, int txtr_type)
 		return ;
 	while (split[++i])
 	{
-		insert_txtrs_tail((*cub3d)->textures, split[i], txtr_type);
-		if ((*cub3d)->cur_txtrs)
+		if (!(*cub)->textures)
+			(*cub)->textures = init_txtrs();
+		insert_txtrs_tail((*cub)->textures, split[i], txtr_type);
+		if (i == 1)
 		{
-			new_txtr = (*cub3d)->cur_txtrs->head;
-			while (new_txtr)
-			{
-				if (new_txtr->type == txtr_type)
-				{
-					destroy_split(&split);
-					return ;
-				}
-				new_txtr = new_txtr->next;
-			}
-			insert_txtrs_tail((*cub3d)->cur_txtrs, split[i], txtr_type);
+			if (!(*cub)->cur_txtrs)
+				(*cub)->cur_txtrs = init_txtrs();
+			insert_txtrs_tail((*cub)->cur_txtrs, split[i], txtr_type);
 		}
-		else
-			insert_txtrs_tail((*cub3d)->cur_txtrs, split[i], txtr_type);
 	}
 	destroy_split(&split);
 }

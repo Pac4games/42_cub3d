@@ -6,11 +6,29 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:10:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 16:10:44 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:35:29 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static int	conv_to_map_num_door(char c)
+{
+	if (c == UP_DOOR_AT_UP)
+		return (NUP_DOOR_AT_UP);
+	else if (c == UP_DOOR_AT_DOWN)
+		return (NUP_DOOR_AT_DOWN);
+	else if (c == UP_DOOR_AT_LEFT)
+		return (NUP_DOOR_AT_LEFT);
+	else if (c == UP_DOOR_AT_RIGHT)
+		return (NUP_DOOR_AT_RIGHT);
+	else if (c == DOWN_DOOR_AT_UP)
+		return (NDOWN_DOOR_AT_UP);
+	else if (c == DOWN_DOOR_AT_DOWN)
+		return (NDOWN_DOOR_AT_DOWN);
+	else
+		return (NDOWN_DOOR_AT_LEFT);
+}
 
 int	conv_to_map_num(char c)
 {
@@ -28,20 +46,8 @@ int	conv_to_map_num(char c)
 		return (NEAST);
 	else if (c == WEST)
 		return (NWEST);
-	else if (c == UP_DOOR_AT_UP)
-		return (NUP_DOOR_AT_UP);
-	else if (c == UP_DOOR_AT_DOWN)
-		return (NUP_DOOR_AT_DOWN);
-	else if (c == UP_DOOR_AT_LEFT)
-		return (NUP_DOOR_AT_LEFT);
-	else if (c == UP_DOOR_AT_RIGHT)
-		return (NUP_DOOR_AT_RIGHT);
-	else if (c == DOWN_DOOR_AT_UP)
-		return (NDOWN_DOOR_AT_UP);
-	else if (c == DOWN_DOOR_AT_DOWN)
-		return (NDOWN_DOOR_AT_DOWN);
-	else if (c == DOWN_DOOR_AT_LEFT)
-		return (NDOWN_DOOR_AT_LEFT);
+	else if (c != NDOWN_DOOR_AT_RIGHT)
+		return (conv_to_map_num_door(c));
 	else
 		return (NDOWN_DOOR_AT_RIGHT);
 }

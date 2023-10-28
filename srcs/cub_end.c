@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 11:15:00 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:16:59 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,7 @@ void	destroy_cub(t_cub3d *cub)
 	if (cub->textures)
 		destroy_txtrs_list(cub->textures);
 	if (cub->cur_txtrs)
-	destroy_txtrs_list(cub->cur_txtrs);
-}
-
-void	destroy_map(t_map **mat)
-{
-	int	**matrix;
-	int	i;
-
-	matrix = (*mat)->map;
-	i = -1;
-	while (++i < (*mat)->tot_rows)
-		free(matrix[i]);
-	free(matrix);
-	(*mat)->map = NULL;
-	free((*mat));
-	*mat = NULL;
+		destroy_txtrs_list(cub->cur_txtrs);
 }
 
 void	destroy_matrix(int **matrix, int tot_rows)

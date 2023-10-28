@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 10:02:24 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:28:20 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,42 @@ int	*fill_line_of_list(char *line)
 	return (map_line);
 }
 
+static int	insert_line(t_cub3d *cub, t_list *list, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	if (line[i] && is_valid_elem(&line[i]) > 0
+		&& is_valid_elem(&line[i]) != TOT)
+		insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
+	else if (line[i] && is_valid_elem(&line[i]) == TOT
+		&& map_line_is_valid(line))
+	{
+		insert_map_tail(list, fill_line_of_list(line), ft_str_end_trim(line));
+		if (ft_str_end_trim(line) > cub->map_cols)
+			cub->map_cols = ft_str_end_trim(line);
+	}
+	else
+		return (0);
+	return (1);
+}
+
 int	fill_in_cub(t_cub3d *cub, int fd)
 {
 	t_list	list;
 	char	*line;
-	int		i;
 
 	init_list(&list);
 	line = (char *)1;
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 && line[0] != '\n')
+		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 \
+		&& line[0] != '\n')
 		{
-			i = 0;
-			while (ft_isspace(line[i]))
-				i++;
-			if (line[i] && is_valid_elem(&line[i]) > 0 && is_valid_elem(&line[i]) != TOT)
-				insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
-			else if (line[i] && is_valid_elem(&line[i]) == TOT && map_line_is_valid(line))
-			{
-				insert_map_tail(&list, fill_line_of_list(line), ft_str_end_trim(line));
-				if (ft_str_end_trim(line) > cub->map_cols)
-					cub->map_cols = ft_str_end_trim(line);
-			}
-			else
+			if (!insert_line(cub, &list, line))
 			{
 				free(line);
 				destroy_list(&list);
@@ -68,10 +79,7 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 		free(line);
 	}
 	if (list.head && cub)
-	{
 		list_to_map(&list, cub);
-		destroy_list(&list);
-	}
 	return (1);
 }
 
@@ -84,7 +92,8 @@ int	main(int ac, char *av[])
 	- 4], ".cub", ft_strlen(av[1])))
 	{
 		fd = open(av[1], O_RDONLY, 0777);
-		if (fd <= 0 || !init_cub(&cub) || !fill_in_cub(&cub, fd) || close(fd) == -1)
+		if (fd <= 0 || !init_cub(&cub) \
+		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
 		close(fd);
 		if ((&cub)->cur_txtrs)

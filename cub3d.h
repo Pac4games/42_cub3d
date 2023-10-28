@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:21:12 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:11:50 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,26 +88,9 @@ enum e_map_num
 	NDOWN_DOOR_AT_RIGHT,
 };
 
-typedef struct s_txtr
-{
-	char			*path;
-	int				color;
-	int				type;
-	struct s_txtr	*next;
-	struct s_txtr	*prev;
-}	t_txtr;
-
-typedef struct s_all_txtrs
-{
-	struct s_txtr	*head;
-	struct s_txtr	*tail;
-	int				tot_txtrs;
-	int				tot_lvls;
-}	t_all_txtrs;
-
 enum e_texture
 {
-	NO = 1,
+	NO,
 	SO,
 	EA,
 	WE,
@@ -118,11 +101,24 @@ enum e_texture
 	TOT,
 };
 
+typedef struct s_txtrs
+{
+	char	**path;
+	int		*color;
+	int		type;
+	int		levels;
+}	t_txtrs;
+
+typedef struct s_all_txtrs
+{
+	t_txtrs		*textures;
+	int			tot_txtrs;
+}	t_all_txtrs;
+
 typedef struct s_cub3d
 {
 	t_map		*map;
-	t_all_txtrs	*textures;
-	t_all_txtrs	*cur_txtrs;
+	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
 
@@ -194,12 +190,10 @@ t_node		*init_node(void);
 void		init_list(t_list *list);
 int			init_cub(t_cub3d *cub);
 t_all_txtrs	*init_txtrs(void);
-t_txtr		*init_single_txtr(void);
 
 // INSERT NODES
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 void		insert_map_tail(t_list *list, int *data, int len);
-void		insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type);
 void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
@@ -211,7 +205,6 @@ int			get_sqr_size(t_data *img);
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
-void		print_cur_txtrs(t_txtr **txtrs);
 
 // UTILITIES
 int			ft_isspace(int c);

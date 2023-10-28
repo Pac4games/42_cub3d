@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:12:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/27 20:41:12 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:09:54 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,15 @@ void	print_map(t_map *map, int cols)
 
 void	print_txtrs(t_all_txtrs *txtrs)
 {
-	t_txtr	*stxtr;
-
-	stxtr = txtrs->head;
-	while (stxtr)
-	{
-		printf("%s %s\n", conv_to_txtr_text(stxtr->type), stxtr->path);
-		stxtr = stxtr->next;
-	}
-}
-
-void	print_cur_txtrs(t_txtr **txtrs)
-{
 	int	i;
+	int	f;
 
-	i = 0;
-	while (txtrs[i])
+	i = -1;
+	while (++i < txtrs->tot_txtrs)
 	{
-		printf("%s %s\n", conv_to_txtr_text(txtrs[i]->type), txtrs[i]->path);
-		i++;
+		printf("%s\n", conv_to_txtr_text(txtrs->textures[i].type));
+		f = -1;
+		while (txtrs->textures[i].path[++f])
+			printf("%s\n", txtrs->textures[i].path[f]);
 	}
 }

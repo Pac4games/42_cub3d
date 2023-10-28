@@ -10,8 +10,8 @@ MLX_LIB = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 INC_LIBS = -Ilibft/ -Llibft/ -lft $(MLX_INC)
 
 SRCS = main.c cub_inits.c cub_inserts.c cub_end.c cub_utils.c \
-       cub_conv_enums.c cub_util_prints.c cub_validate_map.c \
-       cub_display.c cub_draw.c
+       cub_conv_enums.c cub_util_prints.c cub_validate_map.c cub_display.c \
+	   cub_minimap.c cub_draw_coord.c cub_draw_doors.c cub_draw_lines.c
 PATH_AND_SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS))
 OBJS = $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(PATH_AND_SRCS))
 

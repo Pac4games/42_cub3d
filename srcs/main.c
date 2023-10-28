@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:28:20 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:00:07 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line)
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
-	if (line[i] && is_valid_elem(&line[i]) > 0
+	if (line[i] && is_valid_elem(&line[i]) >= 0
 		&& is_valid_elem(&line[i]) != TOT)
 		insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
 	else if (line[i] && is_valid_elem(&line[i]) == TOT
@@ -96,8 +96,8 @@ int	main(int ac, char *av[])
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
 		close(fd);
-		if ((&cub)->cur_txtrs)
-			print_txtrs((&cub)->cur_txtrs);
+		if ((&cub)->all_txtrs)
+			print_txtrs((&cub)->all_txtrs);
 		if ((&cub)->map)
 			print_map((&cub)->map, (&cub)->map_cols);
 		display_in_canvas(&cub);

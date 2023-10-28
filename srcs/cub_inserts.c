@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:27:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:14:35 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,6 @@ void	insert_map_tail(t_list *list, int *data, int len)
 	list->tot_rows++;
 }
 
-void	insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type)
-{
-	t_txtr	*new_txtr;
-	size_t	i;
-
-	new_txtr = init_single_txtr();
-	if (!new_txtr)
-		return ;
-	new_txtr->type = txtr_type;
-	new_txtr->path = malloc(sizeof(char) * (ft_strlen(data) + 1));
-	if (!new_txtr->path)
-		return ;
-	i = -1;
-	while (++i < ft_strlen(data))
-		new_txtr->path[i] = data[i];
-	new_txtr->path[i] = '\0';
-	if (txtrs->tail)
-	{
-		new_txtr->prev = txtrs->tail;
-		txtrs->tail->next = new_txtr;
-	}
-	else
-		txtrs->head = new_txtr;
-	txtrs->tail = new_txtr;
-	(txtrs->tot_txtrs)++;
-}
-
 void	list_to_map(t_list *list, t_cub3d *cub)
 {
 	t_node	*cur;
@@ -101,24 +74,25 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 
 void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
 {
-	char	**split;
-	int		i;
+	char		**split;
+	int			i;
+	static int	f = 0;
 
 	i = 0;
-	split = ft_split_spaces(line);
+	if (f > TOT - 1)
+		return ;
+	i += ft_strlen(conv_to_txtr_text(txtr_type));
+	split = ft_split_spaces(&line[i]);
 	if (!split)
 		return ;
-	while (split[++i])
-	{
-		if (!(*cub)->textures)
-			(*cub)->textures = init_txtrs();
-		insert_txtrs_tail((*cub)->textures, split[i], txtr_type);
-		if (i == 1)
-		{
-			if (!(*cub)->cur_txtrs)
-				(*cub)->cur_txtrs = init_txtrs();
-			insert_txtrs_tail((*cub)->cur_txtrs, split[i], txtr_type);
-		}
-	}
-	destroy_split(&split);
+	i = 0;
+	while (split[i])
+		i++;
+	if (!(*cub)->all_txtrs)
+		(*cub)->all_txtrs = init_txtrs();
+	(*cub)->all_txtrs->textures[f].path = split;
+	(*cub)->all_txtrs->textures[f].type = txtr_type;
+	(*cub)->all_txtrs->textures[f].levels = i;
+	(*cub)->all_txtrs->textures[f].color = 0;
+	f++;
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:16:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:07:26 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,14 @@ void	destroy_list(t_list *list)
 
 void	destroy_txtrs_list(t_all_txtrs *txtrs)
 {
-	t_txtr	*del;
-	t_txtr	*next;
+	int	i;
 
 	if (!txtrs)
 		return ;
-	next = NULL;
-	del = txtrs->head;
-	while (del)
-	{
-		next = del->next;
-		free(del->path);
-		free(del);
-		del = next;
-	}
+	i = -1;
+	while (++i < txtrs->tot_txtrs)
+		destroy_split(&txtrs->textures[i].path);
+	free(txtrs->textures);
 	free(txtrs);
 	txtrs = NULL;
 }
@@ -75,10 +69,8 @@ void	destroy_cub(t_cub3d *cub)
 		destroy_matrix(cub->map->map, cub->map->tot_rows);
 		free(cub->map);
 	}
-	if (cub->textures)
-		destroy_txtrs_list(cub->textures);
-	if (cub->cur_txtrs)
-		destroy_txtrs_list(cub->cur_txtrs);
+	if (cub->all_txtrs)
+		destroy_txtrs_list(cub->all_txtrs);
 }
 
 void	destroy_matrix(int **matrix, int tot_rows)

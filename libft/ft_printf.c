@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mnascime <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 12:16:20 by mnascime          #+#    #+#             */
-/*   Updated: 2022/05/29 19:09:37 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:20:09 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	include "libft.h"
+#include "libft.h"
 
 static int	ft_putstr_prtf(char *s)
 {

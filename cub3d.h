@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/27 22:31:42 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:21:12 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ typedef struct s_all_txtrs
 {
 	struct s_txtr	*head;
 	struct s_txtr	*tail;
-	int		tot_txtrs;
-	int		tot_lvls;
+	int				tot_txtrs;
+	int				tot_lvls;
 }	t_all_txtrs;
 
 enum e_texture
@@ -166,18 +166,27 @@ char		*conv_to_txtr_text(char c);
 void		display_in_canvas(t_cub3d *cub3d);
 void		draw_line(t_data *data, t_vector *vector, int color);
 
-// DRAW
+// DRAW COORD
+void		begin_coord(t_vector *vector, int x, int y);
+void		end_coord(t_vector *vector, int x, int y);
+
+// DRAW DOORS
+void		draw_doors(t_data *img, t_map *map);
+
+// DRAW LINES
+void		draw_paralell_hlines(t_data *img, \
+t_vector *vec, int beg, int color);
+void		draw_paralell_vlines(t_data *img, \
+t_vector *vec, int beg, int color);
 void		draw_midlines(t_data *img, t_map *map);
 void		draw_hedges(t_data *img, t_map *map);
 void		draw_vedges(t_data *img, t_map *map);
-void		draw_doors(t_data *img, t_map *map);
 
 // END STRUCTURES
 void		destroy_split(char ***split_location);
 void		destroy_list(t_list *list);
 void		destroy_cub(t_cub3d *cub);
 void		destroy_txtrs_list(t_all_txtrs *txtrs);
-void		destroy_map(t_map **mat);
 void		destroy_matrix(int **mat, int tot_rows);
 
 //INIT STRUCTURES
@@ -187,14 +196,19 @@ int			init_cub(t_cub3d *cub);
 t_all_txtrs	*init_txtrs(void);
 t_txtr		*init_single_txtr(void);
 
-//INSERT NODES
+// INSERT NODES
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 void		insert_map_tail(t_list *list, int *data, int len);
 void		insert_txtrs_tail(t_all_txtrs *txtrs, char *data, int txtr_type);
 void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
-//UTILITY PRINTS
+// MINIMAP
+int			**update_display_x(int rows, int cols, int y, int x);
+int			**update_display_y(int rows, int cols, int y, int x);
+int			get_sqr_size(t_data *img);
+
+// UTILITY PRINTS
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
 void		print_cur_txtrs(t_txtr **txtrs);
@@ -205,11 +219,11 @@ int			is_only_spaces(char *str);
 int			ft_str_end_trim(char *line);
 int			**solo_matrix(int rows, int cols);
 
-//VALIDATE MAP
+// VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
 
-//MAIN
+// MAIN
 int			*fill_line_of_list(char *line);
 int			fill_in_cub(t_cub3d *cub, int fd);
 void		display_in_canvas(t_cub3d *cub);

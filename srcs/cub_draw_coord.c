@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   cub_draw_coord.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 20:34:49 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:20:15 by mnascime         ###   ########.fr       */
+/*   Created: 2023/10/28 12:41:33 by mnascime          #+#    #+#             */
+/*   Updated: 2023/10/28 12:59:15 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub3d.h"
 
-size_t	ft_strlen(const char *s)
+void	begin_coord(t_vector *vector, int x, int y)
 {
-	int	i;
+	vector->xi = x;
+	vector->yi = y;
+}
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+void	end_coord(t_vector *vector, int x, int y)
+{
+	vector->xf = x;
+	vector->yf = y;
 }

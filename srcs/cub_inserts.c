@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 11:17:39 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:27:50 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 		cur = cur->next;
 		i++;
 	}
+	destroy_list(list);
 }
 
 void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)

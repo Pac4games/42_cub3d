@@ -6,11 +6,11 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:40 by mnascime          #+#    #+#             */
-/*   Updated: 2023/05/07 14:43:07 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:19:30 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	include "libft.h"
+#include "libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

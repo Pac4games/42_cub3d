@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 20:11:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:15:58 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,18 @@ typedef struct s_all_txtrs
 	int			tot_txtrs;
 }	t_all_txtrs;
 
+typedef struct s_minimap
+{
+	int			**mapxi;
+	int			**mapxf;
+	int			**mapyi;
+	int			**mapyf;
+}	t_minimap;
+
 typedef struct s_cub3d
 {
 	t_map		*map;
+	t_minimap	*minimap;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
@@ -132,9 +141,6 @@ typedef struct s_data
 	int			line_length;
 	int			endian;
 	t_cub3d		*cub;
-	t_map		*map;
-	int			**mapx;
-	int			**mapy;
 }	t_data;
 
 typedef struct s_vector
@@ -174,9 +180,9 @@ void		draw_paralell_hlines(t_data *img, \
 t_vector *vec, int beg, int color);
 void		draw_paralell_vlines(t_data *img, \
 t_vector *vec, int beg, int color);
-void		draw_midlines(t_data *img, t_map *map);
-void		draw_hedges(t_data *img, t_map *map);
-void		draw_vedges(t_data *img, t_map *map);
+void		get_h_vector(t_data *img, t_vector *vec, int x, int y);
+void		get_v_vector(t_data *img, t_vector *vec, int x, int y);
+void		draw_minimap(t_data *img, t_map *map);
 
 // END STRUCTURES
 void		destroy_split(char ***split_location);
@@ -190,6 +196,7 @@ t_node		*init_node(void);
 void		init_list(t_list *list);
 int			init_cub(t_cub3d *cub);
 t_all_txtrs	*init_txtrs(void);
+void		init_minimap(t_cub3d *cub);
 
 // INSERT NODES
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
@@ -201,10 +208,12 @@ void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 int			**update_display_x(int rows, int cols, int y, int x);
 int			**update_display_y(int rows, int cols, int y, int x);
 int			get_sqr_size(t_data *img);
+void		calc_sqr_end(int **map, int rows, int cols);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
+void		print_matrix(int **mat, int rows, int cols);
 
 // UTILITIES
 int			ft_isspace(int c);

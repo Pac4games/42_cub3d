@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/10/28 15:34:54 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:06:35 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static int	quits(t_data *img)
 	mlx_destroy_window (img->mlx, img->mlx_win);
 	mlx_destroy_display(img->mlx);
 	free(img->mlx);
-	destroy_matrix(img->mapx, img->cub->map->tot_rows);
-	destroy_matrix(img->mapy, img->cub->map->tot_rows);
 	destroy_cub(img->cub);
 	exit(EXIT_SUCCESS);
 }
@@ -82,12 +80,7 @@ void	display_in_canvas(t_cub3d *cub3d)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, \
 	&img.line_length, &img.endian);
 	img.cub = cub3d;
-	img.map = cub3d->map;
-	img.mapx = update_display_x(cub3d->map->tot_rows, cub3d->map_cols, -1, -1);
-	img.mapy = update_display_y(cub3d->map->tot_rows, cub3d->map_cols, -1, -1);
-	draw_midlines(&img, cub3d->map);
-	draw_hedges(&img, cub3d->map);
-	draw_vedges(&img, cub3d->map);
+	draw_minimap(&img, cub3d->map);
 	draw_doors(&img, cub3d->map);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_key_hook (img.mlx_win, read_keys, &img);

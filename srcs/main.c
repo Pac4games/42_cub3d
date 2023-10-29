@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 20:00:07 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/29 14:36:45 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ int	main(int ac, char *av[])
 			print_txtrs((&cub)->all_txtrs);
 		if ((&cub)->map)
 			print_map((&cub)->map, (&cub)->map_cols);
-		display_in_canvas(&cub);
+		init_minimap(&cub);
+		if ((&cub)->minimap)
+			display_in_canvas(&cub);
 		destroy_cub(&cub);
 	}
 	return (0);

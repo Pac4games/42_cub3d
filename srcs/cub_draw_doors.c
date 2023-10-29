@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:15:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:17:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	check_up_doors(t_data *img, t_vector *vec, int map_point)
+static void	check_up_doors(t_data *img, t_vector *vec, int map_point, int max)
 {
 	int	color;
 
@@ -23,13 +23,12 @@ static void	check_up_doors(t_data *img, t_vector *vec, int map_point)
 		else
 			color = 0xFF00FF;
 		vec->xf--;
-		draw_line(img, vec, color);
-		vec->yi++;
-		vec->yf++;
-		draw_line(img, vec, color);
-		vec->yi++;
-		vec->yf++;
-		draw_line(img, vec, color);
+		while (--max)
+		{
+			draw_line(img, vec, color);
+			vec->yi++;
+			vec->yf++;
+		}
 	}
 }
 
@@ -37,27 +36,28 @@ static void	check_down_doors(t_data *img, \
 t_vector *vec, int map_point, int dist)
 {
 	int	color;
+	int	max;
 
 	if (map_point == NUP_DOOR_AT_DOWN || map_point == NDOWN_DOOR_AT_DOWN)
 	{
 		vec->xf--;
-		vec->yi += (dist * 2) - 4;
-		vec->yf += (dist * 2) - 4;
+		max = (dist * 0.35);
+		vec->yi += dist - max;
+		vec->yf += dist - max;
 		if (map_point == NUP_DOOR_AT_DOWN)
 			color = 0x00FFFF;
 		else
 			color = 0xFF00FF;
-		draw_line(img, vec, color);
-		vec->yi++;
-		vec->yf++;
-		draw_line(img, vec, color);
-		vec->yi++;
-		vec->yf++;
-		draw_line(img, vec, color);
+		while (--max)
+		{
+			draw_line(img, vec, color);
+			vec->yi++;
+			vec->yf++;
+		}
 	}
 }
 
-static void	check_left_doors(t_data *img, t_vector *vec, int map_point)
+static void	check_left_doors(t_data *img, t_vector *vec, int map_point, int max)
 {
 	int	color;
 
@@ -68,13 +68,12 @@ static void	check_left_doors(t_data *img, t_vector *vec, int map_point)
 		else
 			color = 0xFF00FF;
 		vec->yf--;
-		draw_line(img, vec, color);
-		vec->xi++;
-		vec->xf++;
-		draw_line(img, vec, color);
-		vec->xi++;
-		vec->xf++;
-		draw_line(img, vec, color);
+		while (--max)
+		{
+			draw_line(img, vec, color);
+			vec->xi++;
+			vec->xf++;
+		}
 	}
 }
 
@@ -82,6 +81,7 @@ static void	check_right_doors(t_data *img, \
 t_vector *vec, int map_point, int dist)
 {
 	int	color;
+	int	max;
 
 	if (map_point == NUP_DOOR_AT_RIGHT || map_point == NDOWN_DOOR_AT_RIGHT)
 	{
@@ -90,15 +90,15 @@ t_vector *vec, int map_point, int dist)
 		else
 			color = 0xFF00FF;
 		vec->yf--;
-		vec->xi += (dist * 2) - 4;
-		vec->xf += (dist * 2) - 4;
-		draw_line(img, vec, color);
-		vec->xi++;
-		vec->xf++;
-		draw_line(img, vec, color);
-		vec->xi++;
-		vec->xf++;
-		draw_line(img, vec, color);
+		max = (dist * 0.35);
+		vec->xi += dist - max;
+		vec->xf += dist - max;
+		while (--max)
+		{
+			draw_line(img, vec, color);
+			vec->xi++;
+			vec->xf++;
+		}
 	}
 }
 
@@ -110,20 +110,18 @@ void	draw_doors(t_data *img, t_map *map)
 	int			dist;
 
 	x = 0;
-	dist = (img->mapx[1][2] - img->mapx[1][1]) * 0.5;
+	dist = img->cub->minimap->mapxf[0][0] - img->cub->minimap->mapxi[0][0];
 	while (++x < map->tot_rows)
 	{
-		y = 1;
+		y = 0;
 		while (y < map->tot_cols)
 		{
-			begin_coord(&vec, img->mapx[x - 1][y - 1], img->mapy[x - 1][y - 1]);
-			end_coord(&vec, img->mapx[x][y - 1], img->mapy[x][y - 1]);
-			check_left_doors(img, &vec, map->map[x - 1][y - 1]);
-			check_right_doors(img, &vec, map->map[x - 1][y - 1], dist);
-			begin_coord(&vec, img->mapx[x - 1][y - 1], img->mapy[x - 1][y - 1]);
-			end_coord(&vec, img->mapx[x - 1][y], img->mapy[x - 1][y]);
-			check_up_doors(img, &vec, map->map[x - 1][y - 1]);
-			check_down_doors(img, &vec, map->map[x - 1][y - 1], dist);
+			get_h_vector(img, &vec, x, y);
+			check_up_doors(img, &vec, map->map[x][y], dist * 0.35);
+			check_down_doors(img, &vec, map->map[x][y], dist);
+			get_v_vector(img, &vec, x, y);
+			check_left_doors(img, &vec, map->map[x][y], dist * 0.35);
+			check_right_doors(img, &vec, map->map[x][y], dist);
 			y++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:12:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 20:09:54 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/29 14:30:02 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,25 @@ void	print_txtrs(t_all_txtrs *txtrs)
 		f = -1;
 		while (txtrs->textures[i].path[++f])
 			printf("%s\n", txtrs->textures[i].path[f]);
+	}
+}
+
+void	print_matrix(int **mat, int rows, int cols)
+{
+	int	i;
+	int	f;
+
+	i = -1;
+	if (!mat)
+		return ;
+	while (++i < rows)
+	{
+		f = -1;
+		while (++f < cols)
+		{
+			printf("%d", mat[i][f]);
+			printf(" ");
+		}
+		printf("\n");
 	}
 }

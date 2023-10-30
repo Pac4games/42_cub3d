@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/29 16:15:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:05:39 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "mlx_linux/mlx.h"
 # include "./libft/libft.h"
 
-# define WWID 1080
-# define WHEI 720
+# define WWID 1920
+# define WHEI 1080
 # define ESC 65307
 
 typedef struct s_node	t_node;
@@ -117,10 +117,8 @@ typedef struct s_all_txtrs
 
 typedef struct s_minimap
 {
-	int			**mapxi;
-	int			**mapxf;
-	int			**mapyi;
-	int			**mapyf;
+	int			**mapx;
+	int			**mapy;
 }	t_minimap;
 
 typedef struct s_cub3d
@@ -184,6 +182,9 @@ void		get_h_vector(t_data *img, t_vector *vec, int x, int y);
 void		get_v_vector(t_data *img, t_vector *vec, int x, int y);
 void		draw_minimap(t_data *img, t_map *map);
 
+// DRAW PLAYER
+void		draw_player(t_data *img, t_map *map);
+
 // END STRUCTURES
 void		destroy_split(char ***split_location);
 void		destroy_list(t_list *list);
@@ -208,7 +209,7 @@ void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 int			**update_display_x(int rows, int cols, int y, int x);
 int			**update_display_y(int rows, int cols, int y, int x);
 int			get_sqr_size(t_data *img);
-void		calc_sqr_end(int **map, int rows, int cols);
+void		sqr_adjustments(int **map, int rows, int cols);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

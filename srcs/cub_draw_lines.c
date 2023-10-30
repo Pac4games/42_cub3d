@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/29 16:16:37 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:31:19 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,42 @@ void	draw_paralell_vlines(t_data *img, t_vector *vec, int beg, int color)
 	}
 }
 
-void	get_h_vector(t_data *img, t_vector *vec, int x, int y)
-{
-	begin_coord(vec, img->cub->minimap->mapxi[x][y], \
-	img->cub->minimap->mapyi[x][y]);
-	end_coord(vec, img->cub->minimap->mapxf[x][y], \
-	img->cub->minimap->mapyi[x][y]);
-}
-
 void	get_v_vector(t_data *img, t_vector *vec, int x, int y)
 {
-	begin_coord(vec, img->cub->minimap->mapxi[x][y], \
-	img->cub->minimap->mapyi[x][y]);
-	end_coord(vec, img->cub->minimap->mapxi[x][y], \
-	img->cub->minimap->mapyf[x][y]);
+	int	dist;
+
+	dist = img->cub->minimap->mapx[1][1] \
+	- img->cub->minimap->mapx[0][0];
+	begin_coord(vec, img->cub->minimap->mapx[x - 1][y - 1], \
+	img->cub->minimap->mapy[x - 1][y - 1]);
+	if (x < img->cub->map->tot_rows)
+		end_coord(vec, img->cub->minimap->mapx[x][y - 1], \
+	img->cub->minimap->mapy[x][y - 1]);
+	else
+	{
+		end_coord(vec, img->cub->minimap->mapx[x - 1][y - 1], \
+	img->cub->minimap->mapy[x - 1][y - 1]);
+		vec->yf += dist;
+	}
+}
+
+void	get_h_vector(t_data *img, t_vector *vec, int x, int y)
+{
+	int	dist;
+
+	dist = img->cub->minimap->mapx[1][1] \
+	- img->cub->minimap->mapx[0][0];
+	begin_coord(vec, img->cub->minimap->mapx[x - 1][y - 1], \
+	img->cub->minimap->mapy[x - 1][y - 1]);
+	if (y < img->cub->map->tot_cols)
+		end_coord(vec, img->cub->minimap->mapx[x - 1][y], \
+	img->cub->minimap->mapy[x - 1][y]);
+	else
+	{
+		end_coord(vec, img->cub->minimap->mapx[x - 1][y - 1], \
+	img->cub->minimap->mapy[x - 1][y - 1]);
+		vec->xf += dist;
+	}
 }
 
 void	draw_minimap(t_data *img, t_map *map)
@@ -63,24 +85,24 @@ void	draw_minimap(t_data *img, t_map *map)
 	t_vector	vec;
 	int			dist;
 
-	dist = img->cub->minimap->mapxf[0][0] \
-	- img->cub->minimap->mapxi[0][0];
-	x = -1;
-	while (++x < map->tot_rows)
+	dist = img->cub->minimap->mapx[1][1] \
+	- img->cub->minimap->mapx[0][0];
+	x = 0;
+	while (++x <= map->tot_rows)
 	{
-		y = -1;
-		while (++y < map->tot_cols)
+		y = 0;
+		while (++y <= map->tot_cols)
 		{
 			get_h_vector(img, &vec, x, y);
-			if (map->map[x][y] == NWALL)
+			if (map->map[x - 1][y - 1] == NWALL)
 				draw_paralell_hlines(img, &vec, dist, 0xFFFFFF);
-			else if (map->map[x][y] != NSPACE)
+			else if (map->map[x - 1][y - 1] != NSPACE)
 				draw_paralell_hlines(img, &vec, dist, 0x666666);
 			get_v_vector(img, &vec, x, y);
-			if (map->map[x][y] == NWALL)
-				draw_paralell_vlines(img, &vec, get_sqr_size(img), 0xFFFFFF);
-			else if (map->map[x][y] != NSPACE)
-				draw_paralell_vlines(img, &vec, get_sqr_size(img), 0x666666);
+			if (map->map[x - 1][y - 1] == NWALL)
+				draw_paralell_vlines(img, &vec, dist, 0xFFFFFF);
+			else if (map->map[x - 1][y - 1] != NSPACE)
+				draw_paralell_vlines(img, &vec, dist, 0x666666);
 		}
 	}
 }

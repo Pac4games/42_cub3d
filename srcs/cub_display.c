@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/10/29 16:06:35 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:37:10 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	display_in_canvas(t_cub3d *cub3d)
 	img.cub = cub3d;
 	draw_minimap(&img, cub3d->map);
 	draw_doors(&img, cub3d->map);
+	draw_player(&img, cub3d->map);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_key_hook (img.mlx_win, read_keys, &img);
 	mlx_hook(img.mlx_win, 17, (1L << 0), quits, &img);

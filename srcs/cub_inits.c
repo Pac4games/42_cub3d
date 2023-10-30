@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/29 16:09:03 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:34:47 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,40 +64,21 @@ void	init_minimap(t_cub3d *cub)
 	cub->minimap = malloc(sizeof(*cub->minimap));
 	if (!cub->minimap)
 		return ;
-	cub->minimap->mapxi = \
+	cub->minimap->mapx = \
 	update_display_x(cub->map->tot_rows, cub->map_cols, -1, -1);
-	if (!cub->minimap->mapxi)
+	if (!cub->minimap->mapx)
 	{
 		free(cub->minimap);
 		return ;
 	}
-	cub->minimap->mapyi = \
+	sqr_adjustments(cub->minimap->mapx,cub->map->tot_rows, cub->map_cols);
+	cub->minimap->mapy = \
 	update_display_y(cub->map->tot_rows, cub->map_cols, -1, -1);
-	if (!cub->minimap->mapyi)
+	if (!cub->minimap->mapy)
 	{
-		destroy_matrix(cub->minimap->mapxi, cub->map->tot_rows);
+		destroy_matrix(cub->minimap->mapx, cub->map->tot_rows);
 		free(cub->minimap);
 		return ;
 	}
-	cub->minimap->mapxf = \
-	update_display_x(cub->map->tot_rows, cub->map_cols, -1, -1);
-	if (!cub->minimap->mapxf)
-	{
-		destroy_matrix(cub->minimap->mapxi, cub->map->tot_rows);
-		destroy_matrix(cub->minimap->mapyi, cub->map->tot_rows);
-		free(cub->minimap);
-		return ;
-	}
-	calc_sqr_end(cub->minimap->mapxf, cub->map->tot_rows, cub->map_cols);
-	cub->minimap->mapyf = \
-	update_display_y(cub->map->tot_rows, cub->map_cols, -1, -1);
-	if (!cub->minimap->mapyf)
-	{
-		destroy_matrix(cub->minimap->mapxi, cub->map->tot_rows);
-		destroy_matrix(cub->minimap->mapxf, cub->map->tot_rows);
-		destroy_matrix(cub->minimap->mapyi, cub->map->tot_rows);
-		free(cub->minimap);
-		return ;
-	}
-	calc_sqr_end(cub->minimap->mapyf, cub->map->tot_rows, cub->map_cols);
+	sqr_adjustments(cub->minimap->mapy,cub->map->tot_rows, cub->map_cols);
 }

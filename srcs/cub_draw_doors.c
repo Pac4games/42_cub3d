@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/29 16:17:14 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:33:59 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,18 @@ void	draw_doors(t_data *img, t_map *map)
 	int			dist;
 
 	x = 0;
-	dist = img->cub->minimap->mapxf[0][0] - img->cub->minimap->mapxi[0][0];
+	dist = img->cub->minimap->mapx[1][1] - img->cub->minimap->mapx[0][0];
 	while (++x < map->tot_rows)
 	{
 		y = 0;
-		while (y < map->tot_cols)
+		while (++y < map->tot_cols)
 		{
 			get_h_vector(img, &vec, x, y);
-			check_up_doors(img, &vec, map->map[x][y], dist * 0.35);
-			check_down_doors(img, &vec, map->map[x][y], dist);
+			check_up_doors(img, &vec, map->map[x - 1][y - 1], dist * 0.35);
+			check_down_doors(img, &vec, map->map[x - 1][y - 1], dist);
 			get_v_vector(img, &vec, x, y);
-			check_left_doors(img, &vec, map->map[x][y], dist * 0.35);
-			check_right_doors(img, &vec, map->map[x][y], dist);
-			y++;
+			check_left_doors(img, &vec, map->map[x - 1][y - 1], dist * 0.35);
+			check_right_doors(img, &vec, map->map[x - 1][y - 1], dist);
 		}
 	}
 }

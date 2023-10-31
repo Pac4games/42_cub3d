@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/30 13:34:55 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:56:57 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ int	**update_display_y(int rows, int cols, int y, int x)
 	return (newmap);
 }
 
-int	get_sqr_size(t_data *img)
+int	get_sqr_size(t_cub3d *cub)
 {
 	int	dist;
 
-	dist = (img->cub->minimap->mapx[1][1] \
-	- img->cub->minimap->mapx[0][0]);
+	dist = (cub->minimap->mapx[1][1] \
+	- cub->minimap->mapx[0][0]);
 	if (dist % 2 != 0)
 		dist++;
 	return (dist);

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/30 11:31:19 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:40:25 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ void	draw_minimap(t_data *img, t_map *map)
 		{
 			get_h_vector(img, &vec, x, y);
 			if (map->map[x - 1][y - 1] == NWALL)
-				draw_paralell_hlines(img, &vec, dist, 0xFFFFFF);
+				draw_paralell_hlines(img, &vec, dist, 0xF2F2F2);
 			else if (map->map[x - 1][y - 1] != NSPACE)
-				draw_paralell_hlines(img, &vec, dist, 0x666666);
+				draw_paralell_hlines(img, &vec, dist, 0x727272);
 			get_v_vector(img, &vec, x, y);
 			if (map->map[x - 1][y - 1] == NWALL)
-				draw_paralell_vlines(img, &vec, dist, 0xFFFFFF);
+				draw_paralell_vlines(img, &vec, dist, 0xF2F2F2);
 			else if (map->map[x - 1][y - 1] != NSPACE)
-				draw_paralell_vlines(img, &vec, dist, 0x666666);
+				draw_paralell_vlines(img, &vec, dist, 0x727272);
 		}
 	}
 }

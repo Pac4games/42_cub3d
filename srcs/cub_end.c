@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/30 11:32:42 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:14:25 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	destroy_cub(t_cub3d *cub)
 	{
 		destroy_matrix(cub->minimap->mapx, cub->map->tot_rows);
 		destroy_matrix(cub->minimap->mapy, cub->map->tot_rows);
+		if (cub->player)
+			free(cub->player);
 		free(cub->minimap);
 	}
 	if (cub->map)

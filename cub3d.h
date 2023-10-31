@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/30 16:05:39 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:07:23 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define WWID 1920
 # define WHEI 1080
 # define ESC 65307
+# define FRONT 119
+# define BACK 115
+# define TOLEFT 97
+# define TORIGHT 100
 
 typedef struct s_node	t_node;
 
@@ -121,10 +125,19 @@ typedef struct s_minimap
 	int			**mapy;
 }	t_minimap;
 
+typedef struct s_vector
+{
+	int	xi;
+	int	yi;
+	int	xf;
+	int	yf;
+}	t_vector;
+
 typedef struct s_cub3d
 {
 	t_map		*map;
 	t_minimap	*minimap;
+	t_vector	*player;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
@@ -138,16 +151,9 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	int			go;
 	t_cub3d		*cub;
 }	t_data;
-
-typedef struct s_vector
-{
-	int	xi;
-	int	yi;
-	int	xf;
-	int	yf;
-}	t_vector;
 
 # define PRT_NORTH "NO"
 # define PRT_SOUTH "SO"
@@ -183,7 +189,10 @@ void		get_v_vector(t_data *img, t_vector *vec, int x, int y);
 void		draw_minimap(t_data *img, t_map *map);
 
 // DRAW PLAYER
+void		draw_player_lines(t_data *img, t_vector vec, int dist, int color);
 void		draw_player(t_data *img, t_map *map);
+void		move_player(t_data *img, int key);
+t_vector	*get_player_pos(t_cub3d *cub);
 
 // END STRUCTURES
 void		destroy_split(char ***split_location);
@@ -191,6 +200,11 @@ void		destroy_list(t_list *list);
 void		destroy_cub(t_cub3d *cub);
 void		destroy_txtrs_list(t_all_txtrs *txtrs);
 void		destroy_matrix(int **mat, int tot_rows);
+
+// HANDLE KEYS
+int			in_key(t_data *img);
+int			key_press(int key_pressed, void *param);
+int			key_release(int key_pressed, void *param);
 
 //INIT STRUCTURES
 t_node		*init_node(void);
@@ -208,7 +222,7 @@ void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 // MINIMAP
 int			**update_display_x(int rows, int cols, int y, int x);
 int			**update_display_y(int rows, int cols, int y, int x);
-int			get_sqr_size(t_data *img);
+int			get_sqr_size(t_cub3d *cub);
 void		sqr_adjustments(int **map, int rows, int cols);
 
 // UTILITY PRINTS

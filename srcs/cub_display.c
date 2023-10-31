@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/10/30 11:37:10 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:45:05 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ static int	read_keys(int key_pressed, void *param)
 	img = (t_data *) param;
 	if (key_pressed == ESC)
 		quits(img);
+	else if (key_pressed == 119 || key_pressed == 115 \
+	|| key_pressed == 97 || key_pressed == 100)
+		key_press(key_pressed, param);
 	return (0);
 }
 
@@ -82,9 +85,12 @@ void	display_in_canvas(t_cub3d *cub3d)
 	img.cub = cub3d;
 	draw_minimap(&img, cub3d->map);
 	draw_doors(&img, cub3d->map);
-	draw_player(&img, cub3d->map);
+	draw_player_lines(&img, *cub3d->player,  get_sqr_size(cub3d) * 0.5, 0x44FF24);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
-	mlx_key_hook (img.mlx_win, read_keys, &img);
-	mlx_hook(img.mlx_win, 17, (1L << 0), quits, &img);
+	mlx_hook(img.mlx_win, 2, (1L << 0), read_keys, &img);
+	mlx_hook(img.mlx_win, 3, (1L << 1), key_release, &img);
+	mlx_hook(img.mlx_win, 17, (1L << 1), quits, &img);
+	mlx_do_key_autorepeatoff(img.mlx);
+	mlx_loop_hook(img.mlx, in_key, &img);
 	mlx_loop(img.mlx);
 }

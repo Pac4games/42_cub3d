@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/30 13:34:47 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:54:59 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	init_cub(t_cub3d *cub)
 	cub->minimap = NULL;
 	cub->map = NULL;
 	cub->map_cols = 0;
+	cub->player = NULL;
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/31 16:07:23 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:17:33 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_cub3d
 	t_vector	*player;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
+	int			move;
 }	t_cub3d;
 
 typedef struct s_data
@@ -151,7 +152,6 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			go;
 	t_cub3d		*cub;
 }	t_data;
 
@@ -192,7 +192,7 @@ void		draw_minimap(t_data *img, t_map *map);
 void		draw_player_lines(t_data *img, t_vector vec, int dist, int color);
 void		draw_player(t_data *img, t_map *map);
 void		move_player(t_data *img, int key);
-t_vector	*get_player_pos(t_cub3d *cub);
+t_vector	*get_player_pos(t_cub3d *cub, int x, int y);
 
 // END STRUCTURES
 void		destroy_split(char ***split_location);

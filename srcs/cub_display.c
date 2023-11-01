@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/10/31 18:45:05 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:22:34 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	quits(t_data *img)
 {
+	mlx_do_key_autorepeaton(img->mlx);
 	mlx_destroy_image(img->mlx, img->img);
 	mlx_destroy_window (img->mlx, img->mlx_win);
 	mlx_destroy_display(img->mlx);
@@ -85,7 +86,8 @@ void	display_in_canvas(t_cub3d *cub3d)
 	img.cub = cub3d;
 	draw_minimap(&img, cub3d->map);
 	draw_doors(&img, cub3d->map);
-	draw_player_lines(&img, *cub3d->player,  get_sqr_size(cub3d) * 0.5, 0x44FF24);
+	draw_player_lines(&img, *cub3d->player, \
+	get_sqr_size(cub3d) * 0.5, 0x44FF24);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_hook(img.mlx_win, 2, (1L << 0), read_keys, &img);
 	mlx_hook(img.mlx_win, 3, (1L << 1), key_release, &img);

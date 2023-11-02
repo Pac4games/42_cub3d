@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/30 11:33:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 08:44:00 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	check_up_doors(t_data *img, t_vector *vec, int map_point, int max)
+static void	check_up_doors(t_cub3d *cub, t_vector *vec, int map_point, int max)
 {
 	int	color;
 
@@ -25,14 +25,14 @@ static void	check_up_doors(t_data *img, t_vector *vec, int map_point, int max)
 		vec->xf--;
 		while (--max)
 		{
-			draw_line(img, vec, color);
+			draw_line(cub, vec, color);
 			vec->yi++;
 			vec->yf++;
 		}
 	}
 }
 
-static void	check_down_doors(t_data *img, \
+static void	check_down_doors(t_cub3d *cub, \
 t_vector *vec, int map_point, int dist)
 {
 	int	color;
@@ -50,14 +50,15 @@ t_vector *vec, int map_point, int dist)
 			color = 0xFF00FF;
 		while (--max)
 		{
-			draw_line(img, vec, color);
+			draw_line(cub, vec, color);
 			vec->yi++;
 			vec->yf++;
 		}
 	}
 }
 
-static void	check_left_doors(t_data *img, t_vector *vec, int map_point, int max)
+static void	check_left_doors(t_cub3d *cub, t_vector *vec, \
+int map_point, int max)
 {
 	int	color;
 
@@ -70,14 +71,14 @@ static void	check_left_doors(t_data *img, t_vector *vec, int map_point, int max)
 		vec->yf--;
 		while (--max)
 		{
-			draw_line(img, vec, color);
+			draw_line(cub, vec, color);
 			vec->xi++;
 			vec->xf++;
 		}
 	}
 }
 
-static void	check_right_doors(t_data *img, \
+static void	check_right_doors(t_cub3d *cub, \
 t_vector *vec, int map_point, int dist)
 {
 	int	color;
@@ -95,14 +96,14 @@ t_vector *vec, int map_point, int dist)
 		vec->xf += dist - max;
 		while (--max)
 		{
-			draw_line(img, vec, color);
+			draw_line(cub, vec, color);
 			vec->xi++;
 			vec->xf++;
 		}
 	}
 }
 
-void	draw_doors(t_data *img, t_map *map)
+void	draw_doors(t_cub3d *cub, t_map *map)
 {
 	int			x;
 	int			y;
@@ -110,18 +111,18 @@ void	draw_doors(t_data *img, t_map *map)
 	int			dist;
 
 	x = 0;
-	dist = img->cub->minimap->mapx[1][1] - img->cub->minimap->mapx[0][0];
+	dist = cub->minimap->mapx[1][1] - cub->minimap->mapx[0][0];
 	while (++x < map->tot_rows)
 	{
 		y = 0;
 		while (++y < map->tot_cols)
 		{
-			get_h_vector(img, &vec, x, y);
-			check_up_doors(img, &vec, map->map[x - 1][y - 1], dist * 0.35);
-			check_down_doors(img, &vec, map->map[x - 1][y - 1], dist);
-			get_v_vector(img, &vec, x, y);
-			check_left_doors(img, &vec, map->map[x - 1][y - 1], dist * 0.35);
-			check_right_doors(img, &vec, map->map[x - 1][y - 1], dist);
+			get_h_vector(cub, &vec, x, y);
+			check_up_doors(cub, &vec, map->map[x - 1][y - 1], dist * 0.35);
+			check_down_doors(cub, &vec, map->map[x - 1][y - 1], dist);
+			get_v_vector(cub, &vec, x, y);
+			check_left_doors(cub, &vec, map->map[x - 1][y - 1], dist * 0.35);
+			check_right_doors(cub, &vec, map->map[x - 1][y - 1], dist);
 		}
 	}
 }

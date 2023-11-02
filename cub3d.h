@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/01 16:17:33 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:47:25 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,16 +135,6 @@ typedef struct s_vector
 
 typedef struct s_cub3d
 {
-	t_map		*map;
-	t_minimap	*minimap;
-	t_vector	*player;
-	t_all_txtrs	*all_txtrs;
-	int			map_cols;
-	int			move;
-}	t_cub3d;
-
-typedef struct s_data
-{
 	void		*mlx;
 	void		*mlx_win;
 	void		*img;
@@ -152,8 +142,16 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	t_cub3d		*cub;
-}	t_data;
+	t_map		*map;
+	t_minimap	*minimap;
+	t_vector	*player;
+	int			move;
+	int			gaze_x;
+	int			gaze_y;
+	int			direction;
+	t_all_txtrs	*all_txtrs;
+	int			map_cols;
+}	t_cub3d;
 
 # define PRT_NORTH "NO"
 # define PRT_SOUTH "SO"
@@ -169,29 +167,33 @@ int			conv_to_map_num(char c);
 char		*conv_to_txtr_text(char c);
 
 // DISPLAY
+void		my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color);
 void		display_in_canvas(t_cub3d *cub3d);
-void		draw_line(t_data *data, t_vector *vector, int color);
+void		draw_line(t_cub3d *data, t_vector *vector, int color);
 
 // DRAW COORD
 void		begin_coord(t_vector *vector, int x, int y);
 void		end_coord(t_vector *vector, int x, int y);
 
 // DRAW DOORS
-void		draw_doors(t_data *img, t_map *map);
+void		draw_doors(t_cub3d *cub, t_map *map);
+
+// DRAW GAZE
+void		get_initial_gaze(t_cub3d *cub);
 
 // DRAW LINES
-void		draw_paralell_hlines(t_data *img, \
+void		draw_paralell_hlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
-void		draw_paralell_vlines(t_data *img, \
+void		draw_paralell_vlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
-void		get_h_vector(t_data *img, t_vector *vec, int x, int y);
-void		get_v_vector(t_data *img, t_vector *vec, int x, int y);
-void		draw_minimap(t_data *img, t_map *map);
+void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
+void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
+void		draw_minimap(t_cub3d *cub, t_map *map);
 
 // DRAW PLAYER
-void		draw_player_lines(t_data *img, t_vector vec, int dist, int color);
-void		draw_player(t_data *img, t_map *map);
-void		move_player(t_data *img, int key);
+void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
+void		draw_player(t_cub3d *cub, t_map *map);
+int			move_player(t_cub3d *cub, int key);
 t_vector	*get_player_pos(t_cub3d *cub, int x, int y);
 
 // END STRUCTURES
@@ -202,9 +204,9 @@ void		destroy_txtrs_list(t_all_txtrs *txtrs);
 void		destroy_matrix(int **mat, int tot_rows);
 
 // HANDLE KEYS
-int			in_key(t_data *img);
-int			key_press(int key_pressed, void *param);
-int			key_release(int key_pressed, void *param);
+int			in_key(t_cub3d *cub);
+int			key_press(int key_pressed, t_cub3d *cub);
+int			key_release(int key_pressed, t_cub3d *cub);
 
 //INIT STRUCTURES
 t_node		*init_node(void);

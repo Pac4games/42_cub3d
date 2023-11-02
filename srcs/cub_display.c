@@ -6,49 +6,46 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/11/01 16:22:34 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:47:12 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	quits(t_data *img)
+static int	quits(t_cub3d *cub)
 {
-	mlx_do_key_autorepeaton(img->mlx);
-	mlx_destroy_image(img->mlx, img->img);
-	mlx_destroy_window (img->mlx, img->mlx_win);
-	mlx_destroy_display(img->mlx);
-	free(img->mlx);
-	destroy_cub(img->cub);
+	mlx_do_key_autorepeaton(cub->mlx);
+	mlx_destroy_image(cub->mlx, cub->img);
+	mlx_destroy_window (cub->mlx, cub->mlx_win);
+	mlx_destroy_display(cub->mlx);
+	free(cub->mlx);
+	destroy_cub(cub);
 	exit(EXIT_SUCCESS);
 }
 
-static int	read_keys(int key_pressed, void *param)
+static int	read_keys(int key_pressed, t_cub3d *cub)
 {
-	t_data	*img;
-
-	img = (t_data *) param;
 	if (key_pressed == ESC)
-		quits(img);
+		quits(cub);
 	else if (key_pressed == 119 || key_pressed == 115 \
 	|| key_pressed == 97 || key_pressed == 100)
-		key_press(key_pressed, param);
+		key_press(key_pressed, cub);
 	return (0);
 }
 
-static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x > 0 && y > 0 && x < WWID && y < WHEI)
 	{
-		dst = data->addr + (y * data->line_length + \
-		x * (data->bits_per_pixel / 8));
+		dst = cub->addr + (y * cub->line_length + \
+		x * (cub->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
 
-void	draw_line(t_data *data, t_vector *vector, int color)
+void	draw_line(t_cub3d *cub, t_vector *vector, int color)
 {
 	double	dx;
 	double	dy;
@@ -67,32 +64,30 @@ void	draw_line(t_data *data, t_vector *vector, int color)
 	pxy = vector->yi;
 	while (pxs)
 	{
-		my_mlx_pixel_put(data, pxx, pxy, color);
+		my_mlx_pixel_put(cub, pxx, pxy, color);
 		pxx += dx;
 		pxy += dy;
 		--pxs;
 	}
 }
 
-void	display_in_canvas(t_cub3d *cub3d)
+void	display_in_canvas(t_cub3d *cub)
 {
-	t_data	img;
-
-	img.mlx = mlx_init();
-	img.mlx_win = mlx_new_window(img.mlx, WWID, WHEI, "cub3D");
-	img.img = mlx_new_image(img.mlx, WWID, WHEI);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, \
-	&img.line_length, &img.endian);
-	img.cub = cub3d;
-	draw_minimap(&img, cub3d->map);
-	draw_doors(&img, cub3d->map);
-	draw_player_lines(&img, *cub3d->player, \
-	get_sqr_size(cub3d) * 0.5, 0x44FF24);
-	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
-	mlx_hook(img.mlx_win, 2, (1L << 0), read_keys, &img);
-	mlx_hook(img.mlx_win, 3, (1L << 1), key_release, &img);
-	mlx_hook(img.mlx_win, 17, (1L << 1), quits, &img);
-	mlx_do_key_autorepeatoff(img.mlx);
-	mlx_loop_hook(img.mlx, in_key, &img);
-	mlx_loop(img.mlx);
+	cub->mlx = mlx_init();
+	cub->mlx_win = mlx_new_window(cub->mlx, WWID, WHEI, "cub3D");
+	cub->img = mlx_new_image(cub->mlx, WWID, WHEI);
+	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel, \
+	&cub->line_length, &cub->endian);
+	draw_minimap(cub, cub->map);
+	draw_doors(cub, cub->map);
+	draw_player_lines(cub, *cub->player, \
+	get_sqr_size(cub) * 0.5, 0x44FF24);
+	my_mlx_pixel_put(cub, cub->gaze_x, cub->gaze_y, 0x44FF24);
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
+	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
+	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
+	mlx_hook(cub->mlx_win, 17, (1L << 1), quits, cub);
+	mlx_do_key_autorepeatoff(cub->mlx);
+	mlx_loop_hook(cub->mlx, in_key, cub);
+	mlx_loop(cub->mlx);
 }

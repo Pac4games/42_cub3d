@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/01 16:21:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:42:07 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,19 @@ t_all_txtrs	*init_txtrs(void)
 
 int	init_cub(t_cub3d *cub)
 {
+	cub->mlx = NULL;
+	cub->mlx_win = NULL;
+	cub->img = NULL;
+	cub->addr = NULL;
 	cub->all_txtrs = NULL;
 	cub->minimap = NULL;
 	cub->map = NULL;
 	cub->map_cols = 0;
 	cub->player = NULL;
 	cub->move = 0;
+	cub->gaze_x = 0;
+	cub->gaze_y = 0;
+	cub->direction = 0;
 	return (1);
 }
 

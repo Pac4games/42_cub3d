@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 13:13:08 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 00:09:30 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:23:51 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ int		ft_putnbr_p(unsigned long long nb);
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);
 char	**ft_split_spaces(char const *s);
+void	*ft_memset(void *s, int c, size_t n);
 #endif

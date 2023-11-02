@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 15:11:55 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:27:37 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,12 @@ void	draw_doors(t_cub3d *cub, t_map *map)
 		while (++y < map->tot_cols)
 		{
 			get_h_vector(cub, &vec, x, y);
-			check_up_doors(cub, &vec, map->map[x - 1][y - 1], dist * DOOR_MULTIP);
+			check_up_doors(cub, &vec, map->map[x - 1][y - 1], \
+			dist * DOOR_MULTIP);
 			check_down_doors(cub, &vec, map->map[x - 1][y - 1], dist);
 			get_v_vector(cub, &vec, x, y);
-			check_left_doors(cub, &vec, map->map[x - 1][y - 1], dist * DOOR_MULTIP);
+			check_left_doors(cub, &vec, map->map[x - 1][y - 1], \
+			dist * DOOR_MULTIP);
 			check_right_doors(cub, &vec, map->map[x - 1][y - 1], dist);
 		}
 	}

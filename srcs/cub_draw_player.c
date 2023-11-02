@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 12:46:30 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:21:30 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static int	player_in_wall_x(t_cub3d *cub, int dist)
 	x = 0;
 	y = 0;
 	while (y < cub->map->tot_cols - 1 && dist > \
-	cub->minimap->mapx[x][y] + get_sqr_size(cub))
+	cub->minimap->mapx[y] + cub->sqr_size)
 		y++;
-	while (x < cub->map->tot_rows - 1 && get_sqr_size(cub) \
-	+ cub->minimap->mapy[x][y] < cub->player->yi)
+	while (x < cub->map->tot_rows - 1 && cub->sqr_size \
+	+ cub->minimap->mapy[x] < cub->player->yi)
 		x++;
 	x2 = x;
-	while (x2 < cub->map->tot_rows - 1 && get_sqr_size(cub) \
-	+ cub->minimap->mapy[x2][y] < cub->player->yf)
+	while (x2 < cub->map->tot_rows - 1 && cub->sqr_size \
+	+ cub->minimap->mapy[x2] < cub->player->yf)
 		x2++;
 	if (x < cub->map->tot_rows && y < cub->map->tot_cols \
 	&& cub->map->map[x][y] == NWALL)
@@ -72,14 +72,14 @@ static int	player_in_wall_y(t_cub3d *cub, int dist)
 	x = 0;
 	y = 0;
 	while (x < cub->map->tot_rows - 1 && dist > \
-	cub->minimap->mapy[x][y] + get_sqr_size(cub))
+	cub->minimap->mapy[x] + cub->sqr_size)
 		x++;
-	while (y < cub->map->tot_cols - 1 && get_sqr_size(cub) \
-	+ cub->minimap->mapx[x][y] < cub->player->xi)
+	while (y < cub->map->tot_cols - 1 && cub->sqr_size \
+	+ cub->minimap->mapx[y] < cub->player->xi)
 		y++;
 	y2 = y;
-	while (y2 < cub->map->tot_cols - 1 && get_sqr_size(cub) \
-	+ cub->minimap->mapx[x][y2] < cub->player->xf)
+	while (y2 < cub->map->tot_cols - 1 && cub->sqr_size \
+	+ cub->minimap->mapx[y2] < cub->player->xf)
 		y2++;
 	if (x < cub->map->tot_rows && y < cub->map->tot_cols \
 	&& cub->map->map[x][y] == NWALL)
@@ -96,7 +96,7 @@ int	move_player(t_cub3d *cub, int key)
 
 	if (!key)
 		return (0);
-	dist = get_sqr_size(cub) / 6;
+	dist = cub->sqr_size / 6;
 	if (key == FRONT && !player_in_wall_y(cub, cub->player->yi - dist))
 	{
 		cub->player->yi -= dist;
@@ -136,7 +136,7 @@ t_vector	*get_player_pos(t_cub3d *cub, int x, int y)
 	vec = malloc(sizeof(*vec));
 	if (!vec)
 		return (NULL);
-	dist = get_sqr_size(cub) * 0.25;
+	dist = cub->sqr_size * 0.25;
 	while (++x < cub->map->tot_rows)
 	{
 		y = 0;
@@ -146,10 +146,10 @@ t_vector	*get_player_pos(t_cub3d *cub, int x, int y)
 			&& cub->map->map[x - 1][y - 1] <= NWEST)
 			{
 				cub->direction = cub->map->map[x - 1][y - 1];
-				vec->xi = cub->minimap->mapx[x - 1][y - 1] + dist;
-				vec->yi = cub->minimap->mapy[x - 1][y - 1] + dist;
-				vec->xf = cub->minimap->mapx[x][y] - dist;
-				vec->yf = cub->minimap->mapy[x][y] - dist;
+				vec->xi = cub->minimap->mapx[y - 1] + dist;
+				vec->yi = cub->minimap->mapy[x - 1] + dist;
+				vec->xf = cub->minimap->mapx[y] - dist;
+				vec->yf = cub->minimap->mapy[x] - dist;
 				break ;
 			}
 		}

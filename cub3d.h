@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 12:47:25 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:20:05 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 
 # define WWID 1920
 # define WHEI 1080
+# define X_MULTIP 0.05
+# define Y_MULTIP 0.1
+# define DOOR_MULTIP 0.35
+# define MAP_MULTIP 0.55
 # define ESC 65307
 # define FRONT 119
 # define BACK 115
@@ -121,8 +125,8 @@ typedef struct s_all_txtrs
 
 typedef struct s_minimap
 {
-	int			**mapx;
-	int			**mapy;
+	int			*mapx;
+	int			*mapy;
 }	t_minimap;
 
 typedef struct s_vector
@@ -145,6 +149,7 @@ typedef struct s_cub3d
 	t_map		*map;
 	t_minimap	*minimap;
 	t_vector	*player;
+	int			sqr_size;
 	int			move;
 	int			gaze_x;
 	int			gaze_y;
@@ -179,7 +184,7 @@ void		end_coord(t_vector *vector, int x, int y);
 void		draw_doors(t_cub3d *cub, t_map *map);
 
 // DRAW GAZE
-void		get_initial_gaze(t_cub3d *cub);
+void		get_initial_gaze(t_cub3d *cub, int dist);
 
 // DRAW LINES
 void		draw_paralell_hlines(t_cub3d *cub, \
@@ -222,10 +227,10 @@ void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
 // MINIMAP
-int			**update_display_x(int rows, int cols, int y, int x);
-int			**update_display_y(int rows, int cols, int y, int x);
+int			*update_display_x(int rows, int cols, int x);
+int			*update_display_y(int rows, int cols, int y);
 int			get_sqr_size(t_cub3d *cub);
-void		sqr_adjustments(int **map, int rows, int cols);
+void		sqr_adjustments(int *map, int rows, int cols, int size);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

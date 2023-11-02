@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 12:42:07 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:19:49 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,22 @@ void	init_minimap(t_cub3d *cub)
 	if (!cub->minimap)
 		return ;
 	cub->minimap->mapx = \
-	update_display_x(cub->map->tot_rows, cub->map_cols, -1, -1);
+	update_display_x(cub->map->tot_rows, cub->map_cols, -1);
 	if (!cub->minimap->mapx)
 	{
 		free(cub->minimap);
 		return ;
 	}
-	sqr_adjustments(cub->minimap->mapx, cub->map->tot_rows, cub->map_cols);
+	sqr_adjustments(cub->minimap->mapx, cub->map->tot_rows, \
+	cub->map_cols, cub->map_cols);
 	cub->minimap->mapy = \
-	update_display_y(cub->map->tot_rows, cub->map_cols, -1, -1);
+	update_display_y(cub->map->tot_rows, cub->map_cols, -1);
 	if (!cub->minimap->mapy)
 	{
-		destroy_matrix(cub->minimap->mapx, cub->map->tot_rows);
+		free(cub->minimap->mapx);
 		free(cub->minimap);
 		return ;
 	}
-	sqr_adjustments(cub->minimap->mapy, cub->map->tot_rows, cub->map_cols);
+	sqr_adjustments(cub->minimap->mapy, cub->map->tot_rows, \
+	cub->map_cols, cub->map->tot_rows);
 }

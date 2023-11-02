@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/01 17:44:25 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:15:10 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,31 @@ void	draw_paralell_vlines(t_cub3d *cub, t_vector *vec, int beg, int color)
 
 void	get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y)
 {
-	int	dist;
-
-	dist = cub->minimap->mapx[1][1] \
-	- cub->minimap->mapx[0][0];
-	begin_coord(vec, cub->minimap->mapx[x - 1][y - 1], \
-	cub->minimap->mapy[x - 1][y - 1]);
+	begin_coord(vec, cub->minimap->mapx[y - 1], \
+	cub->minimap->mapy[x - 1]);
 	if (x < cub->map->tot_rows)
-		end_coord(vec, cub->minimap->mapx[x][y - 1], \
-	cub->minimap->mapy[x][y - 1]);
+		end_coord(vec, cub->minimap->mapx[y - 1], \
+	cub->minimap->mapy[x]);
 	else
 	{
-		end_coord(vec, cub->minimap->mapx[x - 1][y - 1], \
-	cub->minimap->mapy[x - 1][y - 1]);
-		vec->yf += dist;
+		end_coord(vec, cub->minimap->mapx[y - 1], \
+	cub->minimap->mapy[x - 1]);
+		vec->yf += cub->sqr_size;
 	}
 }
 
 void	get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y)
 {
-	int	dist;
-
-	dist = cub->minimap->mapx[1][1] \
-	- cub->minimap->mapx[0][0];
-	begin_coord(vec, cub->minimap->mapx[x - 1][y - 1], \
-	cub->minimap->mapy[x - 1][y - 1]);
+	begin_coord(vec, cub->minimap->mapx[y - 1], \
+	cub->minimap->mapy[x - 1]);
 	if (y < cub->map->tot_cols)
-		end_coord(vec, cub->minimap->mapx[x - 1][y], \
-	cub->minimap->mapy[x - 1][y]);
+		end_coord(vec, cub->minimap->mapx[y], \
+	cub->minimap->mapy[x - 1]);
 	else
 	{
-		end_coord(vec, cub->minimap->mapx[x - 1][y - 1], \
-	cub->minimap->mapy[x - 1][y - 1]);
-		vec->xf += dist;
+		end_coord(vec, cub->minimap->mapx[y - 1], \
+	cub->minimap->mapy[x - 1]);
+		vec->xf += cub->sqr_size;
 	}
 }
 
@@ -83,10 +75,7 @@ void	draw_minimap(t_cub3d *cub, t_map *map)
 	int			x;
 	int			y;
 	t_vector	vec;
-	int			dist;
 
-	dist = cub->minimap->mapx[1][1] \
-	- cub->minimap->mapx[0][0];
 	x = 0;
 	while (++x <= map->tot_rows)
 	{
@@ -95,14 +84,14 @@ void	draw_minimap(t_cub3d *cub, t_map *map)
 		{
 			get_h_vector(cub, &vec, x, y);
 			if (map->map[x - 1][y - 1] == NWALL)
-				draw_paralell_hlines(cub, &vec, dist, 0xF2F2F2);
+				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
 			else if (map->map[x - 1][y - 1] != NSPACE)
-				draw_paralell_hlines(cub, &vec, dist, 0x727272);
+				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0x727272);
 			get_v_vector(cub, &vec, x, y);
 			if (map->map[x - 1][y - 1] == NWALL)
-				draw_paralell_vlines(cub, &vec, dist, 0xF2F2F2);
+				draw_paralell_vlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
 			else if (map->map[x - 1][y - 1] != NSPACE)
-				draw_paralell_vlines(cub, &vec, dist, 0x727272);
+				draw_paralell_vlines(cub, &vec, cub->sqr_size, 0x727272);
 		}
 	}
 }

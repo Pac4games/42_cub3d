@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 15:19:49 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:11:46 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	init_cub(t_cub3d *cub)
 	cub->move = 0;
 	cub->gaze_x = 0;
 	cub->gaze_y = 0;
+	cub->degrees = 0;
 	cub->direction = 0;
 	return (1);
 }

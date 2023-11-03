@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 15:21:30 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:41:39 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,39 +90,66 @@ static int	player_in_wall_y(t_cub3d *cub, int dist)
 	return (0);
 }
 
-int	move_player(t_cub3d *cub, int key)
+int	move_with_gaze(t_cub3d *cub)
 {
-	int	dist;
+	int	distx;
+	int	disty;
 
-	if (!key)
+	distx = cub->sqr_size / 6;
+	disty = distx;
+	if ((cub->move >> MOV_UP & 1) && !(cub->move >> MOV_DOWN & 1) \
+	&& !player_in_wall_y(cub, cub->player->yi - disty))
+	{
+		cub->player->yi -= disty;
+		cub->player->yf -= disty;
+		cub->gaze_y -= disty;
+	}
+	else if ((cub->move >> MOV_DOWN & 1) && !(cub->move >> MOV_UP & 1) \
+	&& !player_in_wall_y(cub, cub->player->yf + disty))
+	{
+		cub->player->yi += disty;
+		cub->player->yf += disty;
+		cub->gaze_y += disty;
+	}
+	else
+		disty = 0;
+	if ((cub->move >> MOV_LEFT & 1) && !(cub->move >> MOV_RIGHT & 1) \
+	&& !player_in_wall_x(cub, cub->player->xi - distx))
+	{
+		cub->player->xi -= distx;
+		cub->player->xf -= distx;
+		cub->gaze_x -= distx;
+	}
+	else if ((cub->move >> MOV_RIGHT & 1) && !(cub->move >> MOV_LEFT & 1) \
+	&& !player_in_wall_x(cub, cub->player->xf + distx))
+	{
+		cub->player->xi += distx;
+		cub->player->xf += distx;
+		cub->gaze_x += distx;
+	}
+	else
+		distx = 0;
+	if (!distx && !disty)
 		return (0);
-	dist = cub->sqr_size / 6;
-	if (key == FRONT && !player_in_wall_y(cub, cub->player->yi - dist))
+	return (1);
+}
+
+int	rot_with_gaze(t_cub3d *cub)
+{
+	float	newdeg;
+	int		mid;
+
+	mid = cub->sqr_size * 0.25;
+	newdeg = cub->degrees;
+	if ((cub->move >> ROT_LEFT & 1) && !(cub->move >> ROT_RIGHT & 1))
+		newdeg -= 0.05;
+	else if ((cub->move >> ROT_RIGHT & 1) && !(cub->move >> ROT_LEFT & 1))
+		newdeg += 0.05;
+	if (newdeg != cub->degrees)
 	{
-		cub->player->yi -= dist;
-		cub->player->yf -= dist;
-		cub->gaze_y -= dist;
-		return (1);
-	}
-	if (key == BACK && !player_in_wall_y(cub, cub->player->yf + dist))
-	{
-		cub->player->yi += dist;
-		cub->player->yf += dist;
-		cub->gaze_y += dist;
-		return (1);
-	}
-	if (key == TOLEFT && !player_in_wall_x(cub, cub->player->xi - dist))
-	{
-		cub->player->xi -= dist;
-		cub->player->xf -= dist;
-		cub->gaze_x -= dist;
-		return (1);
-	}
-	if (key == TORIGHT && !player_in_wall_x(cub, cub->player->xf + dist))
-	{
-		cub->player->xi += dist;
-		cub->player->xf += dist;
-		cub->gaze_x += dist;
+		cub->degrees = newdeg;
+		cub->gaze_x = cub->player->xi + mid + cub->sqr_size * cosf(newdeg);
+		cub->gaze_y = cub->player->yi + mid + cub->sqr_size * sinf(newdeg);
 		return (1);
 	}
 	return (0);

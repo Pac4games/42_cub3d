@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/11/02 14:41:29 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:35:44 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	read_keys(int key_pressed, t_cub3d *cub)
 	if (key_pressed == ESC)
 		quits(cub);
 	else if (key_pressed == 119 || key_pressed == 115 \
-	|| key_pressed == 97 || key_pressed == 100)
+	|| key_pressed == 97 || key_pressed == 100 \
+	|| key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)
 		key_press(key_pressed, cub);
 	return (0);
 }

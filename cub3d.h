@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 15:20:05 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:39:46 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@
 # define Y_MULTIP 0.1
 # define DOOR_MULTIP 0.35
 # define MAP_MULTIP 0.55
+# define MY_PI 3.14159
 # define ESC 65307
 # define FRONT 119
 # define BACK 115
 # define TOLEFT 97
 # define TORIGHT 100
+# define ARROW_UP 65362
+# define ARROW_DOWN 65364
+# define ARROW_LEFT 65361
+# define ARROW_RIGHT 65363
 
 typedef struct s_node	t_node;
 
@@ -109,6 +114,18 @@ enum e_texture
 	TOT,
 };
 
+enum e_directions
+{
+	MOV_UP = 1,
+	MOV_DOWN,
+	MOV_LEFT,
+	MOV_RIGHT,
+	ROT_UP,
+	ROT_DOWN,
+	ROT_LEFT,
+	ROT_RIGHT,
+};
+
 typedef struct s_txtrs
 {
 	char	**path;
@@ -153,6 +170,7 @@ typedef struct s_cub3d
 	int			move;
 	int			gaze_x;
 	int			gaze_y;
+	float		degrees;
 	int			direction;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
@@ -184,6 +202,10 @@ void		end_coord(t_vector *vector, int x, int y);
 void		draw_doors(t_cub3d *cub, t_map *map);
 
 // DRAW GAZE
+void		add_mov_with_gaze(t_cub3d *cub, int key);
+void		remove_mov_with_gaze(t_cub3d *cub, int key);
+void		add_rot_with_gaze(t_cub3d *cub, int key);
+void		remove_rot_with_gaze(t_cub3d *cub, int key);
 void		get_initial_gaze(t_cub3d *cub, int dist);
 
 // DRAW LINES
@@ -199,6 +221,8 @@ void		draw_minimap(t_cub3d *cub, t_map *map);
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
 void		draw_player(t_cub3d *cub, t_map *map);
 int			move_player(t_cub3d *cub, int key);
+int			move_with_gaze(t_cub3d *cub);
+int			rot_with_gaze(t_cub3d *cub);
 t_vector	*get_player_pos(t_cub3d *cub, int x, int y);
 
 // END STRUCTURES

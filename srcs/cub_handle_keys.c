@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 14:36:00 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:40:07 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	in_key(t_cub3d *cub)
 {
-	if (cub->move != 0 && (cub->move == FRONT || \
-	cub->move == BACK || cub->move == TOLEFT || \
-	cub->move == TORIGHT) && move_player(cub, cub->move))
+	if (cub->move != 0 && (move_with_gaze(cub) \
+	|| rot_with_gaze(cub)))
 	{
 		ft_memset(cub->addr, 0, WHEI * WWID \
 		* sizeof(cub->bits_per_pixel));
@@ -34,7 +33,9 @@ int	key_press(int key_pressed, t_cub3d *cub)
 {
 	if (key_pressed == FRONT || key_pressed == BACK \
 	|| key_pressed == TOLEFT || key_pressed == TORIGHT)
-		cub->move = key_pressed;
+		add_mov_with_gaze(cub, key_pressed);
+	if (key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)
+		add_rot_with_gaze(cub, key_pressed);
 	return (0);
 }
 
@@ -42,9 +43,8 @@ int	key_release(int key_pressed, t_cub3d *cub)
 {
 	if (key_pressed == FRONT || key_pressed == BACK \
 	|| key_pressed == TOLEFT || key_pressed == TORIGHT)
-	{
-		if (cub->move == key_pressed)
-			cub->move = 0;
-	}
+		remove_mov_with_gaze(cub, key_pressed);
+	if (key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)
+		remove_rot_with_gaze(cub, key_pressed);
 	return (0);
 }

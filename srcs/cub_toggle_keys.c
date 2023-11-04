@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:15:01 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 12:01:49 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:54:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	add_mov_with_gaze(t_cub3d *cub, int key)
+void	add_player_mov(t_cub3d *cub, int key)
 {
 	int	to_move;
 
@@ -28,7 +28,7 @@ void	add_mov_with_gaze(t_cub3d *cub, int key)
 	cub->move = to_move;
 }
 
-void	remove_mov_with_gaze(t_cub3d *cub, int key)
+void	remove_player_mov(t_cub3d *cub, int key)
 {
 	int	to_move;
 
@@ -44,7 +44,7 @@ void	remove_mov_with_gaze(t_cub3d *cub, int key)
 	cub->move = to_move;
 }
 
-void	add_rot_with_gaze(t_cub3d *cub, int key)
+void	add_player_rot(t_cub3d *cub, int key)
 {
 	int	to_move;
 
@@ -56,7 +56,7 @@ void	add_rot_with_gaze(t_cub3d *cub, int key)
 	cub->move = to_move;
 }
 
-void	remove_rot_with_gaze(t_cub3d *cub, int key)
+void	remove_player_rot(t_cub3d *cub, int key)
 {
 	int	to_move;
 

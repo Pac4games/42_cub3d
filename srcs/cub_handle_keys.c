@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 10:54:48 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:54:59 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	key_press(int key_pressed, t_cub3d *cub)
 {
 	if (key_pressed == FRONT || key_pressed == BACK \
 	|| key_pressed == TOLEFT || key_pressed == TORIGHT)
-		add_mov_with_gaze(cub, key_pressed);
+		add_player_mov(cub, key_pressed);
 	if (key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)
-		add_rot_with_gaze(cub, key_pressed);
+		add_player_rot(cub, key_pressed);
 	return (0);
 }
 
@@ -44,8 +44,8 @@ int	key_release(int key_pressed, t_cub3d *cub)
 {
 	if (key_pressed == FRONT || key_pressed == BACK \
 	|| key_pressed == TOLEFT || key_pressed == TORIGHT)
-		remove_mov_with_gaze(cub, key_pressed);
+		remove_player_mov(cub, key_pressed);
 	if (key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)
-		remove_rot_with_gaze(cub, key_pressed);
+		remove_player_rot(cub, key_pressed);
 	return (0);
 }

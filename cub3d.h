@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 12:01:34 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 13:58:08 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,12 +201,6 @@ void		end_coord(t_vector *vector, int x, int y);
 // DRAW DOORS
 void		draw_doors(t_cub3d *cub, t_map *map);
 
-// TOGGLE KEYS
-void		add_mov_with_gaze(t_cub3d *cub, int key);
-void		remove_mov_with_gaze(t_cub3d *cub, int key);
-void		add_rot_with_gaze(t_cub3d *cub, int key);
-void		remove_rot_with_gaze(t_cub3d *cub, int key);
-
 // DRAW LINES
 void		draw_paralell_hlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
@@ -217,7 +211,6 @@ void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		draw_minimap(t_cub3d *cub, t_map *map);
 
 // DRAW PLAYER
-int			move_player(t_cub3d *cub, int key);
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
 void		draw_player(t_cub3d *cub, t_map *map);
 void		get_initial_gaze(t_cub3d *cub, int dist);
@@ -256,6 +249,12 @@ int			get_sqr_size(t_cub3d *cub);
 // MOVE PLAYER
 void		move_with_gaze(t_cub3d *cub);
 void		rot_with_gaze(t_cub3d *cub);
+
+// TOGGLE KEYS
+void		add_player_mov(t_cub3d *cub, int key);
+void		remove_player_mov(t_cub3d *cub, int key);
+void		add_player_rot(t_cub3d *cub, int key);
+void		remove_player_rot(t_cub3d *cub, int key);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

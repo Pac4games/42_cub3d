@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 13:49:10 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:00:12 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	player_in_wall_x(t_cub3d *cub, int dist)
+static int	player_colision_x(t_cub3d *cub, int dist, int type)
 {
 	int	x;
 	int	x2;
@@ -31,15 +31,15 @@ static int	player_in_wall_x(t_cub3d *cub, int dist)
 	+ cub->minimap->mapy[x2] < cub->player->yf)
 		x2++;
 	if (x < cub->map->tot_rows && y < cub->map->tot_cols \
-	&& cub->map->map[x][y] == NWALL)
-		return (1);
+	&& cub->map->map[x][y] == type)
+		return (reload_player_pos(cub, x, y));
 	if (x2 != x && x2 < cub->map->tot_rows && y < \
-	cub->map->tot_cols && cub->map->map[x2][y] == NWALL)
-		return (1);
+	cub->map->tot_cols && cub->map->map[x2][y] == type)
+		return (reload_player_pos(cub, x2, y));
 	return (0);
 }
 
-static int	player_in_wall_y(t_cub3d *cub, int dist)
+static int	player_colision_y(t_cub3d *cub, int dist, int type)
 {
 	int	x;
 	int	y;
@@ -58,25 +58,50 @@ static int	player_in_wall_y(t_cub3d *cub, int dist)
 	+ cub->minimap->mapx[y2] < cub->player->xf)
 		y2++;
 	if (x < cub->map->tot_rows && y < cub->map->tot_cols \
-	&& cub->map->map[x][y] == NWALL)
-		return (1);
+	&& cub->map->map[x][y] == type)
+		return (reload_player_pos(cub, x, y));
 	if (y2 != y && x < cub->map->tot_rows && y2 < \
-	cub->map->tot_cols && cub->map->map[x][y2] == NWALL)
-		return (1);
+	cub->map->tot_cols && cub->map->map[x][y2] == type)
+		return (reload_player_pos(cub, x, y2));
+	return (0);
+}
+
+static int	check_door_colision(t_cub3d *cub, int dist)
+{
+	int		door;
+
+	door = NUP_DOOR_AT_UP;
+	while (door <= NDOWN_DOOR_AT_RIGHT)
+	{
+		if (((door == NUP_DOOR_AT_RIGHT || door == NDOWN_DOOR_AT_RIGHT) \
+		&& player_colision_x(cub, cub->player->xi - dist, door) == 2) || \
+		((door == NUP_DOOR_AT_LEFT || door == NDOWN_DOOR_AT_LEFT) \
+		&& player_colision_x(cub, cub->player->xf + dist, door) == 2) || \
+		((door == NUP_DOOR_AT_DOWN || door == NDOWN_DOOR_AT_DOWN) \
+		&& player_colision_y(cub, cub->player->yi - dist, door) == 2) || \
+		((door == NUP_DOOR_AT_UP || door == NDOWN_DOOR_AT_UP) \
+		&& player_colision_y(cub, cub->player->yf + dist, door) == 2))
+		{
+			set_gaze(cub, cub->sqr_size);
+			return (1);
+		}
+		else
+			door++;
+	}
 	return (0);
 }
 
 static void	move_player_and_gaze(t_cub3d *cub, int distx, int disty)
 {
-	if (!player_in_wall_x(cub, cub->player->xi + distx) \
-	&& !player_in_wall_x(cub, cub->player->xf + distx))
+	if (!player_colision_x(cub, cub->player->xi + distx, NWALL) \
+	&& !player_colision_x(cub, cub->player->xf + distx, NWALL))
 	{
 		cub->player->xi += distx;
 		cub->player->xf += distx;
 		cub->gaze_x += distx;
 	}
-	if (!player_in_wall_y(cub, cub->player->yi + disty) \
-	&& !player_in_wall_y(cub, cub->player->yf + disty))
+	if (!player_colision_y(cub, cub->player->yi + disty, NWALL) \
+	&& !player_colision_y(cub, cub->player->yf + disty, NWALL))
 	{
 		cub->player->yi += disty;
 		cub->player->yf += disty;
@@ -99,25 +124,5 @@ void	move_with_gaze(t_cub3d *cub)
 		move_player_and_gaze(cub, dist * sinf(radians), -dist * cosf(radians));
 	if (cub->move >> MOV_RIGHT & 1)
 		move_player_and_gaze(cub, -dist * sinf(radians), dist * cosf(radians));
-}
-
-void	rot_with_gaze(t_cub3d *cub)
-{
-	int		newdeg;
-	int		mid;
-	float	radians;
-
-	mid = cub->sqr_size * 0.25;
-	newdeg = cub->degrees;
-	if ((cub->move >> ROT_LEFT & 1) && !(cub->move >> ROT_RIGHT & 1))
-		newdeg -= 5;
-	else if ((cub->move >> ROT_RIGHT & 1) && !(cub->move >> ROT_LEFT & 1))
-		newdeg += 5;
-	if (newdeg != cub->degrees)
-	{
-		cub->degrees = newdeg % 360;
-		radians = (MY_PI / 180) * cub->degrees;
-		cub->gaze_x = cub->player->xi + mid + cub->sqr_size * cosf(radians);
-		cub->gaze_y = cub->player->yi + mid + cub->sqr_size * sinf(radians);
-	}
+	check_door_colision(cub, dist);
 }

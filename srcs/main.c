@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 13:44:42 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:03:03 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	main(int ac, char *av[])
 		{
 			(&cub)->sqr_size = get_sqr_size(&cub);
 			(&cub)->player = get_player_pos(&cub, 0, 0);
-			get_initial_gaze((&cub), (&cub)->sqr_size);
+			set_gaze((&cub), (&cub)->sqr_size);
 			display_in_canvas(&cub);
 		}
 		destroy_cub(&cub);

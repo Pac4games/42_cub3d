@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/02 15:27:37 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:09:37 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_vector *vec, int map_point, int dist)
 	if (map_point == NUP_DOOR_AT_DOWN || map_point == NDOWN_DOOR_AT_DOWN)
 	{
 		vec->xf--;
-		max = (dist * DOOR_MULTIP);
+		max = (int)(dist * DOOR_MULTIP);
 		vec->yi += dist - max;
 		vec->yf += dist - max;
 		if (map_point == NUP_DOOR_AT_DOWN)
@@ -86,14 +86,14 @@ t_vector *vec, int map_point, int dist)
 
 	if (map_point == NUP_DOOR_AT_RIGHT || map_point == NDOWN_DOOR_AT_RIGHT)
 	{
+		vec->yf--;
+		max = (int)(dist * DOOR_MULTIP);
+		vec->xi += dist - max;
+		vec->xf += dist - max;
 		if (map_point == NUP_DOOR_AT_RIGHT)
 			color = 0x00FFFF;
 		else
 			color = 0xFF00FF;
-		vec->yf--;
-		max = (dist * DOOR_MULTIP);
-		vec->xi += dist - max;
-		vec->xf += dist - max;
 		while (--max)
 		{
 			draw_line(cub, vec, color);

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 13:58:08 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 20:00:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,8 @@ void		draw_minimap(t_cub3d *cub, t_map *map);
 // DRAW PLAYER
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
 void		draw_player(t_cub3d *cub, t_map *map);
-void		get_initial_gaze(t_cub3d *cub, int dist);
+void		set_gaze(t_cub3d *cub, int dist);
+int			reload_player_pos(t_cub3d *cub, int x, int y);
 t_vector	*get_player_pos(t_cub3d *cub, int x, int y);
 
 // END STRUCTURES
@@ -248,13 +249,13 @@ int			get_sqr_size(t_cub3d *cub);
 
 // MOVE PLAYER
 void		move_with_gaze(t_cub3d *cub);
-void		rot_with_gaze(t_cub3d *cub);
 
 // TOGGLE KEYS
 void		add_player_mov(t_cub3d *cub, int key);
 void		remove_player_mov(t_cub3d *cub, int key);
 void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
+void		rot_with_gaze(t_cub3d *cub);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:10:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/03 15:36:26 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:20:37 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ static int	conv_to_map_num_door(char c)
 		return (NDOWN_DOOR_AT_UP);
 	else if (c == DOWN_DOOR_AT_DOWN)
 		return (NDOWN_DOOR_AT_DOWN);
-	else
+	else if (c == DOWN_DOOR_AT_LEFT)
 		return (NDOWN_DOOR_AT_LEFT);
+	else if (c == DOWN_DOOR_AT_RIGHT)
+		return (NDOWN_DOOR_AT_RIGHT);
+	return (0);
 }
 
 int	conv_to_map_num(char c)
@@ -46,10 +49,10 @@ int	conv_to_map_num(char c)
 		return (NEAST);
 	else if (c == WEST)
 		return (NWEST);
-	else if (c != NDOWN_DOOR_AT_RIGHT)
+	else if (conv_to_map_num_door(c))
 		return (conv_to_map_num_door(c));
 	else
-		return (NDOWN_DOOR_AT_RIGHT);
+		return (0);
 }
 
 char	*conv_to_txtr_text(char c)

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 11:57:29 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:59:37 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color)
 	}
 }
 
-void	get_initial_gaze(t_cub3d *cub, int dist)
+void	set_gaze(t_cub3d *cub, int dist)
 {
 	cub->gaze_x = cub->player->xi + \
 	(cub->player->xf - cub->player->xi) * 0.5;
@@ -57,6 +57,51 @@ void	get_initial_gaze(t_cub3d *cub, int dist)
 		cub->degrees = 90;
 	else if (cub->direction == NEAST)
 		cub->degrees = 0;
+}
+
+static void	player_in_door(t_cub3d *cub, int type)
+{
+	cub->direction = type;
+	if (cub->direction == NUP_DOOR_AT_UP \
+	|| cub->direction == NDOWN_DOOR_AT_UP)
+		cub->direction = NSOUTH;
+	else if (cub->direction == NUP_DOOR_AT_LEFT \
+	|| cub->direction == NDOWN_DOOR_AT_LEFT)
+		cub->direction = NEAST;
+	else if (cub->direction == NUP_DOOR_AT_RIGHT \
+	|| cub->direction == NDOWN_DOOR_AT_RIGHT)
+		cub->direction = NWEST;
+	else if (cub->direction == NUP_DOOR_AT_DOWN \
+	|| cub->direction == NDOWN_DOOR_AT_DOWN)
+		cub->direction = NNORTH;
+}
+
+int	reload_player_pos(t_cub3d *cub, int x, int y)
+{
+	int	dist;
+
+	if (cub->map->map[x][y] == NWALL)
+		return (1);
+	else
+		player_in_door(cub, cub->map->map[x][y]);
+	dist = cub->sqr_size * 0.25;
+	cub->player->xi = cub->minimap->mapx[y] + dist + 1;
+	cub->player->yi = cub->minimap->mapy[x] + dist + 1;
+	cub->player->xf = cub->minimap->mapx[y] + cub->sqr_size - dist;
+	cub->player->yf = cub->minimap->mapy[x] + cub->sqr_size - dist;
+	if (cub->direction == NNORTH || cub->direction == NWEST)
+		dist *= -1;
+	if (cub->direction == NNORTH || cub->direction == NSOUTH)
+	{
+		cub->player->yi += dist;
+		cub->player->yf += dist;
+	}
+	if (cub->direction == NEAST || cub->direction == NWEST)
+	{
+		cub->player->xi += dist;
+		cub->player->xf += dist;
+	}
+	return (2);
 }
 
 t_vector	*get_player_pos(t_cub3d *cub, int x, int y)

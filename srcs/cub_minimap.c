@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/03 12:37:52 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 09:12:37 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,4 @@ int	get_sqr_size(t_cub3d *cub)
 	dist = (cub->minimap->mapx[1] \
 	- cub->minimap->mapx[0]);
 	return (dist);
-}
-
-void	sqr_adjustments(int *map, int rows, int cols, int size)
-{
-	int	times;
-	int	dist;
-	int	corr;
-
-	corr = -1;
-	dist = ((WHEI * MAP_MULTIP) / smlnum(rows, cols));
-	if (corr == -1)
-		return ;
-	times = -1;
-	while (++times < size)
-	{
-		map[times] += corr;
-		times++;
-		corr++;
-	}
 }

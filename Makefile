@@ -12,7 +12,7 @@ INC_LIBS = -Ilibft/ -Llibft/ -lft $(MLX_INC)
 SRCS = main.c cub_inits.c cub_inserts.c cub_end.c cub_utils.c \
        cub_conv_enums.c cub_util_prints.c cub_validate_map.c cub_display.c \
 	   cub_minimap.c cub_draw_coord.c cub_draw_doors.c cub_draw_lines.c \
-	   cub_draw_player.c cub_handle_keys.c cub_draw_gaze.c
+	   cub_draw_player.c cub_move_player.c cub_handle_keys.c cub_toggle_keys.c
 PATH_AND_SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS))
 OBJS = $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(PATH_AND_SRCS))
 

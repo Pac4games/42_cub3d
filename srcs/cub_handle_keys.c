@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/03 14:40:07 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 10:54:48 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	in_key(t_cub3d *cub)
 {
-	if (cub->move != 0 && (move_with_gaze(cub) \
-	|| rot_with_gaze(cub)))
+	if (cub->move != 0)
 	{
 		ft_memset(cub->addr, 0, WHEI * WWID \
 		* sizeof(cub->bits_per_pixel));
+		rot_with_gaze(cub);
+		move_with_gaze(cub);
 		draw_minimap(cub, cub->map);
 		draw_doors(cub, cub->map);
 		draw_player_lines(cub, *cub->player, \

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/03 14:11:46 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 09:14:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	init_minimap(t_cub3d *cub)
 		free(cub->minimap);
 		return ;
 	}
-	sqr_adjustments(cub->minimap->mapx, cub->map->tot_rows, \
-	cub->map_cols, cub->map_cols);
 	cub->minimap->mapy = \
 	update_display_y(cub->map->tot_rows, cub->map_cols, -1);
 	if (!cub->minimap->mapy)
@@ -91,6 +89,4 @@ void	init_minimap(t_cub3d *cub)
 		free(cub->minimap);
 		return ;
 	}
-	sqr_adjustments(cub->minimap->mapy, cub->map->tot_rows, \
-	cub->map_cols, cub->map->tot_rows);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/03 15:39:46 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/04 12:01:34 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ typedef struct s_cub3d
 	int			move;
 	int			gaze_x;
 	int			gaze_y;
-	float		degrees;
+	int			degrees;
 	int			direction;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
@@ -201,12 +201,11 @@ void		end_coord(t_vector *vector, int x, int y);
 // DRAW DOORS
 void		draw_doors(t_cub3d *cub, t_map *map);
 
-// DRAW GAZE
+// TOGGLE KEYS
 void		add_mov_with_gaze(t_cub3d *cub, int key);
 void		remove_mov_with_gaze(t_cub3d *cub, int key);
 void		add_rot_with_gaze(t_cub3d *cub, int key);
 void		remove_rot_with_gaze(t_cub3d *cub, int key);
-void		get_initial_gaze(t_cub3d *cub, int dist);
 
 // DRAW LINES
 void		draw_paralell_hlines(t_cub3d *cub, \
@@ -218,11 +217,10 @@ void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		draw_minimap(t_cub3d *cub, t_map *map);
 
 // DRAW PLAYER
+int			move_player(t_cub3d *cub, int key);
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
 void		draw_player(t_cub3d *cub, t_map *map);
-int			move_player(t_cub3d *cub, int key);
-int			move_with_gaze(t_cub3d *cub);
-int			rot_with_gaze(t_cub3d *cub);
+void		get_initial_gaze(t_cub3d *cub, int dist);
 t_vector	*get_player_pos(t_cub3d *cub, int x, int y);
 
 // END STRUCTURES
@@ -254,7 +252,10 @@ void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 int			*update_display_x(int rows, int cols, int x);
 int			*update_display_y(int rows, int cols, int y);
 int			get_sqr_size(t_cub3d *cub);
-void		sqr_adjustments(int *map, int rows, int cols, int size);
+
+// MOVE PLAYER
+void		move_with_gaze(t_cub3d *cub);
+void		rot_with_gaze(t_cub3d *cub);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

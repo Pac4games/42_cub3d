@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 11:43:46 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:50:56 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	in_key(t_cub3d *cub)
 		* sizeof(cub->bits_per_pixel));
 		rot_with_gaze(cub);
 		move_with_gaze(cub);
-		draw_minimap(cub, cub->map);
-		draw_doors(cub, cub->map);
-		player_scaled_down(cub, cub->scale, cub->sqr_size);
-		gaze_scale_down(cub, cub->gaze_x, cub->gaze_y, cub->sqr_size);
+		redraw_minimap(cub);
 		mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	}
 	return (1);

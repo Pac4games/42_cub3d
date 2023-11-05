@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 11:10:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:03:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color)
 			vec.yi++;
 			vec.yf--;
 		}
-		draw_line(cub, &vec, color);
+		draw_line(cub, &vec, color, 0);
 		vec.xi++;
 		vec.xf++;
 		if (times == 0 || times == dist)

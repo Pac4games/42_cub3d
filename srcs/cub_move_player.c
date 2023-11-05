@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 08:38:27 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 16:24:34 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	move_with_gaze(t_cub3d *cub)
 	int		dist;
 
 	radians = (MY_PI / 180) * (cub->degrees);
-	dist = (cub->sqr_size / 9);
+	dist = STEP;
 	if (cub->move >> MOV_UP & 1)
 		move_player_and_gaze(cub, dist * cosf(radians), dist * sinf(radians));
 	if (cub->move >> MOV_DOWN & 1)

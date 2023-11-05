@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 11:43:51 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:36:55 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
 
 # define WWID 1920
 # define WHEI 1080
-# define SQR_SIZE 36
-# define DOOR_MULTIP 0.25
+# define SQR_SIZE 18
+# define STEP 2
+# define DOOR_MULTIP 0.35
 # define MY_PI 3.14159
+
 # define ESC 65307
 # define FRONT 119
 # define BACK 115
@@ -36,6 +38,15 @@
 # define ARROW_DOWN 65364
 # define ARROW_LEFT 65361
 # define ARROW_RIGHT 65363
+
+# define PRT_NORTH "NO"
+# define PRT_SOUTH "SO"
+# define PRT_EAST "EA"
+# define PRT_WEST "WE"
+# define PRT_FLOOR "F"
+# define PRT_CEIL "C"
+# define PRT_UP "UP"
+# define PRT_LOW "LO"
 
 typedef struct s_node	t_node;
 
@@ -170,38 +181,27 @@ typedef struct s_cub3d
 	int			gaze_y;
 	int			degrees;
 	int			direction;
-	float		scale;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
-
-# define PRT_NORTH "NO"
-# define PRT_SOUTH "SO"
-# define PRT_EAST "EA"
-# define PRT_WEST "WE"
-# define PRT_FLOOR "F"
-# define PRT_CEIL "C"
-# define PRT_UP "UP"
-# define PRT_LOW "LO"
 
 // CONV_ENUMS
 int			conv_to_map_num(char c);
 char		*conv_to_txtr_text(char c);
 
 // DISPLAY
-void		my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color);
+void		my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color, int window);
 void		display_in_canvas(t_cub3d *cub3d);
-void		draw_line(t_cub3d *data, t_vector *vector, int color);
+void		draw_line(t_cub3d *data, t_vector *vector, int color, int window);
 
 // DRAW COORD
 void		begin_coord(t_vector *vector, int x, int y);
 void		end_coord(t_vector *vector, int x, int y);
-void		minimap_scale_down(t_vector *vec, float scale, int dist);
-void		player_scaled_down(t_cub3d *cub, float scale, int dist);
-void		gaze_scale_down(t_cub3d *cub, float x, float y, int dist);
+void		minimap_scale_down(t_vector *vec, int xcorr, int ycorr);
+void		player_scaled_down(t_cub3d *cub, int xcorr, int ycorr);
 
 // DRAW DOORS
-void		draw_doors(t_cub3d *cub, t_map *map);
+void		draw_doors(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
 
 // DRAW LINES
 void		draw_paralell_hlines(t_cub3d *cub, \
@@ -210,7 +210,7 @@ void		draw_paralell_vlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
 void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
-void		draw_minimap(t_cub3d *cub, t_map *map);
+void		draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
 
 // DRAW PLAYER
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
@@ -245,9 +245,10 @@ void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
 // MINIMAP
-int			*update_display_x(int cols, int x);
-int			*update_display_y(int rows, int y);
-int			get_sqr_size(t_cub3d *cub);
+int			*update_display_x(int size, int cols, int x);
+int			*update_display_y(int size, int rows, int y);
+int			get_sqr_size(void);
+void		redraw_minimap(t_cub3d *cub);
 
 // MOVE PLAYER
 void		move_with_gaze(t_cub3d *cub);

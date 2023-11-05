@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/11/05 11:43:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:20:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ static int	read_keys(int key_pressed, t_cub3d *cub)
 	return (0);
 }
 
-void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
+void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color, int window)
 {
 	char	*dst;
 
-	if (x > 0 && y > 0 && x < WWID && y < WHEI)
+	if ((!window && x > 32 && y > 32 && x < WWID * 0.4 && y < WHEI * 0.4) \
+	|| (window && x > 0 && y > 0 && x < WWID && y < WHEI))
 	{
 		dst = cub->addr + (y * cub->line_length + \
 		x * (cub->bits_per_pixel / 8));
@@ -46,7 +47,7 @@ void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 	}
 }
 
-void	draw_line(t_cub3d *cub, t_vector *vector, int color)
+void	draw_line(t_cub3d *cub, t_vector *vector, int color, int window)
 {
 	double	dx;
 	double	dy;
@@ -65,7 +66,7 @@ void	draw_line(t_cub3d *cub, t_vector *vector, int color)
 	pxy = vector->yi;
 	while (pxs)
 	{
-		my_mlx_pixel_put(cub, pxx, pxy, color);
+		my_mlx_pixel_put(cub, pxx, pxy, color, window);
 		pxx += dx;
 		pxy += dy;
 		--pxs;
@@ -79,10 +80,7 @@ void	display_in_canvas(t_cub3d *cub)
 	cub->img = mlx_new_image(cub->mlx, WWID, WHEI);
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel, \
 	&cub->line_length, &cub->endian);
-	draw_minimap(cub, cub->map);
-	draw_doors(cub, cub->map);
-	player_scaled_down(cub, cub->scale, cub->sqr_size);
-	gaze_scale_down(cub, cub->gaze_x, cub->gaze_y, cub->sqr_size);
+	redraw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
 	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);

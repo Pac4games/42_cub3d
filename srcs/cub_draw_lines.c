@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 11:51:15 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 17:03:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ void	draw_paralell_hlines(t_cub3d *cub, t_vector *vec, int beg, int color)
 	int	times;
 
 	times = 0;
-	beg = (int)ceilf(beg * cub->scale);
 	vec->xf--;
 	while (++times < beg)
 	{
-		draw_line(cub, vec, color);
+		draw_line(cub, vec, color, 0);
 		vec->yi++;
 		vec->yf++;
 	}
@@ -33,10 +32,9 @@ void	draw_paralell_vlines(t_cub3d *cub, t_vector *vec, int beg, int color)
 
 	times = 0;
 	vec->yf--;
-	beg = (int)ceilf(beg * cub->scale);
 	while (++times < beg)
 	{
-		draw_line(cub, vec, color);
+		draw_line(cub, vec, color, 0);
 		vec->xi++;
 		vec->xf++;
 	}
@@ -72,7 +70,7 @@ void	get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y)
 	}
 }
 
-void	draw_minimap(t_cub3d *cub, t_map *map)
+void	draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr)
 {
 	int			x;
 	int			y;
@@ -85,13 +83,13 @@ void	draw_minimap(t_cub3d *cub, t_map *map)
 		while (++y <= map->tot_cols)
 		{
 			get_h_vector(cub, &vec, x, y);
-			minimap_scale_down(&vec, cub->scale, cub->sqr_size);
+			minimap_scale_down(&vec, xcorr, ycorr);
 			if (map->map[x - 1][y - 1] == NWALL)
 				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
 			else if (map->map[x - 1][y - 1] != NSPACE)
 				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0x727272);
 			get_v_vector(cub, &vec, x, y);
-			minimap_scale_down(&vec, cub->scale, cub->sqr_size);
+			minimap_scale_down(&vec, xcorr, ycorr);
 			if (map->map[x - 1][y - 1] == NWALL)
 				draw_paralell_vlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
 			else if (map->map[x - 1][y - 1] != NSPACE)

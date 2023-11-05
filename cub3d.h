@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 21:45:49 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:25:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define SQR_SIZE 18
 # define STEP 2
 # define DOOR_MULTIP 0.35
-# define MY_PI 3.14159
+# define MY_PI 3.141590
 
 # define ESC 65307
 # define FRONT 119
@@ -186,6 +186,10 @@ typedef struct s_cub3d
 	int			map_cols;
 }	t_cub3d;
 
+// CHECK COLISIONS
+int	player_colision_x(t_cub3d *cub, float dist, int type);
+int	player_colision_y(t_cub3d *cub, float dist, int type);
+
 // CONV_ENUMS
 int			conv_to_map_num(char c);
 char		*conv_to_txtr_text(char c);
@@ -267,6 +271,7 @@ void		rot_with_gaze(t_cub3d *cub);
 
 // TOGGLE TEXTURES
 void		change_textures(t_cub3d *cub, int x, int y);
+int			check_door_colision(t_cub3d *cub, int dist);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

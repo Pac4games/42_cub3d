@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:33:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 22:00:09 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:25:43 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,29 @@ void	change_textures(t_cub3d *cub, int x, int y)
 		lastx = x;
 		lasty = y;
 	}
+}
+
+int	check_door_colision(t_cub3d *cub, int dist)
+{
+	int		door;
+
+	door = NUP_DOOR_AT_UP;
+	while (door <= NDOWN_DOOR_AT_RIGHT)
+	{
+		if (((door == NUP_DOOR_AT_RIGHT || door == NDOWN_DOOR_AT_RIGHT) \
+		&& player_colision_x(cub, cub->player->xi - dist, door) == 2) || \
+		((door == NUP_DOOR_AT_LEFT || door == NDOWN_DOOR_AT_LEFT) \
+		&& player_colision_x(cub, cub->player->xf + dist, door) == 2) || \
+		((door == NUP_DOOR_AT_DOWN || door == NDOWN_DOOR_AT_DOWN) \
+		&& player_colision_y(cub, cub->player->yi - dist, door) == 2) || \
+		((door == NUP_DOOR_AT_UP || door == NDOWN_DOOR_AT_UP) \
+		&& player_colision_y(cub, cub->player->yf + dist, door) == 2))
+		{
+			set_gaze(cub, cub->sqr_size);
+			return (1);
+		}
+		else
+			door++;
+	}
+	return (0);
 }

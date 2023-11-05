@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:03:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:40:42 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color)
 			vec.yi++;
 			vec.yf--;
 		}
-		draw_line(cub, &vec, color, 0);
+		minimap_draw_line(cub, &vec, color);
 		vec.xi++;
 		vec.xf++;
 		if (times == 0 || times == dist)
@@ -59,7 +59,7 @@ void	set_gaze(t_cub3d *cub, int dist)
 		cub->degrees = 0;
 }
 
-static void	player_in_door(t_cub3d *cub, int type)
+static void	new_player_dir(t_cub3d *cub, int type)
 {
 	cub->direction = type;
 	if (cub->direction == NUP_DOOR_AT_UP \
@@ -78,12 +78,11 @@ static void	player_in_door(t_cub3d *cub, int type)
 
 int	reload_player_pos(t_cub3d *cub, int x, int y)
 {
-	int	dist;
+	int			dist;
 
 	if (cub->map->map[x][y] == NWALL)
 		return (1);
-	else
-		player_in_door(cub, cub->map->map[x][y]);
+	new_player_dir(cub, cub->map->map[x][y]);
 	dist = cub->sqr_size * 0.25;
 	cub->player->xi = cub->minimap->mapx[y] + dist + 1;
 	cub->player->yi = cub->minimap->mapy[x] + dist + 1;
@@ -101,6 +100,7 @@ int	reload_player_pos(t_cub3d *cub, int x, int y)
 		cub->player->xi += dist;
 		cub->player->xf += dist;
 	}
+	change_textures(cub, x, y);
 	return (2);
 }
 

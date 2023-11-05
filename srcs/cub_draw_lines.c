@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:03:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:42:34 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_paralell_hlines(t_cub3d *cub, t_vector *vec, int beg, int color)
 	vec->xf--;
 	while (++times < beg)
 	{
-		draw_line(cub, vec, color, 0);
+		minimap_draw_line(cub, vec, color);
 		vec->yi++;
 		vec->yf++;
 	}
@@ -34,7 +34,7 @@ void	draw_paralell_vlines(t_cub3d *cub, t_vector *vec, int beg, int color)
 	vec->yf--;
 	while (++times < beg)
 	{
-		draw_line(cub, vec, color, 0);
+		minimap_draw_line(cub, vec, color);
 		vec->xi++;
 		vec->xf++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:38:43 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:42:19 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ void	redraw_minimap(t_cub3d *cub)
 	int	xcorr;
 	int	ycorr;
 
-	midx = WWID * 0.2;
-	midy = WHEI * 0.2;
-	xcorr = midx - WWID * 0.05 - (cub->player->xi \
+	midx = WWID * 0.15;
+	midy = WHEI * 0.15;
+	xcorr = midx - (cub->player->xi \
 	+ (cub->player->xf - cub->player->xi) * 0.5);
-	ycorr = midy - WHEI * 0.05 - (cub->player->yi \
+	ycorr = midy - (cub->player->yi \
 	+ (cub->player->yf - cub->player->yi) * 0.5);
 	draw_minimap(cub, cub->map, xcorr, ycorr);
 	draw_doors(cub, cub->map, xcorr, ycorr);
 	player_scaled_down(cub, xcorr, ycorr);
-	my_mlx_pixel_put(cub, cub->gaze_x + xcorr, \
-	cub->gaze_y + ycorr, 0x44FF24, 0);
+	minimap_pixel_put(cub, cub->gaze_x + xcorr, \
+	cub->gaze_y + ycorr, 0x44FF24);
 }

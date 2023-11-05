@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/11/05 17:20:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:41:58 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ static int	read_keys(int key_pressed, t_cub3d *cub)
 	return (0);
 }
 
-void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color, int window)
+void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 {
 	char	*dst;
 
-	if ((!window && x > 32 && y > 32 && x < WWID * 0.4 && y < WHEI * 0.4) \
-	|| (window && x > 0 && y > 0 && x < WWID && y < WHEI))
+	if (x > 0 && y > 0 && x < WWID && y < WHEI)
 	{
 		dst = cub->addr + (y * cub->line_length + \
 		x * (cub->bits_per_pixel / 8));
@@ -47,7 +46,7 @@ void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color, int window)
 	}
 }
 
-void	draw_line(t_cub3d *cub, t_vector *vector, int color, int window)
+void	draw_line(t_cub3d *cub, t_vector *vector, int color)
 {
 	double	dx;
 	double	dy;
@@ -66,7 +65,7 @@ void	draw_line(t_cub3d *cub, t_vector *vector, int color, int window)
 	pxy = vector->yi;
 	while (pxs)
 	{
-		my_mlx_pixel_put(cub, pxx, pxy, color, window);
+		my_mlx_pixel_put(cub, pxx, pxy, color);
 		pxx += dx;
 		pxy += dy;
 		--pxs;

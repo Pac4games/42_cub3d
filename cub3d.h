@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:36:55 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:45:49 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct s_cub3d
 	int			gaze_y;
 	int			degrees;
 	int			direction;
+	int			level;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
@@ -190,9 +191,9 @@ int			conv_to_map_num(char c);
 char		*conv_to_txtr_text(char c);
 
 // DISPLAY
-void		my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color, int window);
+void		my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color);
 void		display_in_canvas(t_cub3d *cub3d);
-void		draw_line(t_cub3d *data, t_vector *vector, int color, int window);
+void		draw_line(t_cub3d *data, t_vector *vector, int color);
 
 // DRAW COORD
 void		begin_coord(t_vector *vector, int x, int y);
@@ -211,6 +212,10 @@ t_vector *vec, int beg, int color);
 void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
+// DISPLAY
+
+void		minimap_pixel_put(t_cub3d *cub, int x, int y, int color);
+void		minimap_draw_line(t_cub3d *data, t_vector *vector, int color);
 
 // DRAW PLAYER
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
@@ -259,6 +264,9 @@ void		remove_player_mov(t_cub3d *cub, int key);
 void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
 void		rot_with_gaze(t_cub3d *cub);
+
+// TOGGLE TEXTURES
+void		change_textures(t_cub3d *cub, int x, int y);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

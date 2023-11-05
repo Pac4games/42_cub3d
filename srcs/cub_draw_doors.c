@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:33:34 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:41:32 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	check_up_doors(t_cub3d *cub, t_vector *vec, int map_point, int max)
 		vec->xf--;
 		while (--max)
 		{
-			draw_line(cub, vec, color, 0);
+			minimap_draw_line(cub, vec, color);
 			vec->yi++;
 			vec->yf++;
 		}
@@ -50,7 +50,7 @@ t_vector *vec, int map_point, int dist)
 			color = 0xFF00FF;
 		while (--max)
 		{
-			draw_line(cub, vec, color, 0);
+			minimap_draw_line(cub, vec, color);
 			vec->yi++;
 			vec->yf++;
 		}
@@ -71,7 +71,7 @@ int map_point, int max)
 		vec->yf--;
 		while (--max)
 		{
-			draw_line(cub, vec, color, 0);
+			minimap_draw_line(cub, vec, color);
 			vec->xi++;
 			vec->xf++;
 		}
@@ -96,7 +96,7 @@ t_vector *vec, int map_point, int dist)
 			color = 0xFF00FF;
 		while (--max)
 		{
-			draw_line(cub, vec, color, 0);
+			minimap_draw_line(cub, vec, color);
 			vec->xi++;
 			vec->xf++;
 		}

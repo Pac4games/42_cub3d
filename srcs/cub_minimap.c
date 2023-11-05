@@ -6,54 +6,43 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 09:12:37 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:29:15 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	smlnum(int rows, int cols)
-{
-	if (rows < cols)
-		return (cols);
-	return (rows);
-}
-
-int	*update_display_x(int rows, int cols, int x)
+int	*update_display_x(int cols, int x)
 {
 	int		*newmap;
 	int		sml;
-	int		smltab;
 	int		tempx;
 
 	newmap = malloc(sizeof(newmap) * cols);
 	if (!newmap)
 		return (0);
-	sml = (WHEI * MAP_MULTIP) / smlnum(rows, cols);
-	smltab = smlnum(rows, cols) - 1;
+	sml = SQR_SIZE;
 	while (++x < cols)
 	{
-		tempx = (WWID - sml * smltab) * X_MULTIP + x * sml;
+		tempx = sml + x * sml;
 		newmap[x] = tempx;
 	}
 	return (newmap);
 }
 
-int	*update_display_y(int rows, int cols, int y)
+int	*update_display_y(int rows, int y)
 {
 	int		*newmap;
 	int		sml;
-	int		smltab;
 	int		tempy;
 
 	newmap = malloc(sizeof(newmap) * rows);
 	if (!newmap)
 		return (0);
-	sml = (WHEI * MAP_MULTIP) / smlnum(rows, cols);
-	smltab = smlnum(rows, cols) - 1;
+	sml = SQR_SIZE;
 	while (++y < rows)
 	{
-		tempy = (WHEI - sml * smltab) * Y_MULTIP + y * sml;
+		tempy = sml + y * sml;
 		newmap[y] = tempy;
 	}
 	return (newmap);
@@ -65,5 +54,7 @@ int	get_sqr_size(t_cub3d *cub)
 
 	dist = (cub->minimap->mapx[1] \
 	- cub->minimap->mapx[0]);
+	if (dist <= 9)
+		dist = 36;
 	return (dist);
 }

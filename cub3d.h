@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 20:00:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:43:51 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 
 # define WWID 1920
 # define WHEI 1080
-# define X_MULTIP 0.05
-# define Y_MULTIP 0.1
-# define DOOR_MULTIP 0.35
-# define MAP_MULTIP 0.55
+# define SQR_SIZE 36
+# define DOOR_MULTIP 0.25
 # define MY_PI 3.14159
 # define ESC 65307
 # define FRONT 119
@@ -172,6 +170,7 @@ typedef struct s_cub3d
 	int			gaze_y;
 	int			degrees;
 	int			direction;
+	float		scale;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
@@ -197,6 +196,9 @@ void		draw_line(t_cub3d *data, t_vector *vector, int color);
 // DRAW COORD
 void		begin_coord(t_vector *vector, int x, int y);
 void		end_coord(t_vector *vector, int x, int y);
+void		minimap_scale_down(t_vector *vec, float scale, int dist);
+void		player_scaled_down(t_cub3d *cub, float scale, int dist);
+void		gaze_scale_down(t_cub3d *cub, float x, float y, int dist);
 
 // DRAW DOORS
 void		draw_doors(t_cub3d *cub, t_map *map);
@@ -243,8 +245,8 @@ void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
 // MINIMAP
-int			*update_display_x(int rows, int cols, int x);
-int			*update_display_y(int rows, int cols, int y);
+int			*update_display_x(int cols, int x);
+int			*update_display_y(int rows, int y);
 int			get_sqr_size(t_cub3d *cub);
 
 // MOVE PLAYER

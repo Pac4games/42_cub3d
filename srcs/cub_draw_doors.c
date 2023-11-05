@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/04 18:09:37 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/05 11:33:00 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_vector *vec, int map_point, int dist)
 	if (map_point == NUP_DOOR_AT_DOWN || map_point == NDOWN_DOOR_AT_DOWN)
 	{
 		vec->xf--;
-		max = (int)(dist * DOOR_MULTIP);
+		max = (int)ceilf(dist * DOOR_MULTIP);
 		vec->yi += dist - max;
 		vec->yf += dist - max;
 		if (map_point == NUP_DOOR_AT_DOWN)
@@ -87,7 +87,7 @@ t_vector *vec, int map_point, int dist)
 	if (map_point == NUP_DOOR_AT_RIGHT || map_point == NDOWN_DOOR_AT_RIGHT)
 	{
 		vec->yf--;
-		max = (int)(dist * DOOR_MULTIP);
+		max = (int)ceilf(dist * DOOR_MULTIP);
 		vec->xi += dist - max;
 		vec->xf += dist - max;
 		if (map_point == NUP_DOOR_AT_RIGHT)
@@ -111,19 +111,21 @@ void	draw_doors(t_cub3d *cub, t_map *map)
 	int			dist;
 
 	x = 0;
-	dist = cub->sqr_size;
+	dist = (int)ceilf(cub->sqr_size * cub->scale);
 	while (++x < map->tot_rows)
 	{
 		y = 0;
 		while (++y < map->tot_cols)
 		{
 			get_h_vector(cub, &vec, x, y);
+			minimap_scale_down(&vec, cub->scale, cub->sqr_size);
 			check_up_doors(cub, &vec, map->map[x - 1][y - 1], \
-			dist * DOOR_MULTIP);
+			(int)ceilf(dist * DOOR_MULTIP));
 			check_down_doors(cub, &vec, map->map[x - 1][y - 1], dist);
 			get_v_vector(cub, &vec, x, y);
+			minimap_scale_down(&vec, cub->scale, cub->sqr_size);
 			check_left_doors(cub, &vec, map->map[x - 1][y - 1], \
-			dist * DOOR_MULTIP);
+			(int)ceilf(dist * DOOR_MULTIP));
 			check_right_doors(cub, &vec, map->map[x - 1][y - 1], dist);
 		}
 	}

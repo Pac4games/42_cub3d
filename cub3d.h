@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 23:25:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:30:48 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ int			check_door_colision(t_cub3d *cub, int dist);
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
 void		print_matrix(int **mat, int rows, int cols);
+void		print_err(char *msg);
 
 // UTILITIES
 int			ft_isspace(int c);

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:12:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 16:59:23 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:55:09 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void	print_err(char *msg)
 {
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
-//	exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }

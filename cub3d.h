@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 13:30:48 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:20:55 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ typedef struct s_list
 
 typedef struct s_map
 {
-	int	**map;
-	int	tot_rows;
-	int	tot_cols;
+	char	**map;
+	int		tot_rows;
+	int		tot_cols;
 }	t_map;
 
 enum e_map_txt
@@ -187,8 +187,8 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 // CHECK COLISIONS
-int	player_colision_x(t_cub3d *cub, float dist, int type);
-int	player_colision_y(t_cub3d *cub, float dist, int type);
+int			player_colision_x(t_cub3d *cub, float dist, int type);
+int			player_colision_y(t_cub3d *cub, float dist, int type);
 
 // CONV_ENUMS
 int			conv_to_map_num(char c);
@@ -216,8 +216,8 @@ t_vector *vec, int beg, int color);
 void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
-// DISPLAY
 
+// DISPLAY
 void		minimap_pixel_put(t_cub3d *cub, int x, int y, int color);
 void		minimap_draw_line(t_cub3d *data, t_vector *vector, int color);
 
@@ -233,7 +233,7 @@ void		destroy_split(char ***split_location);
 void		destroy_list(t_list *list);
 void		destroy_cub(t_cub3d *cub);
 void		destroy_txtrs_list(t_all_txtrs *txtrs);
-void		destroy_matrix(int **mat, int tot_rows);
+void		destroy_matrix(char **mat, int tot_rows);
 
 // HANDLE KEYS
 int			in_key(t_cub3d *cub);
@@ -283,11 +283,13 @@ void		print_err(char *msg);
 int			ft_isspace(int c);
 int			is_only_spaces(char *str);
 int			ft_str_end_trim(char *line);
-int			**solo_matrix(int rows, int cols);
+char		**solo_matrix(int rows, int cols);
+void		free_mtx(char **mtx);
 
 // VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
+int			is_valid_map(char **map);
 
 // MAIN
 int			*fill_line_of_list(char *line);

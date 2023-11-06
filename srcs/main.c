@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 13:07:32 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:58:34 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@ int	*fill_line_of_list(char *line)
 	map_line = malloc(sizeof(map_line) * len);
 	if (!map_line)
 		return (0);
-	i = 0;
-	while (i < len)
-	{
-		map_line[i] = conv_to_map_num(line[i]);
-		i++;
-	}
-	map_line[i] = '\0';
+	i = -1;
+	while (++i < len)
+		map_line[i] = line[i];
+	map_line[++i] = '\0';
 	return (map_line);
 }
 
@@ -91,7 +88,7 @@ int	main(int ac, char *av[])
 	if (ac == 2 && ft_strnstr(&av[1][ft_strlen(av[1]) \
 	- 4], ".cub", ft_strlen(av[1])))
 	{
-		fd = open(av[1], O_RDONLY, 0777);
+		fd = open(av[1], O_RDONLY);
 		if (fd <= 0 || !init_cub(&cub) \
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);

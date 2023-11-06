@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_closed.c                                       :+:      :+:    :+:   */
+/*   other_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 13:08:12 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/06 14:16:51 by paugonca         ###   ########.fr       */
+/*   Created: 2023/11/06 14:47:26 by paugonca          #+#    #+#             */
+/*   Updated: 2023/11/06 14:48:45 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	is_map_closed(t_cub3d *cub, int fd)
+void	free_mtx(char **mtx)
 {
-	char	*line;
-	int		i;
+	int	i;
+
+	i = 0;
+	while (mtx[i])
+		free(mtx[i++]);
+	free(mtx);
 }

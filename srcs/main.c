@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:33:24 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:36:30 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,13 @@ int	main(int ac, char *av[])
 			print_txtrs((&cub)->all_txtrs);
 		if ((&cub)->map)
 			print_map((&cub)->map, (&cub)->map_cols);
-		(&cub)->sqr_size = get_sqr_size();
 		init_minimap(&cub);
 		if ((&cub)->minimap)
 		{
-			(&cub)->player = get_player_pos(&cub, 0, 0);
-			set_gaze((&cub), (&cub)->sqr_size);
+			// (&cub)->player = 
+			get_player_pos(&cub, -1, -1);
+			// (&cub)->direction = (&cub)->map->map[get_player_sqr((&cub), 1)][get_player_sqr((&cub), 0)];
+			init_raycaster(&cub);
 			display_in_canvas(&cub);
 		}
 		destroy_cub(&cub);

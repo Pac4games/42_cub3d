@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 23:25:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:10:08 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define WWID 1920
 # define WHEI 1080
 # define SQR_SIZE 18
-# define STEP 2
+# define STEP 0.1
 # define DOOR_MULTIP 0.35
 # define MY_PI 3.141590
 
@@ -175,11 +175,13 @@ typedef struct s_cub3d
 	t_map		*map;
 	t_minimap	*minimap;
 	t_vector	*player;
-	int			sqr_size;
 	int			move;
-	int			gaze_x;
-	int			gaze_y;
-	int			degrees;
+	float		player_x;
+	float		player_y;
+	float		dir_x;
+	float		dir_y;
+	float		plane_x;
+	float		plane_y;
 	int			direction;
 	int			level;
 	t_all_txtrs	*all_txtrs;
@@ -187,8 +189,10 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 // CHECK COLISIONS
-int	player_colision_x(t_cub3d *cub, float dist, int type);
-int	player_colision_y(t_cub3d *cub, float dist, int type);
+int			player_colision_x(t_cub3d *cub, float dist, int type);
+int			player_colision_y(t_cub3d *cub, float dist, int type);
+int			get_player_sqr(t_cub3d *cub, char is_horiz);
+int			get_sqr(t_cub3d *cub, int xval, int yval, char is_horiz);
 
 // CONV_ENUMS
 int			conv_to_map_num(char c);
@@ -213,8 +217,8 @@ void		draw_paralell_hlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
 void		draw_paralell_vlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
-void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
-void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
+void		get_h_vector(t_vector *vec, int x, int y);
+void		get_v_vector(t_vector *vec, int x, int y);
 void		draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
 // DISPLAY
 
@@ -224,9 +228,8 @@ void		minimap_draw_line(t_cub3d *data, t_vector *vector, int color);
 // DRAW PLAYER
 void		draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color);
 void		draw_player(t_cub3d *cub, t_map *map);
-void		set_gaze(t_cub3d *cub, int dist);
 int			reload_player_pos(t_cub3d *cub, int x, int y);
-t_vector	*get_player_pos(t_cub3d *cub, int x, int y);
+void		get_player_pos(t_cub3d *cub, int x, int y);
 
 // END STRUCTURES
 void		destroy_split(char ***split_location);
@@ -260,18 +263,23 @@ int			get_sqr_size(void);
 void		redraw_minimap(t_cub3d *cub);
 
 // MOVE PLAYER
-void		move_with_gaze(t_cub3d *cub);
+int			move_with_gaze(t_cub3d *cub);
+
+// RAYCASTING
+void		rot_raycaster(t_cub3d *cub, float dif);
+void		init_raycaster(t_cub3d *cub);
+void		raycasting(t_cub3d *cub);
 
 // TOGGLE KEYS
 void		add_player_mov(t_cub3d *cub, int key);
 void		remove_player_mov(t_cub3d *cub, int key);
 void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
-void		rot_with_gaze(t_cub3d *cub);
+int			rot_with_gaze(t_cub3d *cub);
 
 // TOGGLE TEXTURES
 void		change_textures(t_cub3d *cub, int x, int y);
-int			check_door_colision(t_cub3d *cub, int dist);
+int			check_door_colision(t_cub3d *cub, float distx, float disty);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);

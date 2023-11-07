@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 21:42:19 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:01:43 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,18 @@ void	redraw_minimap(t_cub3d *cub)
 	int	midy;
 	int	xcorr;
 	int	ycorr;
+	t_vector vec;
 
 	midx = WWID * 0.15;
 	midy = WHEI * 0.15;
-	xcorr = midx - (cub->player->xi \
-	+ (cub->player->xf - cub->player->xi) * 0.5);
-	ycorr = midy - (cub->player->yi \
-	+ (cub->player->yf - cub->player->yi) * 0.5);
+	xcorr = midx - cub->player_x * SQR_SIZE;
+	ycorr = midy - cub->player_y * SQR_SIZE;
 	draw_minimap(cub, cub->map, xcorr, ycorr);
 	draw_doors(cub, cub->map, xcorr, ycorr);
 	player_scaled_down(cub, xcorr, ycorr);
-	minimap_pixel_put(cub, cub->gaze_x + xcorr, \
-	cub->gaze_y + ycorr, 0x44FF24);
+	vec.xi = cub->player_x * SQR_SIZE + SQR_SIZE * cub->dir_x + xcorr;
+	vec.xf = cub->player_x * SQR_SIZE + SQR_SIZE * cub->dir_x * 1.5 + xcorr;
+	vec.yi = cub->player_y * SQR_SIZE + SQR_SIZE * cub->dir_y + ycorr;
+	vec.yf = cub->player_y * SQR_SIZE + SQR_SIZE * cub->dir_y * 1.5 + ycorr;
+	minimap_draw_line(cub, &vec, 0x44FF24);
 }

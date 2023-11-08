@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 19:02:25 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:31:06 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,139 @@ void	init_raycaster(t_cub3d *cub)
 	if (cub->direction == NNORTH)
 	{
 		cub->dir_y = -1;
-		cub->plane_x = -0.6;
+		cub->plane_x = 0.6;
 	}
 	else if (cub->direction == NEAST)
 	{
 		cub->dir_x = 1;
-		cub->plane_y = -0.6;
+		cub->plane_y = 0.6;
 	}
 	else if (cub->direction == NSOUTH)
 	{
 		cub->dir_y = 1;
-		cub->plane_x = 0.6;
+		cub->plane_x = -0.6;
 	}
 	else
 	{
 		cub->dir_x = -1;
-		cub->plane_y = 0.6;
+		cub->plane_y = -0.6;
 	}
 }
+/*
+static void	real_distance_calc(t_cub3d *cub, t_ray *ray)
+{
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (ray->dist_x < ray->dist_y)
+		{
+			ray->dist_x += ray->delt_dist_x;
+			ray->x += ray->xstep;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->dist_y += ray->delt_dist_y;
+			ray->y += ray->ystep;
+			ray->side = 1;
+		}
+		if (cub->map->map[ray->y][ray->x] == NWALL \
+		|| cub->map->map[ray->y][ray->x] >= NUP_DOOR_AT_UP)
+			hit = 1;
+	}
+	if (ray->side == 0)
+		ray->real_dist = (ray->dist_x - ray->delt_dist_x);
+	else
+		ray->real_dist = (ray->dist_y - ray->delt_dist_y);
+}
+
+static void	raycast_step_calc(t_cub3d *cub, t_ray *ray)
+{
+	if ((int)ray->dir_x < 0)
+	{
+		ray->xstep = -1;
+		ray->dist_x = (cub->player_x - ray->x)
+			* ray->delt_dist_x;
+	}
+	else
+	{
+		ray->xstep = 1;
+		ray->dist_x = (ray->x + 1.0 - cub->player_x)
+			* ray->delt_dist_x;
+	}
+	if ((int)ray->dir_y < 0)
+	{
+		ray->ystep = -1;
+		ray->dist_y = (cub->player_y - ray->y) * ray->delt_dist_y;
+	}
+	else
+	{
+		ray->ystep = 1;
+		ray->dist_y = (ray->y + 1.0 - cub->player_y)
+			* ray->delt_dist_y;
+	}
+}
+
+static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, int i)
+{
+	int			line_height;
+	int			color;
+	t_vector	vec;
+
+	color = 0X00ff00 / 2;
+	line_height = (int)(WHEI / ray->real_dist);
+	vec.xi = i;
+	vec.xf = i;
+	vec.yi = -line_height / 2 + WHEI / 2;
+	if (vec.yi < 0 || line_height < 0)
+		vec.yi = 0;
+	vec.yf = line_height / 2 + WHEI / 2;
+	if (vec.yf >= WHEI || line_height < 0)
+		vec.yf = WHEI - 1;
+	if (cub->map->map[ray->y][ray->x] \
+	>= NUP_DOOR_AT_UP && cub->map->map[ray->y][ray->x] <= NUP_DOOR_AT_RIGHT)
+		color = 0x00FFFF;
+	if (cub->map->map[ray->y][ray->x] \
+	>= NDOWN_DOOR_AT_UP && cub->map->map[ray->y][ray->x] <= NDOWN_DOOR_AT_RIGHT)
+		color = 0xFF00FF;
+	draw_line(cub, &vec, color);
+}
+
+void	raycasting(t_cub3d *cub)
+{
+	int		i;
+	float	camera_ray;
+	t_ray	ray;
+
+	i = 0;
+	while (i < WWID)
+	{
+		ray.x = get_player_sqr(cub, 1);
+		ray.y = get_player_sqr(cub, 0);
+		camera_ray = 2 * i / (float) WWID - 1;
+		ray.dir_x = cub->dir_x + cub->plane_x * camera_ray;
+		ray.dir_y = cub->dir_y + cub->plane_y * camera_ray;
+		ray.delt_dist_x = fabs(1 / ray.dir_x);
+		ray.delt_dist_y = fabs(1 / ray.dir_y);
+		raycast_step_calc(cub, &ray);
+		real_distance_calc(cub, &ray);
+		raycast_draw_walls(cub, &ray, i);
+		//dda_side_selector(mlx, &ray, player, info);
+		i++;
+	}
+}
+*/
 
 void	raycasting(t_cub3d *cub)
 {
 	double posX = cub->player_x;
 	double posY = cub->player_y;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
 	int lineHeight;
 	int i = 0;
 	int color;
@@ -58,18 +168,16 @@ void	raycasting(t_cub3d *cub)
 
 	while(i < WWID)
 	{
-		color = 0X00ff00 / 2;
 		for(int x = 0; x < WWID; x++)
 		{
-			double cameraX = 2 * (WWID - x) / (double)WWID - 1;
+			color = 0X00ff00 / 2;
+			double cameraX = 2 * x / (double)WWID - 1;
 			double rayDirX = cub->dir_x + cub->plane_x * cameraX;
 			double rayDirY = cub->dir_y + cub->plane_y * cameraX;
-			double mapX = posX;
-			double mapY = posY;
-			double sideDistX;
-			double sideDistY;
-			double deltaDistX = fabs(1 / rayDirX);
-			double deltaDistY = fabs(1 / rayDirY);
+			int mapX = (int)posX;
+			int mapY = (int)posY;
+			deltaDistX = fabs(1 / rayDirX);
+			deltaDistY = fabs(1 / rayDirY);
 			double perpWallDist;
 			double stepX;
 			double stepY;
@@ -77,22 +185,22 @@ void	raycasting(t_cub3d *cub)
 			int side;
 			if(rayDirX < 0)
 			{
-			stepX = -STEP;
+			stepX = -1;
 			sideDistX = (posX - mapX) * deltaDistX;
 			}
 			else
 			{
-			stepX = STEP;
+			stepX = 1;
 			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
 			}
 			if(rayDirY < 0)
 			{
-			stepY = -STEP;
+			stepY = -1;
 			sideDistY = (posY - mapY) * deltaDistY;
 			}
 			else
 			{
-			stepY = STEP;
+			stepY = 1;
 			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 			}
 			while(hit == 0)
@@ -109,10 +217,16 @@ void	raycasting(t_cub3d *cub)
 					mapY += stepY;
 					side = 1;
 				}
-				if (cub->map->map[get_sqr(cub, mapX, mapY, 1)][get_sqr(cub, mapX, \
-				mapY, 0)] == NWALL || cub->map->map[get_sqr(cub, mapX, mapY, \
-				1)][get_sqr(cub, mapX, mapY, 0)] >= NUP_DOOR_AT_UP)
+				mapY = get_sqr(cub, mapY, mapX, 0);
+				mapX = get_sqr(cub, mapY, mapX, 1);
+				if (cub->map->map[mapY][mapX] == NWALL || cub->map->map[mapY][mapX] >= NUP_DOOR_AT_UP)
 					hit = 1;
+				if (cub->map->map[mapY][mapX] \
+				>= NUP_DOOR_AT_UP && cub->map->map[mapY][mapX] <= NUP_DOOR_AT_RIGHT)
+						color = 0x00FFFF;
+				if (cub->map->map[mapY][mapX] \
+				>= NDOWN_DOOR_AT_UP && cub->map->map[mapY][mapX] <= NDOWN_DOOR_AT_RIGHT)
+						color = 0xFF00FF;
 			}
 			if(side == 0)
 				perpWallDist = (sideDistX - deltaDistX);
@@ -123,6 +237,8 @@ void	raycasting(t_cub3d *cub)
 			vec.xi = x;
 			vec.xf = x;
 			vec.yi = -lineHeight / 2 + WHEI / 2;
+			if (vec.yi < 0)
+				vec.yi = 0;
 			vec.yf = lineHeight / 2 + WHEI / 2;
 
 			draw_line(cub, &vec, color);

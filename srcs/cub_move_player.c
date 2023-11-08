@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 19:05:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:49:31 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	move_player_and_gaze(t_cub3d *cub, float distx, float disty)
 	int	moved;
 
 	moved = 0;
-	if (!player_colision_x(cub, (cub->player_x - 0.25) * SQR_SIZE + distx, NWALL) \
-	&& !player_colision_x(cub, (cub->player_x + 0.25) * SQR_SIZE + distx, NWALL))
+	if (!player_colision_x(cub, cub->player_x - 0.25 + distx, NWALL) \
+	&& (!player_colision_x(cub, cub->player_x + 0.25 + distx, NWALL)))
 	{
 		cub->player_x += distx;
 		moved = 1;
 	}
-	if (!player_colision_y(cub, (cub->player_y - 0.25) * SQR_SIZE + disty, NWALL) \
-	&& !player_colision_y(cub, (cub->player_y + 0.25) * SQR_SIZE + disty, NWALL))
+	if (!player_colision_y(cub, cub->player_y - 0.25 + disty, NWALL) \
+	&& (!player_colision_y(cub, cub->player_y + 0.25 + disty, NWALL)))
 	{
 		cub->player_y += disty;
 		moved = 1;
@@ -32,18 +32,18 @@ static int	move_player_and_gaze(t_cub3d *cub, float distx, float disty)
 	return (moved);
 }
 
-static int	sum_movement_x(t_cub3d *cub, float distx)
+static float	sum_movement_x(t_cub3d *cub, float distx)
 {
-	if (!player_colision_x(cub, (cub->player_x - 0.25) * SQR_SIZE + distx, NWALL) \
-	&& !player_colision_x(cub, (cub->player_x + 0.25) * SQR_SIZE + distx, NWALL))
+	if (!player_colision_x(cub, cub->player_x - 0.25 + distx, NWALL) \
+	&& (!player_colision_x(cub, cub->player_x + 0.25 + distx, NWALL)))
 		return (distx);
 	return (0);
 }
 
-static int	sum_movement_y(t_cub3d *cub, float disty)
+static float	sum_movement_y(t_cub3d *cub, float disty)
 {
-	if (!player_colision_y(cub, (cub->player_y - 0.25) * SQR_SIZE + disty, NWALL) \
-	&& !player_colision_y(cub, (cub->player_y + 0.25) * SQR_SIZE + disty, NWALL))
+	if (!player_colision_y(cub, cub->player_y - 0.25 + disty, NWALL) \
+	&& (!player_colision_y(cub, cub->player_y + 0.25 + disty, NWALL)))
 		return (disty);
 	return (0);
 }
@@ -52,7 +52,7 @@ static void	sum_movements(t_cub3d *cub, float *distx, float *disty)
 {
 	float	dist;
 
-	dist = SQR_SIZE;
+	dist = STEP;
 	if (cub->move >> MOV_UP & 1)
 	{
 		(*distx) += sum_movement_x(cub, dist * cub->dir_x);

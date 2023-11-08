@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 19:10:08 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:33:54 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,8 @@ typedef struct s_all_txtrs
 
 typedef struct s_minimap
 {
-	int			*mapx;
-	int			*mapy;
+	int			*x_vals;
+	int			*y_vals;
 }	t_minimap;
 
 typedef struct s_vector
@@ -162,6 +162,22 @@ typedef struct s_vector
 	int	xf;
 	int	yf;
 }	t_vector;
+
+typedef struct s_ray
+{
+	int		x;
+	int		y;
+	float	dir_x;
+	float	dir_y;
+	float	delt_dist_x;
+	float	delt_dist_y;
+	float	dist_x;
+	float	dist_y;
+	float	real_dist;
+	int		xstep;
+	int		ystep;
+	int		side;
+}	t_ray;
 
 typedef struct s_cub3d
 {
@@ -175,6 +191,7 @@ typedef struct s_cub3d
 	t_map		*map;
 	t_minimap	*minimap;
 	t_vector	*player;
+	int			sqr_size;
 	int			move;
 	float		player_x;
 	float		player_y;
@@ -217,8 +234,8 @@ void		draw_paralell_hlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
 void		draw_paralell_vlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
-void		get_h_vector(t_vector *vec, int x, int y);
-void		get_v_vector(t_vector *vec, int x, int y);
+void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
+void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
 // DISPLAY
 
@@ -257,8 +274,7 @@ void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
 // MINIMAP
-int			*update_display_x(int size, int cols, int x);
-int			*update_display_y(int size, int rows, int y);
+int			*get_minimap_coord(int size, int max);
 int			get_sqr_size(void);
 void		redraw_minimap(t_cub3d *cub);
 

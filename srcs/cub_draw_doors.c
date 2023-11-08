@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 19:13:12 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:01:08 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,26 +105,28 @@ t_vector *vec, int map_point, int dist)
 
 void	draw_doors(t_cub3d *cub, t_map *map, int xcorr, int ycorr)
 {
-	int			x;
 	int			y;
+	int			x;
 	t_vector	vec;
 
-	x = -1;
-	while (++x < map->tot_rows)
+	xcorr++;
+	ycorr++;
+	y = -1;
+	while (++y < map->tot_rows)
 	{
-		y = -1;
-		while (++y < map->tot_cols)
+		x = -1;
+		while (++x < map->tot_cols)
 		{
-			get_h_vector(&vec, cub->minimap->mapx[y], cub->minimap->mapy[x]);
-			minimap_scale_down(&vec, xcorr, ycorr);
-			check_up_doors(cub, &vec, map->map[x][y], \
+			get_h_vector(cub, &vec, cub->minimap->y_vals[y], cub->minimap->x_vals[x]);
+			//minimap_scale_down(&vec, xcorr, ycorr);
+			check_up_doors(cub, &vec, map->map[y][x], \
 			(int)(SQR_SIZE * DOOR_MULTIP));
-			check_down_doors(cub, &vec, map->map[x][y], SQR_SIZE);
-			get_v_vector(&vec, cub->minimap->mapx[y], cub->minimap->mapy[x]);
-			minimap_scale_down(&vec, xcorr, ycorr);
-			check_left_doors(cub, &vec, map->map[x][y], \
+			check_down_doors(cub, &vec, map->map[y][x], SQR_SIZE);
+			get_v_vector(cub, &vec, cub->minimap->y_vals[y], cub->minimap->x_vals[x]);
+			//minimap_scale_down(&vec, xcorr, ycorr);
+			check_left_doors(cub, &vec, map->map[y][x], \
 			(int)(SQR_SIZE * DOOR_MULTIP));
-			check_right_doors(cub, &vec, map->map[x][y], SQR_SIZE);
+			check_right_doors(cub, &vec, map->map[y][x], SQR_SIZE);
 		}
 	}
 }

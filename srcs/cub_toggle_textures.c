@@ -6,21 +6,21 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:33:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 15:32:23 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:13:54 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	change_textures(t_cub3d *cub, int x, int y)
+void	change_textures(t_cub3d *cub, int y, int x)
 {
 	static int	lastx = 0;
 	static int	lasty = 0;
 
-	if (cub->map->map[x][y] != cub->map->map[lastx][lasty])
+	if (cub->map->map[y][x] != cub->map->map[lasty][lastx])
 	{
-		if (cub->map->map[x][y] >= NUP_DOOR_AT_UP \
-		&& cub->map->map[x][y] <= NUP_DOOR_AT_RIGHT)
+		if (cub->map->map[y][x] >= NUP_DOOR_AT_UP \
+		&& cub->map->map[y][x] <= NUP_DOOR_AT_RIGHT)
 			cub->level++;
 		else if (cub->level > 0)
 			cub->level--;
@@ -30,8 +30,8 @@ void	change_textures(t_cub3d *cub, int x, int y)
 			cub->level = cub->all_txtrs->tot_txtrs;
 		printf("%s\n", cub->all_txtrs->textures[SO].path[cub->level \
 		% (cub->all_txtrs->textures[SO].levels)]);
-		lastx = x;
 		lasty = y;
+		lastx = x;
 	}
 }
 

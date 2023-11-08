@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 19:16:33 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:02:40 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,47 +40,49 @@ void	draw_paralell_vlines(t_cub3d *cub, t_vector *vec, int dist, int color)
 	}
 }
 
-void	get_v_vector(t_vector *vec, int x, int y)
+void	get_v_vector(t_cub3d *cub, t_vector *vec, int y, int x)
 {
-	x--;
-	y--;
-	vec->xi = SQR_SIZE + x * SQR_SIZE;
-	vec->yi = SQR_SIZE + y * SQR_SIZE;
-	vec->xf = SQR_SIZE + x * SQR_SIZE;
-	y++;
-	vec->yf = SQR_SIZE + y * SQR_SIZE;
-}
-
-void	get_h_vector(t_vector *vec, int x, int y)
-{
-	x--;
-	y--;
 	vec->xi = x;
 	vec->yi = y;
-	x++;
 	vec->xf = x;
+	vec->yf = y + cub->sqr_size;
+}
+
+void	get_h_vector(t_cub3d *cub, t_vector *vec, int y, int x)
+{
+	vec->xi = x;
+	vec->yi = y;
+	vec->xf = x + cub->sqr_size;
 	vec->yf = y;
 }
 
 void	draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr)
 {
-	int			x;
 	int			y;
+	int			x;
 	t_vector	vec;
 
-	x = -1;
-	while (++x < map->tot_rows)
+	xcorr++;
+	ycorr++;
+	y = -1;
+	while (++y < map->tot_rows)
 	{
-		y = -1;
-		while (++y < map->tot_cols)
+		x = -1;
+		while (++x < map->tot_cols)
 		{
-			get_h_vector(&vec, cub->minimap->mapy[x], cub->minimap->mapx[y]);
-			printf("%d\n", cub->minimap->mapy[x] + xcorr);
-			minimap_scale_down(&vec, xcorr, ycorr);
-			if (map->map[x][y] == NWALL)
-				draw_paralell_hlines(cub, &vec, SQR_SIZE, 0xF2F2F2);
-			else if (map->map[x][y] != NSPACE)
-				draw_paralell_hlines(cub, &vec, SQR_SIZE, 0x727272);
+			get_h_vector(cub, &vec, cub->minimap->y_vals[y], cub->minimap->x_vals[x]);
+			//minimap_scale_down(&vec, xcorr, ycorr);
+			if (map->map[y][x] == NWALL)
+				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
+			else if (map->map[y][x] != NSPACE)
+				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0x727272);
+			else
+				continue ;
+			minimap_draw_line(cub, &vec, 0x000000);
+			get_v_vector(cub, &vec, cub->minimap->y_vals[y], cub->minimap->x_vals[x]);
+			vec.xi += cub->sqr_size - 1;
+			vec.xf += cub->sqr_size - 1;
+			minimap_draw_line(cub, &vec, 0x000000);
 		}
 	}
 }

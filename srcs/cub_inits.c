@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 18:13:37 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:54:41 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,18 @@ void	init_minimap(t_cub3d *cub)
 	cub->minimap = malloc(sizeof(*cub->minimap));
 	if (!cub->minimap)
 		return ;
-	cub->minimap->mapx = \
-	update_display_x(SQR_SIZE, cub->map_cols, -1);
-	if (!cub->minimap->mapx)
+	cub->minimap->x_vals = \
+	get_minimap_coord(cub->sqr_size, cub->map->tot_cols);
+	if (!cub->minimap->x_vals)
 	{
 		free(cub->minimap);
 		return ;
 	}
-	cub->minimap->mapy = \
-	update_display_y(SQR_SIZE, cub->map->tot_rows, -1);
-	if (!cub->minimap->mapy)
+	cub->minimap->y_vals = \
+	get_minimap_coord(cub->sqr_size, cub->map->tot_rows);
+	if (!cub->minimap->y_vals)
 	{
-		free(cub->minimap->mapx);
+		free(cub->minimap->x_vals);
 		free(cub->minimap);
 		return ;
 	}

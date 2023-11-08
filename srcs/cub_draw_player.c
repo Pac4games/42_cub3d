@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/07 18:55:21 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:14:09 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,48 +53,40 @@ static void	new_player_dir(t_cub3d *cub, int type)
 		cub->direction = NNORTH;
 }
 
-int	reload_player_pos(t_cub3d *cub, int x, int y)
+int	reload_player_pos(t_cub3d *cub, int y, int x)
 {
-	int			dist;
+	float	dist;
 
-	if (cub->map->map[x][y] == NWALL)
+	if (cub->map->map[y][x] == NWALL)
 		return (1);
-	new_player_dir(cub, cub->map->map[x][y]);
-	dist = SQR_SIZE * 0.25;
-	cub->player->xi = cub->minimap->mapx[y] + dist + 1;
-	cub->player->yi = cub->minimap->mapy[x] + dist + 1;
-	cub->player->xf = cub->minimap->mapx[y] + SQR_SIZE - dist;
-	cub->player->yf = cub->minimap->mapy[x] + SQR_SIZE - dist;
+	new_player_dir(cub, cub->map->map[y][x]);
+	dist = 0.5;
+	cub->player_x = x + dist;
+	cub->player_y = y + dist;
 	if (cub->direction == NNORTH || cub->direction == NWEST)
 		dist *= -1;
 	if (cub->direction == NNORTH || cub->direction == NSOUTH)
-	{
-		cub->player->yi += dist;
-		cub->player->yf += dist;
-	}
+		cub->player_x += dist;
 	if (cub->direction == NEAST || cub->direction == NWEST)
-	{
-		cub->player->xi += dist;
-		cub->player->xf += dist;
-	}
-	change_textures(cub, x, y);
+		cub->player_y += dist;
+	change_textures(cub, y, x);
 	init_raycaster(cub);
 	return (2);
 }
 
-void	get_player_pos(t_cub3d *cub, int x, int y)
+void	get_player_pos(t_cub3d *cub, int y, int x)
 {
-	while (++x < cub->map->tot_rows)
+	while (++y < cub->map->tot_rows)
 	{
-		y = -1;
-		while (++y < cub->map->tot_cols)
+		x = -1;
+		while (++x < cub->map->tot_cols)
 		{
-			if (cub->map->map[x][y] >= NNORTH \
-			&& cub->map->map[x][y] <= NWEST)
+			if (cub->map->map[y][x] >= NNORTH \
+			&& cub->map->map[y][x] <= NWEST)
 			{
-				cub->direction = cub->map->map[x][y];
-				cub->player_x = y + 0.5;
-				cub->player_y = x + 0.5;
+				cub->direction = cub->map->map[y][x];
+				cub->player_y = y + 0.5;
+				cub->player_x = x + 0.5;
 				break ;
 			}
 		}

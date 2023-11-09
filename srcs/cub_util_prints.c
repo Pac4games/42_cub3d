@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:12:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 17:55:09 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:48:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	print_matrix(int **mat, int rows, int cols)
 		f = -1;
 		while (++f < cols)
 		{
-			printf("%d", mat[i][f]);
+			printf("%c", mat[i][f]);
 			printf(" ");
 		}
 		printf("\n");

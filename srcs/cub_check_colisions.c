@@ -6,62 +6,88 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 23:25:03 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:12:19 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	player_colision_x(t_cub3d *cub, float dist, int type)
+int	player_colision_x(t_cub3d *cub, double dist, int type)
 {
-	int	x;
-	int	x2;
 	int	y;
+	int	y2;
+	int	x;
 
-	x = 0;
 	y = 0;
-	while (y < cub->map->tot_cols - 1 && dist > \
-	cub->minimap->mapx[y] + cub->sqr_size)
-		y++;
-	while (x < cub->map->tot_rows - 1 && cub->sqr_size \
-	+ cub->minimap->mapy[x] < cub->player->yi)
+	x = 0;
+	while (x < cub->map->tot_cols - 1 && dist > x + 1)
 		x++;
-	x2 = x;
-	while (x2 < cub->map->tot_rows - 1 && cub->sqr_size \
-	+ cub->minimap->mapy[x2] < cub->player->yf)
-		x2++;
-	if (x < cub->map->tot_rows && y < cub->map->tot_cols \
-	&& cub->map->map[x][y] == type)
-		return (reload_player_pos(cub, x, y));
-	if (x2 != x && x2 < cub->map->tot_rows && y < \
-	cub->map->tot_cols && cub->map->map[x2][y] == type)
-		return (reload_player_pos(cub, x2, y));
+	while (y < cub->map->tot_rows - 1 && y + 1 < cub->player_y - 0.25)
+		y++;
+	y2 = y;
+	while (y2 < cub->map->tot_rows - 1 && y2 + 1 < cub->player_y + 0.25)
+		y2++;
+	if (y < cub->map->tot_rows && x < cub->map->tot_cols \
+	&& cub->map->map[y][x] == type)
+		return (reload_player_pos(cub, y, x));
+	if (y2 != y && y2 < cub->map->tot_rows && x < \
+	cub->map->tot_cols && cub->map->map[y2][x] == type)
+		return (reload_player_pos(cub, y2, x));
 	return (0);
 }
 
-int	player_colision_y(t_cub3d *cub, float dist, int type)
+int	player_colision_y(t_cub3d *cub, double dist, int type)
 {
-	int	x;
 	int	y;
-	int	y2;
+	int	x;
+	int	x2;
 
-	x = 0;
 	y = 0;
-	while (x < cub->map->tot_rows - 1 && dist > \
-	cub->minimap->mapy[x] + cub->sqr_size)
-		x++;
-	while (y < cub->map->tot_cols - 1 && cub->sqr_size \
-	+ cub->minimap->mapx[y] < cub->player->xi)
+	x = 0;
+	while (y < cub->map->tot_rows - 1 && dist > y + 1)
 		y++;
-	y2 = y;
-	while (y2 < cub->map->tot_cols - 1 && cub->sqr_size \
-	+ cub->minimap->mapx[y2] < cub->player->xf)
-		y2++;
-	if (x < cub->map->tot_rows && y < cub->map->tot_cols \
-	&& cub->map->map[x][y] == type)
-		return (reload_player_pos(cub, x, y));
-	if (y2 != y && x < cub->map->tot_rows && y2 < \
-	cub->map->tot_cols && cub->map->map[x][y2] == type)
-		return (reload_player_pos(cub, x, y2));
+	while (x < cub->map->tot_cols - 1 && x + 1 < cub->player_x - 0.25)
+		x++;
+	x2 = x;
+	while (x2 < cub->map->tot_cols - 1 && x2 + 1 < cub->player_x + 0.25)
+		x2++;
+	if (y < cub->map->tot_rows && x < cub->map->tot_cols \
+	&& cub->map->map[y][x] == type)
+		return (reload_player_pos(cub, y, x));
+	if (x2 != x && y < cub->map->tot_rows && x2 < \
+	cub->map->tot_cols && cub->map->map[y][x2] == type)
+		return (reload_player_pos(cub, y, x2));
 	return (0);
+}
+
+int	get_player_sqr(t_cub3d *cub, int is_horiz)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while (y < cub->map->tot_rows - 1 && y + 1 < cub->player_y)
+		y++;
+	while (x < cub->map->tot_cols - 1 && cub->player_x > x + 1)
+		x++;
+	if (is_horiz)
+		return (x);
+	return (y);
+}
+
+int	get_sqr(t_cub3d *cub, int yval, int xval, char is_horiz)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while (y < cub->map->tot_rows - 1 && y < yval)
+		y++;
+	while (x < cub->map->tot_cols - 1 && xval > x)
+		x++;
+	if (is_horiz)
+		return (x);
+	return (y);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 21:14:29 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:44:11 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,32 +62,9 @@ int	init_cub(t_cub3d *cub)
 	cub->map_cols = 0;
 	cub->player = NULL;
 	cub->move = 0;
-	cub->gaze_x = 0;
-	cub->gaze_y = 0;
-	cub->degrees = 0;
 	cub->direction = 0;
 	cub->level = 0;
+	cub->plane_x = 0;
+	cub->plane_y = 0;
 	return (1);
-}
-
-void	init_minimap(t_cub3d *cub)
-{
-	cub->minimap = malloc(sizeof(*cub->minimap));
-	if (!cub->minimap)
-		return ;
-	cub->minimap->mapx = \
-	update_display_x(cub->sqr_size, cub->map_cols, -1);
-	if (!cub->minimap->mapx)
-	{
-		free(cub->minimap);
-		return ;
-	}
-	cub->minimap->mapy = \
-	update_display_y(cub->sqr_size, cub->map->tot_rows, -1);
-	if (!cub->minimap->mapy)
-	{
-		free(cub->minimap->mapx);
-		free(cub->minimap);
-		return ;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/11/05 21:41:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:15:05 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x > 0 && y > 0 && x < WWID && y < WHEI)
+	if (x >= 0 && y >= 0 && x <= WWID && y <= WHEI)
 	{
 		dst = cub->addr + (y * cub->line_length + \
 		x * (cub->bits_per_pixel / 8));
@@ -79,6 +79,7 @@ void	display_in_canvas(t_cub3d *cub)
 	cub->img = mlx_new_image(cub->mlx, WWID, WHEI);
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel, \
 	&cub->line_length, &cub->endian);
+	raycasting(cub);
 	redraw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);

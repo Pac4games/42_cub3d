@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:15:01 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 20:38:06 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:06:16 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,19 @@ void	remove_player_rot(t_cub3d *cub, int key)
 	cub->move = to_move;
 }
 
-void	rot_with_gaze(t_cub3d *cub)
+int	rot_with_gaze(t_cub3d *cub)
 {
-	int		newdeg;
-	int		mid;
-	float	radians;
+	int		dif;
 
-	mid = cub->sqr_size * 0.25;
-	newdeg = cub->degrees;
+	dif = 0;
 	if ((cub->move >> ROT_LEFT & 1) && !(cub->move >> ROT_RIGHT & 1))
-		newdeg -= 5;
+		dif = -1;
 	else if ((cub->move >> ROT_RIGHT & 1) && !(cub->move >> ROT_LEFT & 1))
-		newdeg += 5;
-	if (newdeg != cub->degrees)
+		dif = 1;
+	if (dif != 0)
 	{
-		cub->degrees = newdeg % 360;
-		radians = (MY_PI / 180) * cub->degrees;
-		cub->gaze_x = cub->player->xi + mid + cub->sqr_size * cosf(radians);
-		cub->gaze_y = cub->player->yi + mid + cub->sqr_size * sinf(radians);
+		rot_raycaster(cub, dif * 0.1);
+		return (1);
 	}
+	return (0);
 }

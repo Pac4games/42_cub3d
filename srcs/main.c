@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:36:59 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:46:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int	*fill_line_of_list(char *line)
 	map_line = malloc(sizeof(map_line) * len);
 	if (!map_line)
 		return (0);
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (i < len)
+	{
 		map_line[i] = line[i];
-	map_line[++i] = '\0';
+		i++;
+	}
+	map_line[i] = '\0';
 	return (map_line);
 }
 
@@ -93,19 +96,14 @@ int	main(int ac, char *av[])
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
 		close(fd);
-		if (!is_valid_map(cub.map->map))
-		{
-			destroy_cub(&cub);
-			print_err("invalid map");
-		}
+		// if ((&cub)->all_txtrs)
+		// 	print_txtrs((&cub)->all_txtrs);
+		// if ((&cub)->map)
+		// 	print_map((&cub)->map, (&cub)->map_cols);
 		(&cub)->sqr_size = get_sqr_size();
-		init_minimap(&cub);
-		if ((&cub)->minimap)
-		{
-			(&cub)->player = get_player_pos(&cub, 0, 0);
-			set_gaze((&cub), (&cub)->sqr_size);
-			display_in_canvas(&cub);
-		}
+		get_player_pos(&cub, -1, -1);
+		init_raycaster(&cub);
+		display_in_canvas(&cub);
 		destroy_cub(&cub);
 	}
 	return (0);

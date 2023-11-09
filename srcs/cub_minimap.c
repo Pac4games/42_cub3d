@@ -6,47 +6,11 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 21:42:19 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:30:54 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	*update_display_x(int size, int cols, int x)
-{
-	int		*newmap;
-	int		sml;
-	int		tempx;
-
-	newmap = malloc(sizeof(newmap) * cols);
-	if (!newmap)
-		return (0);
-	sml = size;
-	while (++x < cols)
-	{
-		tempx = sml + x * sml;
-		newmap[x] = tempx;
-	}
-	return (newmap);
-}
-
-int	*update_display_y(int size, int rows, int y)
-{
-	int		*newmap;
-	int		sml;
-	int		tempy;
-
-	newmap = malloc(sizeof(newmap) * rows);
-	if (!newmap)
-		return (0);
-	sml = size;
-	while (++y < rows)
-	{
-		tempy = sml + y * sml;
-		newmap[y] = tempy;
-	}
-	return (newmap);
-}
 
 int	get_sqr_size(void)
 {
@@ -60,20 +24,26 @@ int	get_sqr_size(void)
 
 void	redraw_minimap(t_cub3d *cub)
 {
-	int	midx;
-	int	midy;
-	int	xcorr;
-	int	ycorr;
+	double		midx;
+	double		midy;
+	double		xcorr;
+	double		ycorr;
+	t_vector	vec;
 
 	midx = WWID * 0.15;
 	midy = WHEI * 0.15;
-	xcorr = midx - (cub->player->xi \
-	+ (cub->player->xf - cub->player->xi) * 0.5);
-	ycorr = midy - (cub->player->yi \
-	+ (cub->player->yf - cub->player->yi) * 0.5);
-	draw_minimap(cub, cub->map, xcorr, ycorr);
-	draw_doors(cub, cub->map, xcorr, ycorr);
-	player_scaled_down(cub, xcorr, ycorr);
-	minimap_pixel_put(cub, cub->gaze_x + xcorr, \
-	cub->gaze_y + ycorr, 0x44FF24);
+	xcorr = midx - cub->sqr_size + cub->player_x * cub->sqr_size;
+	ycorr = midy - cub->sqr_size + cub->player_y * cub->sqr_size;
+	draw_minimap(cub, cub->map, ycorr, xcorr);
+	draw_doors(cub, cub->map, ycorr, xcorr);
+	player_scaled_down(cub, ycorr, xcorr);
+	vec.xi = cub->sqr_size + cub->player_x * \
+	cub->sqr_size + cub->sqr_size * cub->dir_x;
+	vec.xf = cub->sqr_size + cub->player_x * \
+	cub->sqr_size + cub->sqr_size * cub->dir_x * 1.25;
+	vec.yi = cub->sqr_size + cub->player_y * \
+	cub->sqr_size + cub->sqr_size * cub->dir_y;
+	vec.yf = cub->sqr_size + cub->player_y * \
+	cub->sqr_size + cub->sqr_size * cub->dir_y * 1.25;
+	minimap_draw_line(cub, &vec, 0x44FF24);
 }

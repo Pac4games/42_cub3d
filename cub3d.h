@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 12:09:19 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:10:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ typedef struct s_cub3d
 	t_vector	*player;
 	int			sqr_size;
 	int			move;
+	int			inverted;
 	double		player_x;
 	double		player_y;
 	double		dir_x;

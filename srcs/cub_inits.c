@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:44:11 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:31:23 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int	init_cub(t_cub3d *cub)
 	cub->level = 0;
 	cub->plane_x = 0;
 	cub->plane_y = 0;
+	cub->inverted = 1;
 	return (1);
 }

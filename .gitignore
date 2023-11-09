@@ -1,0 +1,7 @@
+cub3D
+objs/
+*.out
+*.o
+*.a
+vgcore.*
+.nfs*

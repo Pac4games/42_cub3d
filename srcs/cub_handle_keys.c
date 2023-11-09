@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 18:15:13 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:05:36 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	in_key(t_cub3d *cub)
 	ret = 0;
 	if (cub->move != 0)
 	{
-		ret = rot_with_gaze(cub);
-		ret += move_with_gaze(cub);
+		ret = move_with_gaze(cub);
+		ret += rot_with_gaze(cub);
 		if (ret == 0)
 			return (1);
 		ft_memset(cub->addr, 0, WHEI * WWID \

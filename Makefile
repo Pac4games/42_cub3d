@@ -1,3 +1,5 @@
+$(VERBOSE).SILENT:
+
 NAME = cub3D
 SRCS_PATH = srcs
 OBJS_PATH = objs
@@ -21,6 +23,7 @@ OBJS = $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(PATH_AND_SRCS))
 all: $(NAME)
 
 $(NAME) : $(OBJS)
+	@cd mlx_linux && ./configure
 	@make -C $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(INC_LIBS) -o $(NAME) $(MLX_LIB)
 

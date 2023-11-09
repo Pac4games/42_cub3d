@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:46:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:37:27 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line)
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
-	if (line[i] && is_valid_elem(&line[i]) >= 0
-		&& is_valid_elem(&line[i]) != TOT)
+	if (line[i] && is_valid_elem(&line[i]) != TOT)
 		insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
-	else if (line[i] && is_valid_elem(&line[i]) == TOT
-		&& map_line_is_valid(line))
+	else if (line[i] && is_valid_elem(&line[i]) == TOT)
 	{
 		insert_map_tail(list, fill_line_of_list(line), ft_str_end_trim(line));
 		if (ft_str_end_trim(line) > cub->map_cols)
@@ -96,10 +94,11 @@ int	main(int ac, char *av[])
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
 		close(fd);
-		// if ((&cub)->all_txtrs)
-		// 	print_txtrs((&cub)->all_txtrs);
-		// if ((&cub)->map)
-		// 	print_map((&cub)->map, (&cub)->map_cols);
+		if (!is_valid_map(cub.map->map))
+		{
+			destroy_cub(&cub);
+			print_err("invalid map");
+		}
 		(&cub)->sqr_size = get_sqr_size();
 		get_player_pos(&cub, -1, -1);
 		init_raycaster(&cub);

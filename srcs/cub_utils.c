@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:12 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 15:33:35 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:33:39 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_str_end_trim(char *line)
 		return (0);
 	if (ft_strchr(line, '\n'))
 		i = ft_strlen(line) - 1;
-	else if (ft_strchr(line, '\0'))
+	else if (!ft_strchr(line, '\n'))
 	{
 		i = 0;
 		while (line[i] != '\0')
@@ -59,13 +59,13 @@ char	**solo_matrix(int rows, int cols)
 	int		i;
 	char	**mat;
 
-	mat = malloc(sizeof(*mat) * rows);
+	mat = malloc((sizeof(*mat) + 1) * rows);
 	if (!mat)
 		return (NULL);
 	i = 0;
 	while (i < rows)
 	{
-		mat[i] = malloc(sizeof(*(mat[i])) * cols);
+		mat[i] = malloc((sizeof(*(mat[i])) + 1) * cols);
 		if (!mat[i])
 		{
 			i = -1;

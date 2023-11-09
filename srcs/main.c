@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 17:52:43 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:36:59 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,6 @@ int	main(int ac, char *av[])
 			destroy_cub(&cub);
 			print_err("invalid map");
 		}
-		/*
-		if ((&cub)->all_txtrs)
-			print_txtrs((&cub)->all_txtrs);
-		if ((&cub)->map)
-			print_map((&cub)->map, (&cub)->map_cols);
-		*/
 		(&cub)->sqr_size = get_sqr_size();
 		init_minimap(&cub);
 		if ((&cub)->minimap)

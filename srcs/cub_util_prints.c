@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:12:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/29 14:30:02 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:48:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_map(t_map *map, int cols)
 		f = -1;
 		while (++f < cols)
 		{
-			printf("%d", map->map[i][f]);
+			printf("%c", map->map[i][f]);
 			printf(" ");
 		}
 		printf("\n");
@@ -60,7 +60,7 @@ void	print_matrix(int **mat, int rows, int cols)
 		f = -1;
 		while (++f < cols)
 		{
-			printf("%d", mat[i][f]);
+			printf("%c", mat[i][f]);
 			printf(" ");
 		}
 		printf("\n");

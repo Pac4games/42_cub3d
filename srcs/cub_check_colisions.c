@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 18:09:40 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:12:19 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	player_colision_x(t_cub3d *cub, float dist, int type)
+int	player_colision_x(t_cub3d *cub, double dist, int type)
 {
 	int	y;
 	int	y2;
@@ -36,7 +36,7 @@ int	player_colision_x(t_cub3d *cub, float dist, int type)
 	return (0);
 }
 
-int	player_colision_y(t_cub3d *cub, float dist, int type)
+int	player_colision_y(t_cub3d *cub, double dist, int type)
 {
 	int	y;
 	int	x;
@@ -60,7 +60,7 @@ int	player_colision_y(t_cub3d *cub, float dist, int type)
 	return (0);
 }
 
-int	get_player_sqr(t_cub3d *cub, char is_horiz)
+int	get_player_sqr(t_cub3d *cub, int is_horiz)
 {
 	int	y;
 	int	x;

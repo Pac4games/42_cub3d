@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 17:33:54 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:09:19 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ typedef struct s_list
 
 typedef struct s_map
 {
-	int	**map;
-	int	tot_rows;
-	int	tot_cols;
+	char	**map;
+	int		tot_rows;
+	int		tot_cols;
 }	t_map;
 
-enum e_map_txt
+enum e_map
 {
 	ZERO = '0',
 	WALL = '1',
@@ -89,25 +89,6 @@ enum e_map_txt
 	DOWN_DOOR_AT_DOWN = 'd',
 	DOWN_DOOR_AT_LEFT = 'l',
 	DOWN_DOOR_AT_RIGHT = 'r',
-};
-
-enum e_map_num
-{
-	NZERO,
-	NWALL,
-	NSPACE,
-	NNORTH,
-	NSOUTH,
-	NEAST,
-	NWEST,
-	NUP_DOOR_AT_UP,
-	NUP_DOOR_AT_DOWN,
-	NUP_DOOR_AT_LEFT,
-	NUP_DOOR_AT_RIGHT,
-	NDOWN_DOOR_AT_UP,
-	NDOWN_DOOR_AT_DOWN,
-	NDOWN_DOOR_AT_LEFT,
-	NDOWN_DOOR_AT_RIGHT,
 };
 
 enum e_texture
@@ -167,13 +148,13 @@ typedef struct s_ray
 {
 	int		x;
 	int		y;
-	float	dir_x;
-	float	dir_y;
-	float	delt_dist_x;
-	float	delt_dist_y;
-	float	dist_x;
-	float	dist_y;
-	float	real_dist;
+	double	dir_x;
+	double	dir_y;
+	double	delt_dist_x;
+	double	delt_dist_y;
+	double	dist_x;
+	double	dist_y;
+	double	real_dist;
 	int		xstep;
 	int		ystep;
 	int		side;
@@ -193,22 +174,22 @@ typedef struct s_cub3d
 	t_vector	*player;
 	int			sqr_size;
 	int			move;
-	float		player_x;
-	float		player_y;
-	float		dir_x;
-	float		dir_y;
-	float		plane_x;
-	float		plane_y;
-	int			direction;
+	double		player_x;
+	double		player_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	char		direction;
 	int			level;
 	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
 
 // CHECK COLISIONS
-int			player_colision_x(t_cub3d *cub, float dist, int type);
-int			player_colision_y(t_cub3d *cub, float dist, int type);
-int			get_player_sqr(t_cub3d *cub, char is_horiz);
+int			player_colision_x(t_cub3d *cub, double dist, int type);
+int			player_colision_y(t_cub3d *cub, double dist, int type);
+int			get_player_sqr(t_cub3d *cub, int is_horiz);
 int			get_sqr(t_cub3d *cub, int xval, int yval, char is_horiz);
 
 // CONV_ENUMS
@@ -223,11 +204,11 @@ void		draw_line(t_cub3d *data, t_vector *vector, int color);
 // DRAW COORD
 void		begin_coord(t_vector *vector, int x, int y);
 void		end_coord(t_vector *vector, int x, int y);
-void		minimap_scale_down(t_vector *vec, int xcorr, int ycorr);
-void		player_scaled_down(t_cub3d *cub, int xcorr, int ycorr);
+void		minimap_scale_down(t_vector *vec, double ycorr, double xcorr);
+void		player_scaled_down(t_cub3d *cub, double ycorr, double xcorr);
 
 // DRAW DOORS
-void		draw_doors(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
+void		draw_doors(t_cub3d *cub, t_map *map, double xcorr, double ycorr);
 
 // DRAW LINES
 void		draw_paralell_hlines(t_cub3d *cub, \
@@ -236,7 +217,7 @@ void		draw_paralell_vlines(t_cub3d *cub, \
 t_vector *vec, int beg, int color);
 void		get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
-void		draw_minimap(t_cub3d *cub, t_map *map, int xcorr, int ycorr);
+void		draw_minimap(t_cub3d *cub, t_map *map, double xcorr, double ycorr);
 // DISPLAY
 
 void		minimap_pixel_put(t_cub3d *cub, int x, int y, int color);
@@ -253,7 +234,7 @@ void		destroy_split(char ***split_location);
 void		destroy_list(t_list *list);
 void		destroy_cub(t_cub3d *cub);
 void		destroy_txtrs_list(t_all_txtrs *txtrs);
-void		destroy_matrix(int **mat, int tot_rows);
+void		destroy_matrix(char **mat, int tot_rows);
 
 // HANDLE KEYS
 int			in_key(t_cub3d *cub);
@@ -265,7 +246,6 @@ t_node		*init_node(void);
 void		init_list(t_list *list);
 int			init_cub(t_cub3d *cub);
 t_all_txtrs	*init_txtrs(void);
-void		init_minimap(t_cub3d *cub);
 
 // INSERT NODES
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
@@ -274,7 +254,6 @@ void		list_to_map(t_list *list, t_cub3d *cub);
 void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
 
 // MINIMAP
-int			*get_minimap_coord(int size, int max);
 int			get_sqr_size(void);
 void		redraw_minimap(t_cub3d *cub);
 
@@ -282,7 +261,7 @@ void		redraw_minimap(t_cub3d *cub);
 int			move_with_gaze(t_cub3d *cub);
 
 // RAYCASTING
-void		rot_raycaster(t_cub3d *cub, float dif);
+void		rot_raycaster(t_cub3d *cub, double dif);
 void		init_raycaster(t_cub3d *cub);
 void		raycasting(t_cub3d *cub);
 
@@ -295,7 +274,7 @@ int			rot_with_gaze(t_cub3d *cub);
 
 // TOGGLE TEXTURES
 void		change_textures(t_cub3d *cub, int x, int y);
-int			check_door_colision(t_cub3d *cub, float distx, float disty);
+int			check_door_colision(t_cub3d *cub, double distx, double disty);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);
@@ -306,7 +285,7 @@ void		print_matrix(int **mat, int rows, int cols);
 int			ft_isspace(int c);
 int			is_only_spaces(char *str);
 int			ft_str_end_trim(char *line);
-int			**solo_matrix(int rows, int cols);
+char		**solo_matrix(int rows, int cols);
 
 // VALIDATE MAP
 int			map_line_is_valid(char *line);

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 16:52:46 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:53:28 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	destroy_cub(t_cub3d *cub)
 		destroy_txtrs_list(cub->all_txtrs);
 }
 
-void	destroy_matrix(int **matrix, int tot_rows)
+void	destroy_matrix(char **matrix, int tot_rows)
 {
 	int	i;
 

@@ -6,25 +6,25 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 17:49:31 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:52:21 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	move_player_and_gaze(t_cub3d *cub, float distx, float disty)
+static int	move_player_and_gaze(t_cub3d *cub, double distx, double disty)
 {
 	int	moved;
 
 	moved = 0;
-	if (!player_colision_x(cub, cub->player_x - 0.25 + distx, NWALL) \
-	&& (!player_colision_x(cub, cub->player_x + 0.25 + distx, NWALL)))
+	if (!player_colision_x(cub, cub->player_x - 0.25 + distx, WALL) \
+	&& (!player_colision_x(cub, cub->player_x + 0.25 + distx, WALL)))
 	{
 		cub->player_x += distx;
 		moved = 1;
 	}
-	if (!player_colision_y(cub, cub->player_y - 0.25 + disty, NWALL) \
-	&& (!player_colision_y(cub, cub->player_y + 0.25 + disty, NWALL)))
+	if (!player_colision_y(cub, cub->player_y - 0.25 + disty, WALL) \
+	&& (!player_colision_y(cub, cub->player_y + 0.25 + disty, WALL)))
 	{
 		cub->player_y += disty;
 		moved = 1;
@@ -32,25 +32,25 @@ static int	move_player_and_gaze(t_cub3d *cub, float distx, float disty)
 	return (moved);
 }
 
-static float	sum_movement_x(t_cub3d *cub, float distx)
+static double	sum_movement_x(t_cub3d *cub, double distx)
 {
-	if (!player_colision_x(cub, cub->player_x - 0.25 + distx, NWALL) \
-	&& (!player_colision_x(cub, cub->player_x + 0.25 + distx, NWALL)))
+	if (!player_colision_x(cub, cub->player_x - 0.25 + distx, WALL) \
+	&& (!player_colision_x(cub, cub->player_x + 0.25 + distx, WALL)))
 		return (distx);
 	return (0);
 }
 
-static float	sum_movement_y(t_cub3d *cub, float disty)
+static double	sum_movement_y(t_cub3d *cub, double disty)
 {
-	if (!player_colision_y(cub, cub->player_y - 0.25 + disty, NWALL) \
-	&& (!player_colision_y(cub, cub->player_y + 0.25 + disty, NWALL)))
+	if (!player_colision_y(cub, cub->player_y - 0.25 + disty, WALL) \
+	&& (!player_colision_y(cub, cub->player_y + 0.25 + disty, WALL)))
 		return (disty);
 	return (0);
 }
 
-static void	sum_movements(t_cub3d *cub, float *distx, float *disty)
+static void	sum_movements(t_cub3d *cub, double *distx, double *disty)
 {
-	float	dist;
+	double	dist;
 
 	dist = STEP;
 	if (cub->move >> MOV_UP & 1)
@@ -78,8 +78,8 @@ static void	sum_movements(t_cub3d *cub, float *distx, float *disty)
 int	move_with_gaze(t_cub3d *cub)
 {
 	int		ret;
-	float	distx;
-	float	disty;
+	double	distx;
+	double	disty;
 
 	distx = 0;
 	disty = 0;

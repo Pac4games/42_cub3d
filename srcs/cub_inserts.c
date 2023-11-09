@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 20:14:35 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:49:29 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 			cub->map->map[i][f] = cur->symbol[f];
 		while (f < cub->map_cols)
 		{
-			cub->map->map[i][f] = NSPACE;
+			cub->map->map[i][f] = SPACE;
 			f++;
 		}
 		free(cur->symbol);

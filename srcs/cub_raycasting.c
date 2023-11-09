@@ -6,16 +6,16 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 18:31:06 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:09:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	rot_raycaster(t_cub3d *cub, float rot)
+void	rot_raycaster(t_cub3d *cub, double rot)
 {
-	float oldDirX = cub->dir_x;
-	float oldPlaneX = cub->plane_x;
+	double oldDirX = cub->dir_x;
+	double oldPlaneX = cub->plane_x;
 
 	cub->dir_x = cub->dir_x * cosf(rot) - cub->dir_y * sinf(rot);
 	cub->dir_y = oldDirX * sinf(rot) + cub->dir_y * cosf(rot);
@@ -25,17 +25,17 @@ void	rot_raycaster(t_cub3d *cub, float rot)
 
 void	init_raycaster(t_cub3d *cub)
 {
-	if (cub->direction == NNORTH)
+	if (cub->direction == NORTH)
 	{
 		cub->dir_y = -1;
 		cub->plane_x = 0.6;
 	}
-	else if (cub->direction == NEAST)
+	else if (cub->direction == EAST)
 	{
 		cub->dir_x = 1;
 		cub->plane_y = 0.6;
 	}
-	else if (cub->direction == NSOUTH)
+	else if (cub->direction == SOUTH)
 	{
 		cub->dir_y = 1;
 		cub->plane_x = -0.6;
@@ -131,7 +131,7 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, int i)
 void	raycasting(t_cub3d *cub)
 {
 	int		i;
-	float	camera_ray;
+	double	camera_ray;
 	t_ray	ray;
 
 	i = 0;
@@ -139,7 +139,7 @@ void	raycasting(t_cub3d *cub)
 	{
 		ray.x = get_player_sqr(cub, 1);
 		ray.y = get_player_sqr(cub, 0);
-		camera_ray = 2 * i / (float) WWID - 1;
+		camera_ray = 2 * i / (double) WWID - 1;
 		ray.dir_x = cub->dir_x + cub->plane_x * camera_ray;
 		ray.dir_y = cub->dir_y + cub->plane_y * camera_ray;
 		ray.delt_dist_x = fabs(1 / ray.dir_x);
@@ -162,6 +162,8 @@ void	raycasting(t_cub3d *cub)
 	double deltaDistX;
 	double deltaDistY;
 	int lineHeight;
+	int mapX;
+	int mapY;
 	int i = 0;
 	int color;
 	t_vector vec;
@@ -174,8 +176,8 @@ void	raycasting(t_cub3d *cub)
 			double cameraX = 2 * x / (double)WWID - 1;
 			double rayDirX = cub->dir_x + cub->plane_x * cameraX;
 			double rayDirY = cub->dir_y + cub->plane_y * cameraX;
-			int mapX = (int)posX;
-			int mapY = (int)posY;
+			mapX = get_player_sqr(cub, 1);
+			mapY = get_player_sqr(cub, 0);
 			deltaDistX = fabs(1 / rayDirX);
 			deltaDistY = fabs(1 / rayDirY);
 			double perpWallDist;
@@ -219,13 +221,17 @@ void	raycasting(t_cub3d *cub)
 				}
 				mapY = get_sqr(cub, mapY, mapX, 0);
 				mapX = get_sqr(cub, mapY, mapX, 1);
-				if (cub->map->map[mapY][mapX] == NWALL || cub->map->map[mapY][mapX] >= NUP_DOOR_AT_UP)
+				if (cub->map->map[mapY][mapX] == WALL || cub->map->map[mapY][mapX] >= UP_DOOR_AT_UP)
 					hit = 1;
-				if (cub->map->map[mapY][mapX] \
-				>= NUP_DOOR_AT_UP && cub->map->map[mapY][mapX] <= NUP_DOOR_AT_RIGHT)
+				if (cub->map->map[mapY][mapX] == UP_DOOR_AT_UP \
+				|| cub->map->map[mapY][mapX] == UP_DOOR_AT_DOWN \
+				|| cub->map->map[mapY][mapX] == UP_DOOR_AT_LEFT \
+				|| cub->map->map[mapY][mapX] == UP_DOOR_AT_RIGHT)
 						color = 0x00FFFF;
-				if (cub->map->map[mapY][mapX] \
-				>= NDOWN_DOOR_AT_UP && cub->map->map[mapY][mapX] <= NDOWN_DOOR_AT_RIGHT)
+				if (cub->map->map[mapY][mapX] == DOWN_DOOR_AT_UP \
+				|| cub->map->map[mapY][mapX] == DOWN_DOOR_AT_DOWN \
+				|| cub->map->map[mapY][mapX] == DOWN_DOOR_AT_LEFT \
+				|| cub->map->map[mapY][mapX] == DOWN_DOOR_AT_RIGHT)
 						color = 0xFF00FF;
 			}
 			if(side == 0)

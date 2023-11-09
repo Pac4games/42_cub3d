@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/08 16:29:33 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:46:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	*fill_line_of_list(char *line)
 	i = 0;
 	while (i < len)
 	{
-		map_line[i] = conv_to_map_num(line[i]);
+		map_line[i] = line[i];
 		i++;
 	}
 	map_line[i] = '\0';
@@ -96,20 +96,14 @@ int	main(int ac, char *av[])
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
 		close(fd);
-		if ((&cub)->all_txtrs)
-			print_txtrs((&cub)->all_txtrs);
-		if ((&cub)->map)
-			print_map((&cub)->map, (&cub)->map_cols);
+		// if ((&cub)->all_txtrs)
+		// 	print_txtrs((&cub)->all_txtrs);
+		// if ((&cub)->map)
+		// 	print_map((&cub)->map, (&cub)->map_cols);
 		(&cub)->sqr_size = get_sqr_size();
-		init_minimap(&cub);
-		if ((&cub)->minimap)
-		{
-			// (&cub)->player = 
-			get_player_pos(&cub, -1, -1);
-			// (&cub)->direction = (&cub)->map->map[get_player_sqr((&cub), 1)][get_player_sqr((&cub), 0)];
-			init_raycaster(&cub);
-			display_in_canvas(&cub);
-		}
+		get_player_pos(&cub, -1, -1);
+		init_raycaster(&cub);
+		display_in_canvas(&cub);
 		destroy_cub(&cub);
 	}
 	return (0);

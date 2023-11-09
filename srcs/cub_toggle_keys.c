@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:15:01 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 14:08:22 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:20:47 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	rot_with_gaze(t_cub3d *cub)
 		dif = 1;
 	if (dif != 0)
 	{
-		rot_raycaster(cub, dif * 0.1, cub->inverted);
+		rot_raycaster(cub, dif * 0.1);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 10:04:52 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:36:26 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	get_player_sqr(t_cub3d *cub, int is_horiz)
 
 	y = 0;
 	x = 0;
-	while (y < cub->map->tot_rows - 1 && y + 1 < cub->player_y)
+	while (y < cub->map->tot_rows && y + 1 < cub->player_y)
 		y++;
-	while (x < cub->map->tot_cols - 1 && cub->player_x > x + 1)
+	while (x < cub->map->tot_cols && cub->player_x > x + 1)
 		x++;
 	if (is_horiz)
 		return (x);

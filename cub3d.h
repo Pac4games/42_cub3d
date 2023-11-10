@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 10:24:14 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:14:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,8 @@ typedef struct s_ray
 	int		y;
 	double	dir_x;
 	double	dir_y;
-	double	delt_dist_x;
-	double	delt_dist_y;
+	double	delta_x;
+	double	delta_y;
 	double	dist_x;
 	double	dist_y;
 	double	real_dist;

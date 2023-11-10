@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 15:35:09 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/10 13:12:21 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	check_door_colision(t_cub3d *cub, double distx, double disty)
 	disty++;
 	door = cub->map->map[get_player_sqr(cub, 0)][get_player_sqr(cub, 1)];
 	if (((door == UP_DOOR_AT_RIGHT || door == DOWN_DOOR_AT_RIGHT) \
-	&& player_colision_x(cub, cub->player_x - 0.25, door) == 2) || \
-	((door == UP_DOOR_AT_LEFT || door == DOWN_DOOR_AT_LEFT) \
 	&& player_colision_x(cub, cub->player_x + 0.25, door) == 2) || \
+	((door == UP_DOOR_AT_LEFT || door == DOWN_DOOR_AT_LEFT) \
+	&& player_colision_x(cub, cub->player_x - 0.25, door) == 2) || \
 	((door == UP_DOOR_AT_DOWN || door == DOWN_DOOR_AT_DOWN) \
-	&& player_colision_y(cub, cub->player_y - 0.25, door) == 2) || \
+	&& player_colision_y(cub, cub->player_y + 0.25, door) == 2) || \
 	((door == UP_DOOR_AT_UP || door == DOWN_DOOR_AT_UP) \
-	&& player_colision_y(cub, cub->player_y + 0.25, door) == 2))
+	&& player_colision_y(cub, cub->player_y - 0.25, door) == 2))
 		return (1);
 	return (0);
 }

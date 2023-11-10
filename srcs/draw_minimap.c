@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_minimap.c                                      :+:      :+:    :+:   */
+/*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 12:37:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 13:57:05 by mnascime         ###   ########.fr       */
+/*   Created: 2023/11/05 21:37:57 by mnascime          #+#    #+#             */
+/*   Updated: 2023/11/10 10:01:33 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	get_sqr_size(void)
+void	position_minimap(t_vector *vec, double ycorr, double xcorr)
 {
-	int	dist;
-
-	dist = SQR_SIZE;
-	if (dist < 18)
-		dist = 18;
-	return (dist);
+	vec->xi += xcorr;
+	vec->xf += xcorr;
+	vec->yi += ycorr;
+	vec->yf += ycorr;
 }
 
 void	redraw_minimap(t_cub3d *cub)
@@ -34,9 +32,9 @@ void	redraw_minimap(t_cub3d *cub)
 	midy = WHEI * 0.15;
 	xcorr = midx - cub->sqr_size + cub->player_x * cub->sqr_size;
 	ycorr = midy - cub->sqr_size + cub->player_y * cub->sqr_size;
-	draw_minimap(cub, cub->map, ycorr, xcorr);
+	draw_walls(cub, cub->map, ycorr, xcorr);
 	draw_doors(cub, cub->map, ycorr, xcorr);
-	player_scaled_down(cub, ycorr, xcorr);
+	draw_player(cub, ycorr, xcorr);
 	vec.xi = cub->sqr_size + cub->player_x * \
 	cub->sqr_size + cub->sqr_size * cub->dir_x;
 	vec.xf = cub->sqr_size + cub->player_x * \

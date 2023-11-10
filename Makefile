@@ -1,4 +1,4 @@
-$(VERBOSE).SILENT:
+$(VERBOSE).SILENT:`
 
 NAME = cub3D
 SRCS_PATH = srcs
@@ -11,12 +11,12 @@ MLX_INC = -I/usr/include -Imlx_linux
 MLX_LIB = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 INC_LIBS = -Ilibft/ -Llibft/ -lft $(MLX_INC)
 
-SRCS = main.c cub_inits.c cub_inserts.c cub_end.c cub_utils.c \
-       cub_conv_enums.c cub_util_prints.c cub_validate_map.c cub_display.c \
-	   cub_minimap.c cub_draw_coord.c cub_draw_doors.c cub_draw_lines.c \
-	   cub_draw_player.c cub_move_player.c cub_handle_keys.c \
-	   cub_toggle_keys.c  cub_toggle_textures.c cub_draw_minimap.c \
-	   cub_check_colisions.c cub_raycasting.c
+SRCS = main.c init_structs.c fill_structs.c destroy_structs.c \
+       str_utils.c cub_util_prints.c cub_validate_map.c main_display.c \
+	   draw_minimap.c find_sqr_coord.c draw_doors.c draw_walls.c \
+	   draw_player.c calc_player_movs.c define_keys.c \
+	   toggle_movs.c  toggle_textures.c pixel_drawing_func.c \
+	   check_colisions.c cub_raycasting.c
 PATH_AND_SRCS = $(addprefix $(SRCS_PATH)/,$(SRCS))
 OBJS = $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(PATH_AND_SRCS))
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_draw_player.c                                  :+:      :+:    :+:   */
+/*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 14:13:10 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/10 10:04:52 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ void	draw_player_lines(t_cub3d *cub, t_vector vec, int dist, int color)
 	}
 }
 
+void	draw_player(t_cub3d *cub, double ycorr, double xcorr)
+{
+	t_vector	vec;
+
+	xcorr++;
+	ycorr++;
+	vec.xi = cub->sqr_size + (cub->player_x - 0.25) * cub->sqr_size;
+	vec.yi = cub->sqr_size + (cub->player_y - 0.25) * cub->sqr_size;
+	vec.xf = cub->sqr_size + (cub->player_x + 0.25) * cub->sqr_size;
+	vec.yf = cub->sqr_size + (cub->player_y + 0.25) * cub->sqr_size;
+	draw_player_lines(cub, vec, (double)(cub->sqr_size * 0.5), 0x44FF24);
+}
+
 int	reload_player_pos(t_cub3d *cub, int y, int x)
 {
 	if (cub->map->map[y][x] == WALL)
@@ -49,7 +62,23 @@ int	reload_player_pos(t_cub3d *cub, int y, int x)
 	return (2);
 }
 
-void	get_player_pos(t_cub3d *cub, int y, int x)
+int	get_player_sqr(t_cub3d *cub, int is_horiz)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while (y < cub->map->tot_rows - 1 && y + 1 < cub->player_y)
+		y++;
+	while (x < cub->map->tot_cols - 1 && cub->player_x > x + 1)
+		x++;
+	if (is_horiz)
+		return (x);
+	return (y);
+}
+
+void	init_player_pos(t_cub3d *cub, int y, int x)
 {
 	while (++y < cub->map->tot_rows)
 	{

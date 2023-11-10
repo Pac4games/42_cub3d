@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_inserts.c                                      :+:      :+:    :+:   */
+/*   fill_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:49:29 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:10:32 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)
+char	**solo_matrix(int rows, int cols)
 {
-	cub->map = malloc(sizeof(*cub->map));
-	cub->map->tot_rows = tot_rows;
-	cub->map->tot_cols = tot_cols;
-	cub->map->map = solo_matrix(tot_rows, tot_cols);
-	if (!cub->map->map)
+	int		i;
+	char	**mat;
+
+	mat = malloc((sizeof(*mat) + 1) * rows);
+	if (!mat)
+		return (NULL);
+	i = 0;
+	while (i < rows)
 	{
-		free(cub->map);
-		return ;
+		mat[i] = malloc((sizeof(*(mat[i])) + 1) * cols);
+		if (!mat[i])
+		{
+			i = -1;
+			while (mat[++i])
+				free(mat[i]);
+			free(mat);
+			return (NULL);
+		}
+		i++;
 	}
+	return (mat);
 }
 
 void	insert_map_tail(t_list *list, int *data, int len)

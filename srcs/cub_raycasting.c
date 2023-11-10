@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 14:10:49 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:33:52 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,8 @@ void	raycasting(t_cub3d *cub)
 					mapY += stepY;
 					side = 1;
 				}
-				mapY = get_sqr(cub, mapY, mapX, 0);
-				mapX = get_sqr(cub, mapY, mapX, 1);
+				mapY = get_sqr_coord(cub, mapY, mapX, 0);
+				mapX = get_sqr_coord(cub, mapY, mapX, 1);
 				if (cub->map->map[mapY][mapX] == WALL || cub->map->map[mapY][mapX] >= UP_DOOR_AT_UP)
 					hit = 1;
 				if (cub->map->map[mapY][mapX] == UP_DOOR_AT_UP \

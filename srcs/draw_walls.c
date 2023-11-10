@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_draw_lines.c                                   :+:      :+:    :+:   */
+/*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:06:19 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 12:31:32 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:20:52 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,7 @@ void	draw_paralell_vlines(t_cub3d *cub, t_vector *vec, int dist, int color)
 	}
 }
 
-void	get_v_vector(t_cub3d *cub, t_vector *vec, int y, int x)
-{
-	vec->xi = x;
-	vec->yi = y;
-	vec->xf = x;
-	vec->yf = y + cub->sqr_size;
-}
-
-void	get_h_vector(t_cub3d *cub, t_vector *vec, int y, int x)
-{
-	vec->xi = x;
-	vec->yi = y;
-	vec->xf = x + cub->sqr_size;
-	vec->yf = y;
-}
-
-void	draw_minimap(t_cub3d *cub, t_map *map, double xcorr, double ycorr)
+void	draw_walls(t_cub3d *cub, t_map *map, double xcorr, double ycorr)
 {
 	int			y;
 	int			x;
@@ -72,7 +56,7 @@ void	draw_minimap(t_cub3d *cub, t_map *map, double xcorr, double ycorr)
 		{
 			get_h_vector(cub, &vec, cub->sqr_size + y * \
 			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
-			//minimap_scale_down(&vec, xcorr, ycorr);
+			//position_minimap(&vec, xcorr, ycorr);
 			if (map->map[y][x] == WALL)
 				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
 			else if (map->map[y][x] != SPACE)

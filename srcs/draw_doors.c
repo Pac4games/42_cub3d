@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_draw_doors.c                                   :+:      :+:    :+:   */
+/*   draw_doors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 12:39:59 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 12:01:05 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:40:34 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ void	draw_doors(t_cub3d *cub, t_map *map, double xcorr, double ycorr)
 		{
 			get_h_vector(cub, &vec, cub->sqr_size + y * \
 			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
-			//minimap_scale_down(&vec, xcorr, ycorr);
+			//position_minimap(&vec, xcorr, ycorr);
 			check_up_doors(cub, &vec, map->map[y][x], \
 			(int)(cub->sqr_size * DOOR_MULTIP));
 			check_down_doors(cub, &vec, map->map[y][x], cub->sqr_size);
 			get_v_vector(cub, &vec, cub->sqr_size + y * \
 			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
-			//minimap_scale_down(&vec, xcorr, ycorr);
+			//position_minimap(&vec, xcorr, ycorr);
 			check_left_doors(cub, &vec, map->map[y][x], \
 			(int)(cub->sqr_size * DOOR_MULTIP));
 			check_right_doors(cub, &vec, map->map[y][x], cub->sqr_size);

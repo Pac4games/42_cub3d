@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_toggle_keys.c                                  :+:      :+:    :+:   */
+/*   toggle_movs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:15:01 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 14:20:47 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:56:16 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,4 @@ void	remove_player_rot(t_cub3d *cub, int key)
 	else if (key == ARROW_LEFT)
 		to_move &= ~(1 << ROT_LEFT);
 	cub->move = to_move;
-}
-
-int	rot_with_gaze(t_cub3d *cub)
-{
-	int		dif;
-
-	dif = 0;
-	if ((cub->move >> ROT_LEFT & 1) && !(cub->move >> ROT_RIGHT & 1))
-		dif = -1;
-	else if ((cub->move >> ROT_RIGHT & 1) && !(cub->move >> ROT_LEFT & 1))
-		dif = 1;
-	if (dif != 0)
-	{
-		rot_raycaster(cub, dif * 0.1);
-		return (1);
-	}
-	return (0);
 }

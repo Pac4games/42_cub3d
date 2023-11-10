@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_move_player.c                                  :+:      :+:    :+:   */
+/*   calc_player_movs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:52:21 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:32:09 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	move_player_and_gaze(t_cub3d *cub, double distx, double disty)
+static int	move_player(t_cub3d *cub, double distx, double disty)
 {
 	int	moved;
 
@@ -75,7 +75,7 @@ static void	sum_movements(t_cub3d *cub, double *distx, double *disty)
 	}
 }
 
-int	move_with_gaze(t_cub3d *cub)
+int	check_colisions_and_move(t_cub3d *cub)
 {
 	int		ret;
 	double	distx;
@@ -84,7 +84,7 @@ int	move_with_gaze(t_cub3d *cub)
 	distx = 0;
 	disty = 0;
 	sum_movements(cub, &distx, &disty);
-	ret = move_player_and_gaze(cub, distx, disty);
+	ret = move_player(cub, distx, disty);
 	ret += check_door_colision(cub, distx, disty);
 	return (ret);
 }

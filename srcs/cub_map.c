@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/09 16:21:57 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:32:06 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static int check_obj(char **map)
 	{
 		j = -1;
 		while (map[i][++j])
-			if (map[i][j] != ZERO && map[i][j] != SPACE && \
-				map[i][j] != WALL && map[i][j] != NORTH && \
-				map[i][j] != SOUTH && map[i][j] != EAST && \
-				map[i][j] != WEST)
+			if (map[i][j] != ZERO && map[i][j] != SPACE &&
+				map[i][j] != WALL && map[i][j] != NORTH &&
+				map[i][j] != SOUTH && map[i][j] != EAST &&
+				map[i][j] != WEST && map[i][j] != DOOR1_UP &&
+				map[i][j] != DOOR1_DOWN && map[i][j] != DOOR1_LEFT &&
+				map[i][j] != DOOR1_RIGHT && map[i][j] != DOOR2_UP &&
+				map[i][j] != DOOR2_DOWN && map[i][j] != DOOR2_LEFT &&
+				map[i][j] != DOOR2_RIGHT)
 					return (0);
 	}
 	return (1);
@@ -52,11 +56,10 @@ static int	check_player(char **map)
 	return (1);
 }
 
-int	is_valid_map(char **map)
+void	check_map(t_cub3d *cub)
 {
-	if (!check_obj(map))
-		return (0);
-	else if (!check_player(map))
-		return (0);
-	return (1);
+	if (!check_obj(cub->map->map))
+		print_err_cub("one or more invalid objects in map", cub);
+	else if (!check_player(cub->map->map))
+		print_err_cub("invalid player in map", cub);
 }

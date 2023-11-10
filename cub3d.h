@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 12:09:19 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:31:24 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ enum e_map
 	SOUTH = 'S',
 	EAST = 'E',
 	WEST = 'W',
-	UP_DOOR_AT_UP = 'U',
-	UP_DOOR_AT_DOWN = 'D',
-	UP_DOOR_AT_LEFT = 'L',
-	UP_DOOR_AT_RIGHT = 'R',
-	DOWN_DOOR_AT_UP = 'u',
-	DOWN_DOOR_AT_DOWN = 'd',
-	DOWN_DOOR_AT_LEFT = 'l',
-	DOWN_DOOR_AT_RIGHT = 'r',
+	DOOR1_UP = 'U',
+	DOOR1_DOWN = 'D',
+	DOOR1_LEFT = 'L',
+	DOOR1_RIGHT = 'R',
+	DOOR2_UP = 'u',
+	DOOR2_DOWN = 'd',
+	DOOR2_LEFT = 'l',
+	DOOR2_RIGHT = 'r',
 };
 
 enum e_texture
@@ -281,7 +281,7 @@ int			check_door_colision(t_cub3d *cub, double distx, double disty);
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
 void		print_matrix(int **mat, int rows, int cols);
-void		print_err(char *msg);
+void		print_err_cub(char *msg, t_cub3d *cub);
 
 // UTILITIES
 int			ft_isspace(int c);
@@ -292,7 +292,7 @@ char		**solo_matrix(int rows, int cols);
 // VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
-int			is_valid_map(char **map);
+void		check_map(t_cub3d *cub);
 
 // MAIN
 int			*fill_line_of_list(char *line);

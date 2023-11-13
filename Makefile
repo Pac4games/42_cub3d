@@ -1,4 +1,4 @@
-$(VERBOSE).SILENT:`
+$(VERBOSE).SILENT:
 
 NAME = cub3D
 SRCS_PATH = srcs

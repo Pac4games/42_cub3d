@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_utils.c                                        :+:      :+:    :+:   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:12 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:53:48 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:19:59 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,22 @@ int	ft_str_end_trim(char *line)
 	return (i);
 }
 
-char	**solo_matrix(int rows, int cols)
+char	*conv_to_txtr_text(char c)
 {
-	int		i;
-	char	**mat;
-
-	mat = malloc((sizeof(*mat) + 1) * rows);
-	if (!mat)
-		return (NULL);
-	i = 0;
-	while (i < rows)
-	{
-		mat[i] = malloc((sizeof(*(mat[i])) + 1) * cols);
-		if (!mat[i])
-		{
-			i = -1;
-			while (mat[++i])
-				free(mat[i]);
-			free(mat);
-			return (NULL);
-		}
-		i++;
-	}
-	return (mat);
+	if (c == NO)
+		return (PRT_NORTH);
+	else if (c == SO)
+		return (PRT_SOUTH);
+	else if (c == EA)
+		return (PRT_EAST);
+	else if (c == WE)
+		return (PRT_WEST);
+	else if (c == F)
+		return (PRT_FLOOR);
+	else if (c == C)
+		return (PRT_CEIL);
+	else if (c == UP)
+		return (PRT_UP);
+	else
+		return (PRT_LOW);
 }

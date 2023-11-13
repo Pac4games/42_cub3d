@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_check_colisions.c                              :+:      :+:    :+:   */
+/*   check_colisions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 12:12:19 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:36:59 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,34 +60,16 @@ int	player_colision_y(t_cub3d *cub, double dist, int type)
 	return (0);
 }
 
-int	get_player_sqr(t_cub3d *cub, int is_horiz)
+int	check_door_colision(t_cub3d *cub, double distx, double disty)
 {
-	int	y;
-	int	x;
+	char	door;
 
-	y = 0;
-	x = 0;
-	while (y < cub->map->tot_rows - 1 && y + 1 < cub->player_y)
-		y++;
-	while (x < cub->map->tot_cols - 1 && cub->player_x > x + 1)
-		x++;
-	if (is_horiz)
-		return (x);
-	return (y);
-}
-
-int	get_sqr(t_cub3d *cub, int yval, int xval, char is_horiz)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	x = 0;
-	while (y < cub->map->tot_rows - 1 && y < yval)
-		y++;
-	while (x < cub->map->tot_cols - 1 && xval > x)
-		x++;
-	if (is_horiz)
-		return (x);
-	return (y);
+	distx++;
+	disty++;
+	door = cub->map->map[get_player_sqr(cub, 0)][get_player_sqr(cub, 1)];
+	if (((door == DOOR_UP || door == DOOR_DOWN) \
+	&& (player_colision_x(cub, cub->player_x + 0.25, door) == 2 \
+	|| player_colision_y(cub, cub->player_y - 0.25, door) == 2)))
+		return (1);
+	return (0);
 }

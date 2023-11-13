@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:14:06 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/06 13:07:30 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:33:38 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ int	map_line_is_valid(char *line)
 	{
 		if (line[i] != ZERO && line[i] != WALL && line[i] != SPACE \
 		&& line[i] != NORTH && line[i] != SOUTH && line[i] != EAST \
-		&& line[i] != WEST && line[i] != UP_DOOR_AT_UP \
-		&& line[i] != UP_DOOR_AT_DOWN \
-		&& line[i] != UP_DOOR_AT_LEFT && line[i] != UP_DOOR_AT_RIGHT \
-		&& line[i] != DOWN_DOOR_AT_UP && line[i] != DOWN_DOOR_AT_DOWN \
-		&& line[i] != DOWN_DOOR_AT_LEFT && line[i] != DOWN_DOOR_AT_RIGHT)
+		&& line[i] != WEST && line[i] != DOOR_UP \
+		&& line[i] != DOOR_DOWN)
 			return (0);
 		i++;
 	}

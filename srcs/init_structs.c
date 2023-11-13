@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_inits.c                                        :+:      :+:    :+:   */
+/*   inits_and_inserts.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 11:44:11 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:56:56 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,19 @@ int	init_cub(t_cub3d *cub)
 	cub->level = 0;
 	cub->plane_x = 0;
 	cub->plane_y = 0;
+	cub->inverted = 1;
 	return (1);
+}
+
+void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)
+{
+	cub->map = malloc(sizeof(*cub->map));
+	cub->map->tot_rows = tot_rows;
+	cub->map->tot_cols = tot_cols;
+	cub->map->map = solo_matrix(tot_rows, tot_cols);
+	if (!cub->map->map)
+	{
+		free(cub->map);
+		return ;
+	}
 }

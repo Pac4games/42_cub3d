@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:47:26 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/06 14:48:45 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:15:49 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,14 @@ void	free_mtx(char **mtx)
 	while (mtx[i])
 		free(mtx[i++]);
 	free(mtx);
+}
+
+int	mtx_len(char **mtx)
+{
+	int	res;
+
+	res = 0;
+	while (mtx[res])
+		res++;
+	return (res);
 }

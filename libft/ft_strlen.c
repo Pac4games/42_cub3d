@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:34:49 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:20:15 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:21:09 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/13 11:42:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:19:45 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,9 +278,17 @@ void		print_txtrs(t_all_txtrs *txtrs);
 void		print_matrix(int **mat, int rows, int cols);
 void		print_err_cub(char *msg, t_cub3d *cub);
 
+// OTHER UTILS
+void		free_mtx(char **mtx);
+int			mtx_len(char **mtx);
+
 // VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
 void		check_map(t_cub3d *cub);
+int			check_border(char **map, int i);
+int			check_line_lim(char **map, int i, int j);
+int			check_line_mid(char **map, int i, int j);
+int			check_door(char **map, int i, int j);
 
 #endif

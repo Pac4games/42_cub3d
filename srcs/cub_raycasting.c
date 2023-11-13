@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 14:39:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:37:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ static int	real_distance_calc(t_cub3d *cub, t_ray *ray)
 		}
 		sqr = cub->map->map[get_sqr_coord(cub, ray->y, \
 		ray->x, 0)][get_sqr_coord(cub, ray->y, ray->x, 1)];
-		if (sqr == WALL || sqr == UP_DOOR_AT_UP || sqr == UP_DOOR_AT_DOWN \
-		|| sqr == UP_DOOR_AT_LEFT || sqr == UP_DOOR_AT_RIGHT \
-		|| sqr == DOWN_DOOR_AT_UP || sqr == DOWN_DOOR_AT_DOWN \
-		|| sqr == DOWN_DOOR_AT_LEFT || sqr == DOWN_DOOR_AT_RIGHT)
+		if (sqr == WALL || sqr == DOOR_UP || sqr == DOOR_DOWN)
 			hit = 1;
 	}
 	return (sqr);
@@ -123,11 +120,9 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 	vec.yf = line_height / 2 + WHEI / 2;
 	if (vec.yf >= WHEI || line_height < 0)
 		vec.yf = WHEI - 1;
-	if (sqr == UP_DOOR_AT_UP || sqr == UP_DOOR_AT_DOWN \
-	|| sqr == UP_DOOR_AT_LEFT || sqr == UP_DOOR_AT_RIGHT)
+	if (sqr == DOOR_UP)
 		color = 0x00FFFF;
-	else if (sqr == DOWN_DOOR_AT_UP || sqr == DOWN_DOOR_AT_DOWN \
-	|| sqr == DOWN_DOOR_AT_LEFT || sqr == DOWN_DOOR_AT_RIGHT)
+	else if (sqr == DOOR_DOWN)
 		color = 0xFF00FF;
 	else
 		color = 0X00ff00 / 2;

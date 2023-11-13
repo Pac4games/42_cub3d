@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 14:14:14 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:42:58 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,8 @@ enum e_map
 	SOUTH = 'S',
 	EAST = 'E',
 	WEST = 'W',
-	UP_DOOR_AT_UP = 'U',
-	UP_DOOR_AT_DOWN = 'D',
-	UP_DOOR_AT_LEFT = 'L',
-	UP_DOOR_AT_RIGHT = 'R',
-	DOWN_DOOR_AT_UP = 'u',
-	DOWN_DOOR_AT_DOWN = 'd',
-	DOWN_DOOR_AT_LEFT = 'l',
-	DOWN_DOOR_AT_RIGHT = 'r',
+	DOOR_UP = 'U',
+	DOOR_DOWN = 'D',
 };
 
 enum e_texture
@@ -209,10 +203,11 @@ void		destroy_cub(t_cub3d *cub);
 void		destroy_txtrs_list(t_all_txtrs *txtrs);
 void		destroy_matrix(char **mat, int tot_rows);
 
-// DRAW DOORS
-void		draw_doors(t_cub3d *cub, t_map *map, double xcorr, double ycorr);
-
 // DRAW MINIMAP
+void		draw_paralell_hlines(t_cub3d *cub, \
+t_vector *vec, int beg, int color);
+void		draw_doors(t_cub3d *cub, t_map *map, double xcorr, double ycorr);
+void		draw_walls(t_cub3d *cub, t_map *map, double xcorr, double ycorr);
 void		position_minimap(t_vector *vec, double ycorr, double xcorr);
 void		redraw_minimap(t_cub3d *cub);
 
@@ -222,13 +217,6 @@ void		draw_player(t_cub3d *cub, double ycorr, double xcorr);
 int			get_player_sqr(t_cub3d *cub, int is_horiz);
 int			reload_player_pos(t_cub3d *cub, int x, int y);
 void		init_player_pos(t_cub3d *cub, int x, int y);
-
-// DRAW WALLS
-void		draw_paralell_hlines(t_cub3d *cub, \
-t_vector *vec, int beg, int color);
-void		draw_paralell_vlines(t_cub3d *cub, \
-t_vector *vec, int beg, int color);
-void		draw_walls(t_cub3d *cub, t_map *map, double xcorr, double ycorr);
 
 // FILL STRUCTS
 char		**solo_matrix(int rows, int cols);

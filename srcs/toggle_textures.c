@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:33:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 10:06:05 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:34:25 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	change_textures(t_cub3d *cub, int y, int x)
 
 	if (cub->map->map[y][x] != cub->map->map[lasty][lastx])
 	{
-		if (cub->map->map[y][x] == UP_DOOR_AT_UP \
-		|| cub->map->map[y][x] == UP_DOOR_AT_DOWN \
-		|| cub->map->map[y][x] == UP_DOOR_AT_LEFT \
-		|| cub->map->map[y][x] == UP_DOOR_AT_RIGHT)
+		if (cub->map->map[y][x] == DOOR_UP \
+		|| cub->map->map[y][x] == DOOR_DOWN)
 			cub->level++;
 		else if (cub->level > 0)
 			cub->level--;

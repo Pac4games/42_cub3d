@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/10 17:32:06 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:59:01 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ static int check_obj(char **map)
 			if (map[i][j] != ZERO && map[i][j] != SPACE &&
 				map[i][j] != WALL && map[i][j] != NORTH &&
 				map[i][j] != SOUTH && map[i][j] != EAST &&
-				map[i][j] != WEST && map[i][j] != DOOR1_UP &&
-				map[i][j] != DOOR1_DOWN && map[i][j] != DOOR1_LEFT &&
-				map[i][j] != DOOR1_RIGHT && map[i][j] != DOOR2_UP &&
-				map[i][j] != DOOR2_DOWN && map[i][j] != DOOR2_LEFT &&
-				map[i][j] != DOOR2_RIGHT)
+				map[i][j] != WEST && map[i][j] != DOOR_UP &&
+				map[i][j] != DOOR_DOWN)
 					return (0);
 	}
 	return (1);

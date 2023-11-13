@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 17:31:24 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:58:25 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,8 @@ enum e_map
 	SOUTH = 'S',
 	EAST = 'E',
 	WEST = 'W',
-	DOOR1_UP = 'U',
-	DOOR1_DOWN = 'D',
-	DOOR1_LEFT = 'L',
-	DOOR1_RIGHT = 'R',
-	DOOR2_UP = 'u',
-	DOOR2_DOWN = 'd',
-	DOOR2_LEFT = 'l',
-	DOOR2_RIGHT = 'r',
+	DOOR_UP = 'U',
+	DOOR_DOWN = 'D'
 };
 
 enum e_texture

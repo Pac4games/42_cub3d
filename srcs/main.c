@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:05:09 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:34:28 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,12 @@ int	main(int ac, char *av[])
 		if (fd <= 0 || !init_cub(&cub) \
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
-		close(fd);
 		check_map(&cub);
 		(&cub)->sqr_size = get_sqr_size();
 		init_player_pos(&cub, -1, -1);
 		init_raycaster(&cub);
 		display_in_canvas(&cub);
-		destroy_cub(&cub);
+//		destroy_cub(&cub);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/13 18:19:45 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:23:07 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,6 @@ int			key_release(int key_pressed, t_cub3d *cub);
 int			read_keys(int key_pressed, t_cub3d *cub);
 
 // DESTROY STRUCTS
-void		destroy_split(char ***split_location);
 void		destroy_list(t_list *list);
 void		destroy_cub(t_cub3d *cub);
 void		destroy_txtrs_list(t_all_txtrs *txtrs);

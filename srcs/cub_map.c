@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/15 12:03:02 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:15:51 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int check_obj(char **map)
 	int	j;
 
 	i = -1;
-	printf("before loop\n");
 	while (map[++i])
 	{
 		j = -1;
@@ -32,7 +31,6 @@ static int check_obj(char **map)
 					return (0);
 		}
 	}
-	printf("after loop\n");
 	return (1);
 }
 

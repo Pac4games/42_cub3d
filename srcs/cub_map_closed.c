@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:35:23 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/13 18:11:47 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:53:00 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ int	check_border(char **map, int i)
 
 	j = -1;
 	while (map[i][++j])
+	{
 		if (map[i][j] == ZERO || map[i][j] == NORTH ||
 			map[i][j] == SOUTH || map[i][j] == EAST ||
 			map[i][j] == WEST || map[i][j] == DOOR_UP ||
 			map[i][j] == DOOR_DOWN)
-				return (0);
-	return (1);
+				return (1);
+	}
+	return (0);
 }
 
 static int	check_line_obj(char c, int obj)

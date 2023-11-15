@@ -6,27 +6,11 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 15:55:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:40:05 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	destroy_split(char ***split_location)
-{
-	int		i;
-	char	**split;
-
-	split = *split_location;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-	*split_location = NULL;
-}
 
 void	destroy_list(t_list *list)
 {
@@ -52,12 +36,11 @@ void	destroy_txtrs_list(t_all_txtrs *txtrs)
 
 	if (!txtrs)
 		return ;
-	i = -1;
-	while (++i < txtrs->tot_txtrs)
-		destroy_split(&txtrs->textures[i].path);
+	i = 0;
+	while (txtrs->textures[i].path)
+		free_mtx(txtrs->textures[i++].path);
 	free(txtrs->textures);
 	free(txtrs);
-	txtrs = NULL;
 }
 
 void	destroy_cub(t_cub3d *cub)

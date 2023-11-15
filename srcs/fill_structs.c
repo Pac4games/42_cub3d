@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:10:12 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:38:55 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,8 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 		while (++f < cur->tot_cols)
 			cub->map->map[i][f] = cur->symbol[f];
 		while (f < cub->map_cols)
-		{
-			cub->map->map[i][f] = SPACE;
-			f++;
-		}
+			cub->map->map[i][f++] = SPACE;
+		cub->map->map[i][f] = '\0';
 		free(cur->symbol);
 		cur->symbol = NULL;
 		cur = cur->next;
@@ -89,7 +87,7 @@ void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
 {
 	char		**split;
 	int			i;
-	static int	f = 0;
+	static int	f;
 
 	i = 0;
 	if (f > TOT - 1)
@@ -98,9 +96,7 @@ void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
 	split = ft_split_spaces(&line[i]);
 	if (!split)
 		return ;
-	i = 0;
-	while (split[i])
-		i++;
+	i = mtx_len(split);
 	if (!(*cub)->all_txtrs)
 		(*cub)->all_txtrs = init_txtrs();
 	(*cub)->all_txtrs->textures[f].path = split;

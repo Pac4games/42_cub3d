@@ -2,6 +2,7 @@ cub3D
 objs/
 *.out
 *.o
-*.a
+*/*.o
+*/*.a
 vgcore.*
 .nfs*

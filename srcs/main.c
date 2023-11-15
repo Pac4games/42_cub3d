@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 16:13:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:05:09 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 			{
 				free(line);
 				destroy_list(&list);
-				if (cub)
-					destroy_cub(cub);
+//				if (cub)
+//					destroy_cub(cub);
 				return (0);
 			}
 		}

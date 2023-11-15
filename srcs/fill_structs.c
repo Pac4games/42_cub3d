@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 16:10:32 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:10:12 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ char	**solo_matrix(int rows, int cols)
 	int		i;
 	char	**mat;
 
-	mat = malloc((sizeof(*mat) + 1) * rows);
+	mat = malloc((sizeof(char *) + 1) * rows);
 	if (!mat)
 		return (NULL);
 	i = 0;
 	while (i < rows)
 	{
-		mat[i] = malloc((sizeof(*(mat[i])) + 1) * cols);
+		mat[i] = malloc((sizeof(char) + 1) * cols);
 		if (!mat[i])
 		{
 			i = -1;
@@ -34,6 +34,7 @@ char	**solo_matrix(int rows, int cols)
 		}
 		i++;
 	}
+	mat[i] = NULL;
 	return (mat);
 }
 

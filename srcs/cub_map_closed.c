@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:35:23 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/15 16:53:00 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:08:35 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ int	check_border(char **map, int i)
 
 	j = -1;
 	while (map[i][++j])
-	{
 		if (map[i][j] == ZERO || map[i][j] == NORTH ||
 			map[i][j] == SOUTH || map[i][j] == EAST ||
 			map[i][j] == WEST || map[i][j] == DOOR_UP ||
 			map[i][j] == DOOR_DOWN)
 				return (1);
-	}
 	return (0);
 }
 
@@ -47,7 +45,7 @@ int	check_line_lim(char **map, int i, int j)
 	else if (j == ft_strlen(map[i] - 2) && (check_line_obj(map[i][j - 1], 0) ||
 			check_line_obj(map[i][j + 1], 1) ||
 			check_line_obj(map[i + 1][j], 0) ||
-			check_line_obj(map[i - 1][j], 1)))
+			check_line_obj(map[i - 1][j], 0)))
 		return (1);
 	return (0);
 }
@@ -55,7 +53,7 @@ int	check_line_lim(char **map, int i, int j)
 int	check_line_mid(char **map, int i, int j)
 {
 	if (j <= 1 || j >= ft_strlen(map[i]) - 2)
-		return (1);
+		return (0);
 	if (check_line_obj(map[i][j - 1], 0) || check_line_obj(map[i][j + 1], 0 ||
 		check_line_obj(map[i - 1][j], 0) || check_line_obj(map[i + 1][j], 0)))
 		return (1);
@@ -64,6 +62,7 @@ int	check_line_mid(char **map, int i, int j)
 
 int	check_door(char **map, int i, int j)
 {
+	printf("check_door\n");
 	if (map[i][j - 1] == SPACE || map[i][j + 1] == SPACE ||
 		map[i - 1][j] == SPACE || map[i + 1][j] == SPACE)
 		return (1);

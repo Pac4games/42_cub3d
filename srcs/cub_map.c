@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/15 16:15:51 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:10:29 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,19 @@ int	check_line(char **map, int i)
 			map[i][j] == EAST || map[i][j] == WEST)
 		{
 				if (j == 0 || j == ft_strlen(map[i]) - 1)	
-					return (0);
+					return (1);
 				if (check_line_lim(map, i, j) || check_line_mid(map, i, j))
-					return (0);
+					return (1);
 		}
 		if (map[i][j] == DOOR_UP || map[i][j] == DOOR_DOWN)
 		{
 			if (j == 0 || j == ft_strlen(map[i]) - 1)
-				return (0);
+				return (1);
 			if (check_door(map, i, j))
-				return (0);
+				return (1);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 static int	check_closed(char **map)
@@ -90,6 +90,7 @@ static int	check_closed(char **map)
 	res = 0;
 	while (map[++i])
 	{
+		printf("%s\n", map[i]);
 		if (i == 0 || i == mtx_len(map) - 1)
 			res += check_border(map, i);
 		else
@@ -106,6 +107,6 @@ void	check_map(t_cub3d *cub)
 		print_err_cub("one or more invalid objects in map", cub);
 	else if (!check_player(cub->map->map))
 		print_err_cub("invalid player in map", cub);
-	else if (check_closed(cub->map->map), cub)
+	else if (check_closed(cub->map->map))
 		print_err_cub("map isn't closed", cub);
 }

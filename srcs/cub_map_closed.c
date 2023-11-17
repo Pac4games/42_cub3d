@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:35:23 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/16 16:08:35 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:36:42 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	check_line_mid(char **map, int i, int j)
 
 int	check_door(char **map, int i, int j)
 {
-	printf("check_door\n");
 	if (map[i][j - 1] == SPACE || map[i][j + 1] == SPACE ||
 		map[i - 1][j] == SPACE || map[i + 1][j] == SPACE)
 		return (1);

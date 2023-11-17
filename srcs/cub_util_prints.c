@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:12:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/14 12:40:28 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:34:11 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ void	print_matrix(int **mat, int rows, int cols)
 	}
 }
 
-void	print_err_cub(char *msg, t_cub3d *cub)
+int	print_err_ret(char *msg)
 {
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
-	destroy_cub(cub);
-	exit(EXIT_FAILURE);
+	return (0);
 }

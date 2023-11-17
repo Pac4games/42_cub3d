@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/16 16:10:29 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:36:45 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ static int	check_closed(char **map)
 	res = 0;
 	while (map[++i])
 	{
-		printf("%s\n", map[i]);
 		if (i == 0 || i == mtx_len(map) - 1)
 			res += check_border(map, i);
 		else
@@ -101,12 +100,13 @@ static int	check_closed(char **map)
 	return (res);
 }
 
-void	check_map(t_cub3d *cub)
+int	check_map(char **map)
 {
-	if (!check_obj(cub->map->map))
-		print_err_cub("one or more invalid objects in map", cub);
-	else if (!check_player(cub->map->map))
-		print_err_cub("invalid player in map", cub);
-	else if (check_closed(cub->map->map))
-		print_err_cub("map isn't closed", cub);
+	if (!check_obj(map))
+		return (print_err_ret("one or more invalid objects in map"));
+	else if (!check_player(map))
+		return (print_err_ret("invalid player in map"));
+	else if (check_closed(map))
+		return (print_err_ret("map isn't closed"));
+	return (1);
 }

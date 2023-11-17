@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:23:07 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:33:35 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ void		change_textures(t_cub3d *cub, int x, int y);
 void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
 void		print_matrix(int **mat, int rows, int cols);
-void		print_err_cub(char *msg, t_cub3d *cub);
+int			print_err_ret(char *msg);
 
 // OTHER UTILS
 void		free_mtx(char **mtx);
@@ -284,7 +284,7 @@ int			mtx_len(char **mtx);
 // VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
-void		check_map(t_cub3d *cub);
+int			check_map(char **map);
 int			check_border(char **map, int i);
 int			check_line_lim(char **map, int i, int j);
 int			check_line_mid(char **map, int i, int j);

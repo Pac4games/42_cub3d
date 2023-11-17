@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:23:07 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:17:00 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "mlx_linux/mlx.h"
 # include "./libft/libft.h"
 
-# define WWID 1920
-# define WHEI 1080
+# define WWID 1080
+# define WHEI 720
 # define SQR_SIZE 18
 # define STEP 0.1
 # define DOOR_MULTIP 0.35
@@ -114,8 +114,13 @@ typedef struct s_txtrs
 {
 	char	**path;
 	int		*color;
+	void	*img;
+	char	*addr;
 	int		type;
 	int		levels;
+	int		width;
+	int		height;
+	int		line_length;
 }	t_txtrs;
 
 typedef struct s_all_txtrs
@@ -152,6 +157,7 @@ typedef struct s_ray
 	int		xstep;
 	int		ystep;
 	int		side;
+	int		x_txtr;
 }	t_ray;
 
 typedef struct s_cub3d
@@ -269,6 +275,7 @@ void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
 
 // TOGGLE TEXTURES
+void		draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type);
 void		change_textures(t_cub3d *cub, int x, int y);
 
 // UTILITY PRINTS

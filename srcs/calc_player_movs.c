@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 16:32:09 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:31:02 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,22 @@ static void	sum_movements(t_cub3d *cub, double *distx, double *disty)
 	double	dist;
 
 	dist = STEP;
-	if (cub->move >> MOV_UP & 1)
-	{
-		(*distx) += sum_movement_x(cub, dist * cub->dir_x);
-		(*disty) += sum_movement_y(cub, dist * cub->dir_y);
-	}
-	if (cub->move >> MOV_DOWN & 1)
-	{
-		(*distx) += sum_movement_x(cub, -dist * cub->dir_x);
-		(*disty) += sum_movement_y(cub, -dist * cub->dir_y);
-	}
-	if (cub->move >> MOV_LEFT & 1)
-	{
-		(*distx) += sum_movement_x(cub, dist * cub->dir_y);
-		(*disty) += sum_movement_y(cub, -dist * cub->dir_x);
-	}
-	if (cub->move >> MOV_RIGHT & 1)
-	{
-		(*distx) += sum_movement_x(cub, -dist * cub->dir_y);
-		(*disty) += sum_movement_y(cub, dist * cub->dir_x);
-	}
+	(*distx) += (cub->move >> MOV_UP & 1) * \
+	sum_movement_x(cub, dist * cub->dir_x);
+	(*disty) += (cub->move >> MOV_UP & 1) * \
+	sum_movement_y(cub, dist * cub->dir_y);
+	(*distx) += (cub->move >> MOV_DOWN & 1) * \
+	sum_movement_x(cub, -dist * cub->dir_x);
+	(*disty) += (cub->move >> MOV_DOWN & 1) * \
+	sum_movement_y(cub, -dist * cub->dir_y);
+	(*distx) += (cub->move >> MOV_LEFT & 1) * \
+	sum_movement_x(cub, dist * cub->dir_y);
+	(*disty) += (cub->move >> MOV_LEFT & 1) * \
+	sum_movement_y(cub, -dist * cub->dir_x);
+	(*distx) += (cub->move >> MOV_RIGHT & 1) * \
+	sum_movement_x(cub, -dist * cub->dir_y);
+	(*disty) += (cub->move >> MOV_RIGHT & 1) * \
+	sum_movement_y(cub, dist * cub->dir_x);
 }
 
 int	check_colisions_and_move(t_cub3d *cub)

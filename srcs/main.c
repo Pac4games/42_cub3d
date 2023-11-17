@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/05 17:33:24 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:34:28 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	*fill_line_of_list(char *line)
 	i = 0;
 	while (i < len)
 	{
-		map_line[i] = conv_to_map_num(line[i]);
+		map_line[i] = line[i];
 		i++;
 	}
 	map_line[i] = '\0';
@@ -39,11 +39,9 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line)
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
-	if (line[i] && is_valid_elem(&line[i]) >= 0
-		&& is_valid_elem(&line[i]) != TOT)
+	if (line[i] && is_valid_elem(&line[i]) != TOT)
 		insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
-	else if (line[i] && is_valid_elem(&line[i]) == TOT
-		&& map_line_is_valid(line))
+	else if (line[i] && is_valid_elem(&line[i]) == TOT)
 	{
 		insert_map_tail(list, fill_line_of_list(line), ft_str_end_trim(line));
 		if (ft_str_end_trim(line) > cub->map_cols)
@@ -71,8 +69,8 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 			{
 				free(line);
 				destroy_list(&list);
-				if (cub)
-					destroy_cub(cub);
+//				if (cub)
+//					destroy_cub(cub);
 				return (0);
 			}
 		}
@@ -91,24 +89,16 @@ int	main(int ac, char *av[])
 	if (ac == 2 && ft_strnstr(&av[1][ft_strlen(av[1]) \
 	- 4], ".cub", ft_strlen(av[1])))
 	{
-		fd = open(av[1], O_RDONLY, 0777);
+		fd = open(av[1], O_RDONLY);
 		if (fd <= 0 || !init_cub(&cub) \
 		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
 			return (0);
-		close(fd);
-		if ((&cub)->all_txtrs)
-			print_txtrs((&cub)->all_txtrs);
-		if ((&cub)->map)
-			print_map((&cub)->map, (&cub)->map_cols);
+		check_map(&cub);
 		(&cub)->sqr_size = get_sqr_size();
-		init_minimap(&cub);
-		if ((&cub)->minimap)
-		{
-			(&cub)->player = get_player_pos(&cub, 0, 0);
-			set_gaze((&cub), (&cub)->sqr_size);
-			display_in_canvas(&cub);
-		}
-		destroy_cub(&cub);
+		init_player_pos(&cub, -1, -1);
+		init_raycaster(&cub);
+		display_in_canvas(&cub);
+//		destroy_cub(&cub);
 	}
 	return (0);
 }

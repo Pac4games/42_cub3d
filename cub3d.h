@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/17 14:33:35 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:51:03 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,17 @@ enum e_directions
 	ROT_RIGHT,
 };
 
+typedef	struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
+
 typedef struct s_txtrs
 {
+	t_color	*floor;
+	t_color	*ceiling;
 	char	**path;
 	int		*color;
 	int		type;
@@ -276,6 +285,7 @@ void		print_map(t_map *map, int cols);
 void		print_txtrs(t_all_txtrs *txtrs);
 void		print_matrix(int **mat, int rows, int cols);
 int			print_err_ret(char *msg);
+void		print_err_cub(char *msg, t_cub3d *cub);
 
 // OTHER UTILS
 void		free_mtx(char **mtx);

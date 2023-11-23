@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:44:35 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/23 17:25:15 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:26:48 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	free_mtx(split);
 	return (1);
 }
-
+/*
 int	parse_textures(t_cub3d *cub, char *line, int type)
 {
 	int		i;
@@ -70,3 +70,4 @@ int	parse_textures(t_cub3d *cub, char *line, int type)
 			print_err_cub("error opening file", cub);
 	}
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/23 16:53:24 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:27:40 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,11 @@ void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
 		if (!parse_colors(*cub, line, txtr_type))
 			return ;
 	}
+	/*
 	else
 		if (!parse_textures(*cub, line, txtr_type))
 			return ;
+	*/
 	if (f > TOT - 1)
 		return ;
 	i += ft_strlen(conv_to_txtr_text(txtr_type));

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/21 11:51:03 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:50:06 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ enum e_texture
 	EA,
 	WE,
 	UP,
-	DOWN,
+	DO,
 	F,
 	C,
 	TOT,
@@ -190,6 +190,9 @@ typedef struct s_cub3d
 	int			map_cols;
 }	t_cub3d;
 
+// PARSING
+int			parse_colors(t_cub3d *cub, char *line, int type);
+
 // CALC PLAYER MOVS
 int			check_colisions_and_move(t_cub3d *cub);
 
@@ -239,7 +242,7 @@ void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 int			get_sqr_coord(t_cub3d *cub, int xval, int yval, char is_horiz);
 int			get_sqr_size(void);
 
-//INIT STRUCTS
+// INIT STRUCTS
 t_node		*init_node(void);
 void		init_list(t_list *list);
 int			init_cub(t_cub3d *cub);
@@ -289,7 +292,9 @@ void		print_err_cub(char *msg, t_cub3d *cub);
 
 // OTHER UTILS
 void		free_mtx(char **mtx);
+void		print_mtx(char **mtx);
 int			mtx_len(char **mtx);
+int			str_isdigit(char *str);
 
 // VALIDATE MAP
 int			map_line_is_valid(char *line);

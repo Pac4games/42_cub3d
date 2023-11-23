@@ -3,8 +3,8 @@ SO ./textures/eagle.xpm ./textures/redbrick.xpm ./textures/greystone.xpm ./textu
 WE ./textures/greystone.xpm ./textures/greystone.xpm ./textures/greystone.xpm
 EA ./textures/redbrick.xpm
 
-F 50,50,50 ./textures/greystone.xpm ./textures/greystone.xpm
-C 0,153,220 ./textures/redbrick.xpm
+F 0,0,0
+C 255,255,255
 
 UP 50,50,50 ./textures/greystone.xpm
 LO ./textures/redbrick.xpm

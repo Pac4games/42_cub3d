@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inits_and_inserts.c                                :+:      :+:    :+:   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 15:56:56 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:06:24 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_all_txtrs	*init_txtrs(void)
 		return (NULL);
 	txtrs->tot_txtrs = TOT;
 	txtrs->textures = malloc(txtrs->tot_txtrs * sizeof(t_txtrs));
+	txtrs->textures->floor = malloc(sizeof(t_color));
+	txtrs->textures->ceiling = malloc(sizeof(t_color));
 	if (!txtrs->textures)
 	{
 		free(txtrs);

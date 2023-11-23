@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/22 16:30:37 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:38:34 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,8 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 	destroy_list(list);
 }
 
-int	parse_colors(t_cub3d *cub, char *line, int type)
+void	insert_colors(t_cub3d *cub, int type, char **split)
 {
-	int		i;
-	char	**split;
-
-	if (ft_strlen(&line[2]) < 5 || ft_strlen(&line[2]) > 11)
-		return (print_err_ret("incorrect color formatting"));
-	split = ft_split(&line[2], ',');
-	if (!split || mtx_len(split) != 3)
-		return (print_err_ret("incorrect color formatting"));
-	i = -1;
-	while (++i <= 2)
-		if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 255)
-			return (print_err_ret("incorrect color formatting"));	
 	if (type == F)
 	{
 		cub->all_txtrs->textures->floor->r = ft_atoi(split[0]);
@@ -109,6 +97,30 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 		cub->all_txtrs->textures->ceiling->g = ft_atoi(split[1]);
 		cub->all_txtrs->textures->ceiling->b = ft_atoi(split[2]);
 	}
+}
+
+int	parse_colors(t_cub3d *cub, char *line, int type)
+{
+	int		i;
+	int		res;
+	char	**split;
+
+	res = 1;
+	if (ft_strlen(&line[2]) < 5 || ft_strlen(&line[2]) > 11 + 1)
+		return (print_err_ret("incorrect color formatting"));
+	split = ft_split(&line[2], ',');
+	if (!split)
+		print_err_cub("failed to allocate memory", cub);
+	i = -1;
+	while (++i <= 2)
+		if (ft_atoi(split[i]) < 0 || ft_atoi(split[i]) > 255 ||
+		!str_isdigit(split[i]))
+		{
+			free_mtx(split);
+			return (print_err_ret("incorrect color formatting"));
+		}
+	insert_colors(cub, type, split);
+	free_mtx(split);
 	return (1);
 }
 
@@ -120,16 +132,18 @@ void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
 
 	i = 0;
 	if (txtr_type == F || txtr_type == C)
+	{
 		if (!parse_colors(*cub, line, txtr_type))
 			return ;
-	printf("Floor:\nR: %d\nG: %d\nB: %d\n\n",
-			(*cub)->all_txtrs->textures->floor->r,
-			(*cub)->all_txtrs->textures->floor->g,
-			(*cub)->all_txtrs->textures->floor->b);
-	printf("Ceiling:\nR: %d\nG: %d\nB: %d\n",
-			(*cub)->all_txtrs->textures->ceiling->r,
-			(*cub)->all_txtrs->textures->ceiling->g,
-			(*cub)->all_txtrs->textures->ceiling->b);
+		printf("Floor:\nR: %d\nG: %d\nB: %d\n\n",
+				(*cub)->all_txtrs->textures->floor->r,
+				(*cub)->all_txtrs->textures->floor->g,
+				(*cub)->all_txtrs->textures->floor->b);
+		printf("Ceiling:\nR: %d\nG: %d\nB: %d\n\n",
+				(*cub)->all_txtrs->textures->ceiling->r,
+				(*cub)->all_txtrs->textures->ceiling->g,
+				(*cub)->all_txtrs->textures->ceiling->b);
+	}
 	if (f > TOT - 1)
 		return ;
 	i += ft_strlen(conv_to_txtr_text(txtr_type));

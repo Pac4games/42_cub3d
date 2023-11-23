@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/23 16:50:06 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:10:31 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,12 @@ typedef struct s_txtrs
 	t_color	*floor;
 	t_color	*ceiling;
 	char	**path;
+	void	*north;
+	void	*south;
+	void	*east;
+	void	*west;
+	void	*door_up;
+	void	*door_down;
 	int		*color;
 	int		type;
 	int		levels;
@@ -192,6 +198,7 @@ typedef struct s_cub3d
 
 // PARSING
 int			parse_colors(t_cub3d *cub, char *line, int type);
+int			parse_textures(t_cub3d *cub, char *line, int type);
 
 // CALC PLAYER MOVS
 int			check_colisions_and_move(t_cub3d *cub);

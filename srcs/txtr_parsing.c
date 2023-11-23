@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:44:35 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/23 16:48:43 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:25:15 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,24 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	insert_colors(cub, type, split);
 	free_mtx(split);
 	return (1);
+}
+
+int	parse_textures(t_cub3d *cub, char *line, int type)
+{
+	int		i;
+	int		*fds;
+	void	**tmp;
+	char	**split;
+
+	split = ft_split(&line[3], ' ');
+	if (!split)
+		print_err_cub("failed to allocate memory", cub);
+	fds = malloc(mtx_len(split) * sizeof(int));
+	i = -1;
+	while (split[++i])
+	{
+		fds[i] = open(split[i], O_RDONLY);
+		if (fds[i] == -1)
+			print_err_cub("error opening file", cub);
+	}
 }

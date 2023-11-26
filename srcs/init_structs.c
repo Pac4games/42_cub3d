@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inits_and_inserts.c                                :+:      :+:    :+:   */
+/*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 15:56:56 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:08:47 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,40 @@ void	init_list(t_list *list)
 	(*list).tot_rows = 0;
 }
 
-t_all_txtrs	*init_txtrs(void)
+t_txtrs	*init_txtrs(int times)
 {
-	t_all_txtrs	*txtrs;
+	t_txtrs	*txtrs;
 
-	txtrs = malloc(sizeof(t_all_txtrs));
+	txtrs = malloc(sizeof(t_txtrs));
 	if (!txtrs)
 		return (NULL);
-	txtrs->tot_txtrs = TOT;
-	txtrs->textures = malloc(txtrs->tot_txtrs * sizeof(t_txtrs));
-	if (!txtrs->textures)
+	txtrs->floor = malloc(sizeof(int) * times);
+	if (!txtrs->floor)
 	{
+		free(txtrs);
+		return (NULL);
+	}
+	txtrs->ceiling = malloc(sizeof(int) * times);
+	if (!txtrs->ceiling)
+	{
+		free(txtrs->floor);
+		free(txtrs);
+		return (NULL);
+	}
+	txtrs->width = malloc(sizeof(int) * times);
+	if (!txtrs->width)
+	{
+		free(txtrs->floor);
+		free(txtrs->ceiling);
+		free(txtrs);
+		return (NULL);
+	}
+	txtrs->height = malloc(sizeof(int) * times);
+	if (!txtrs->height)
+	{
+		free(txtrs->floor);
+		free(txtrs->ceiling);
+		free(txtrs->width);
 		free(txtrs);
 		return (NULL);
 	}
@@ -56,7 +79,7 @@ int	init_cub(t_cub3d *cub)
 	cub->mlx_win = NULL;
 	cub->img = NULL;
 	cub->addr = NULL;
-	cub->all_txtrs = NULL;
+	cub->textures = NULL;
 	cub->minimap = NULL;
 	cub->map = NULL;
 	cub->map_cols = 0;
@@ -67,12 +90,16 @@ int	init_cub(t_cub3d *cub)
 	cub->plane_x = 0;
 	cub->plane_y = 0;
 	cub->inverted = 1;
+	cub->tot_txtrs = 0;
+	cub->elems = 0;
 	return (1);
 }
 
 void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)
 {
 	cub->map = malloc(sizeof(*cub->map));
+	if (!cub->map)
+		return ;
 	cub->map->tot_rows = tot_rows;
 	cub->map->tot_cols = tot_cols;
 	cub->map->map = solo_matrix(tot_rows, tot_cols);

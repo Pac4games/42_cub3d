@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:34:28 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:45:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line)
 	while (ft_isspace(line[i]))
 		i++;
 	if (line[i] && is_valid_elem(&line[i]) != TOT)
-		insert_txtrs(&cub, &line[i], is_valid_elem(&line[i]));
+		insert_txtrs(cub, &line[i], is_valid_elem(&line[i]));
 	else if (line[i] && is_valid_elem(&line[i]) == TOT)
 	{
 		insert_map_tail(list, fill_line_of_list(line), ft_str_end_trim(line));
@@ -90,10 +90,9 @@ int	main(int ac, char *av[])
 	- 4], ".cub", ft_strlen(av[1])))
 	{
 		fd = open(av[1], O_RDONLY);
-		if (fd <= 0 || !init_cub(&cub) \
-		|| !fill_in_cub(&cub, fd) || close(fd) == -1)
+		if (fd <= 0 || !init_cub(&cub) || !fill_in_cub(&cub, fd) \
+		|| close(fd) == -1 || !check_map(cub.map->map))
 			return (0);
-		check_map(&cub);
 		(&cub)->sqr_size = get_sqr_size();
 		init_player_pos(&cub, -1, -1);
 		init_raycaster(&cub);

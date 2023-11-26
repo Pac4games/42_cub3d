@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:40:05 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:04:21 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,23 @@ void	destroy_list(t_list *list)
 	}
 }
 
-void	destroy_txtrs_list(t_all_txtrs *txtrs)
+void	destroy_txtrs_list(t_txtrs *txtrs)
 {
 	int	i;
 
 	if (!txtrs)
 		return ;
 	i = 0;
-	while (txtrs->textures[i].path)
-		free_mtx(txtrs->textures[i++].path);
-	free(txtrs->textures);
+	while (txtrs[i].path)
+		free_mtx(txtrs[i++].path);
 	free(txtrs);
 }
 
 void	destroy_cub(t_cub3d *cub)
 {
+	int	i;
+
+	i = -1;
 	if (!cub)
 		return ;
 	if (cub->minimap)
@@ -60,8 +62,18 @@ void	destroy_cub(t_cub3d *cub)
 		destroy_matrix(cub->map->map, cub->map->tot_rows);
 		free(cub->map);
 	}
-	if (cub->all_txtrs)
-		destroy_txtrs_list(cub->all_txtrs);
+	if (cub->textures)
+	{
+		while (cub->textures[++i])
+		{
+			if (cub->textures[i]->floor)
+				free(cub->textures[i]->floor);
+			if (cub->textures[i]->ceiling)
+				free(cub->textures[i]->ceiling);
+			destroy_txtrs_list(cub->textures[i]);
+		}
+		free(cub->textures);
+	}
 }
 
 void	destroy_matrix(char **matrix, int tot_rows)

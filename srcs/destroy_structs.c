@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 12:04:21 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:08:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	destroy_txtrs_list(t_txtrs *txtrs)
 void	destroy_cub(t_cub3d *cub)
 {
 	int	i;
+	int	f;
 
 	i = -1;
 	if (!cub)
@@ -64,13 +65,47 @@ void	destroy_cub(t_cub3d *cub)
 	}
 	if (cub->textures)
 	{
-		while (cub->textures[++i])
+		while (++i < cub->tot_txtrs)
 		{
 			if (cub->textures[i]->floor)
 				free(cub->textures[i]->floor);
 			if (cub->textures[i]->ceiling)
 				free(cub->textures[i]->ceiling);
-			destroy_txtrs_list(cub->textures[i]);
+			if (cub->textures[i]->width)
+				free(cub->textures[i]->width);
+			if (cub->textures[i]->height)
+				free(cub->textures[i]->height);
+			if (cub->textures[i]->path)
+			{
+				f = -1;
+				while (++f <= cub->textures[i]->levels)
+					free(cub->textures[i]->path[f]);
+				free(cub->textures[i]->path);
+			}
+			if (i == F || i == C)
+			{
+				free(cub->textures[i]);
+				continue ;
+			}
+			if (cub->textures[i]->bits_per_pixel)
+				free(cub->textures[i]->bits_per_pixel);
+			if (cub->textures[i]->line_length)
+				free(cub->textures[i]->line_length);
+			if (cub->textures[i]->endian)
+				free(cub->textures[i]->endian);
+			if (cub->textures[i]->addrs)
+			{
+				f = -1;
+				free(cub->textures[i]->addrs);
+			}
+			if (cub->textures[i]->imgs)
+			{
+				f = -1;
+				while (++f <= cub->textures[i]->levels - 1)
+					mlx_destroy_image(cub->mlx, cub->textures[i]->imgs[f]);
+				free(cub->textures[i]->imgs);
+			}
+			free(cub->textures[i]);
 		}
 		free(cub->textures);
 	}

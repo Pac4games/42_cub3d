@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 20:40:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:42:43 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**solo_matrix(int rows, int cols)
 		}
 		i++;
 	}
-	mat[i] = '\0';
+	mat[i] = NULL;
 	return (mat);
 }
 
@@ -133,7 +133,7 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 		cub->textures[type]->addrs[counter] = mlx_get_data_addr(cub->textures[type]->imgs[counter], \
 	&cub->textures[type]->bits_per_pixel[counter], &cub->textures[type]->line_length[counter], \
 	&cub->textures[type]->endian[counter]);
-	cub->textures[type]->addrs[counter] = '\0';
+	cub->textures[type]->addrs[counter] = NULL;
 }
 
 void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   toggle_textures.c                                  :+:      :+:    :+:   */
+/*   toggle_txtrs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,12 +17,12 @@ static int	get_color(t_cub3d *cub, int type, int tex_x, int tex_y)
 	int		color;
 	int		offset;
 
-	offset = tex_y * cub->textures[type]->line_length[cub->level \
-	% (cub->textures[type]->levels)] + tex_x \
-	* (cub->textures[type]->bits_per_pixel[cub->level \
-	% (cub->textures[type]->levels)] / 8);
-	color = *(int *)(cub->textures[type]->addrs[cub->level \
-	% (cub->textures[type]->levels)] + offset);
+	offset = tex_y * cub->txtrs[type]->line_length[cub->level \
+	% (cub->txtrs[type]->levels)] + tex_x \
+	* (cub->txtrs[type]->bpp[cub->level \
+	% (cub->txtrs[type]->levels)] / 8);
+	color = *(int *)(cub->txtrs[type]->addrs[cub->level \
+	% (cub->txtrs[type]->levels)] + offset);
 	return (color);
 }
 
@@ -34,14 +34,14 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 	int		color;
 	int		y;
 
-	step = 1.0 * cub->textures[type]->height[cub->level \
-		% (cub->textures[type]->levels)] / (vec->yf - vec->yi);
+	step = 1.0 * cub->txtrs[type]->height[cub->level \
+		% (cub->txtrs[type]->levels)] / (vec->yf - vec->yi);
 	texture_pos = (vec->yi - WHEI / 2 + (vec->yf - vec->yi) / 2) * step;
 	y = vec->yi;
 	while (y < vec->yf)
 	{
-		texture_y = (int)texture_pos & (cub->textures[type]->height[cub->level \
-		% (cub->textures[type]->levels)] - 1);
+		texture_y = (int)texture_pos & (cub->txtrs[type]->height[cub->level \
+		% (cub->txtrs[type]->levels)] - 1);
 		color = get_color(cub, type, ray->x_txtr, texture_y);
 		my_mlx_pixel_put(cub, vec->xi, y, color);
 		texture_pos += step;
@@ -49,7 +49,7 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 	}
 }
 
-void	change_textures(t_cub3d *cub, int y, int x)
+void	change_txtrs(t_cub3d *cub, int y, int x)
 {
 	static int	lastx = 0;
 	static int	lasty = 0;

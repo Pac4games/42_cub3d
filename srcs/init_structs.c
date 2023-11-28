@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 17:08:47 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:57:48 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	init_cub(t_cub3d *cub)
 	cub->mlx_win = NULL;
 	cub->img = NULL;
 	cub->addr = NULL;
-	cub->textures = NULL;
+	cub->txtrs = NULL;
 	cub->minimap = NULL;
 	cub->map = NULL;
 	cub->map_cols = 0;

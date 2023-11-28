@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/27 13:42:43 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:55:46 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,51 +89,53 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 
 	if (type == F || type == C || type == TOT)
 		return ;
-	cub->textures[type]->imgs = malloc(sizeof(void *) * i);
-	if (!cub->textures[type]->imgs)
+	cub->txtrs[type]->imgs = malloc(sizeof(void *) * i);
+	if (!cub->txtrs[type]->imgs)
 		return ;
-	cub->textures[type]->bits_per_pixel = malloc(sizeof(int) * i);
-	if (!cub->textures[type]->bits_per_pixel)
+	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->bpp)
 	{
-		free(cub->textures[type]->imgs);
-		return ;
-	}
-	cub->textures[type]->line_length = malloc(sizeof(int) * i);
-	if (!cub->textures[type]->line_length)
-	{
-		free(cub->textures[type]->imgs);
-		free(cub->textures[type]->bits_per_pixel);
+		free(cub->txtrs[type]->imgs);
 		return ;
 	}
-	cub->textures[type]->endian = malloc(sizeof(int) * i);
-	if (!cub->textures[type]->endian)
+	cub->txtrs[type]->line_length = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->line_length)
 	{
-		free(cub->textures[type]->imgs);
-		free(cub->textures[type]->line_length);
-		free(cub->textures[type]->bits_per_pixel);
+		free(cub->txtrs[type]->imgs);
+		free(cub->txtrs[type]->bpp);
 		return ;
 	}
-	counter = -1;
-	while (++counter < i)
-		cub->textures[type]->imgs[counter] = mlx_xpm_file_to_image(cub->mlx, \
-		cub->textures[type]->path[counter], \
-		&cub->textures[type]->width[counter], \
-		&cub->textures[type]->height[counter]);
-	cub->textures[type]->addrs = malloc(sizeof(char *) * (i + 1));
-	if (!cub->textures[type]->addrs)
+	cub->txtrs[type]->endian = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->endian)
 	{
-		free(cub->textures[type]->imgs);
-		free(cub->textures[type]->endian);
-		free(cub->textures[type]->line_length);
-		free(cub->textures[type]->bits_per_pixel);
+		free(cub->txtrs[type]->imgs);
+		free(cub->txtrs[type]->line_length);
+		free(cub->txtrs[type]->bpp);
 		return ;
 	}
 	counter = -1;
+	cub->txtrs[type]->addrs = malloc(sizeof(char *) * (i + 1));
+	if (!cub->txtrs[type]->addrs)
+	{
+		free(cub->txtrs[type]->endian);
+		free(cub->txtrs[type]->line_length);
+		free(cub->txtrs[type]->bpp);
+		return ;
+	}
 	while (++counter < i)
-		cub->textures[type]->addrs[counter] = mlx_get_data_addr(cub->textures[type]->imgs[counter], \
-	&cub->textures[type]->bits_per_pixel[counter], &cub->textures[type]->line_length[counter], \
-	&cub->textures[type]->endian[counter]);
-	cub->textures[type]->addrs[counter] = NULL;
+	{
+		cub->txtrs[type]->imgs[counter] = mlx_xpm_file_to_image(cub->mlx, \
+		cub->txtrs[type]->path[counter], \
+		&cub->txtrs[type]->width[counter], \
+		&cub->txtrs[type]->height[counter]);
+		print_err_cub("one or more invalid textures", cub);
+	}
+	counter = -1;
+	while (++counter < i)
+		cub->txtrs[type]->addrs[counter] = mlx_get_data_addr(cub->txtrs[type]->imgs[counter], \
+	&cub->txtrs[type]->bpp[counter], &cub->txtrs[type]->line_length[counter], \
+	&cub->txtrs[type]->endian[counter]);
+	cub->txtrs[type]->addrs[counter] = NULL;
 }
 
 void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
@@ -149,16 +151,16 @@ void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	if (!split)
 		return ;
 	i = mtx_len(split);
-	if (!cub->textures)
+	if (!cub->txtrs)
 	{
-		cub->textures = malloc(TOT * sizeof(t_txtrs *));
-		if (!cub->textures)
+		cub->txtrs = malloc(TOT * sizeof(t_txtrs *));
+		if (!cub->txtrs)
 			return ;
 	}
-	cub->textures[txtr_type] = init_txtrs(i);
-	cub->textures[txtr_type]->path = split;
-	cub->textures[txtr_type]->type = txtr_type;
-	cub->textures[txtr_type]->levels = i;
+	cub->txtrs[txtr_type] = init_txtrs(i);
+	cub->txtrs[txtr_type]->path = split;
+	cub->txtrs[txtr_type]->type = txtr_type;
+	cub->txtrs[txtr_type]->levels = i;
 	cub->tot_txtrs++;
 	register_elem(cub, txtr_type);
 	if (txtr_type == F || txtr_type == C)

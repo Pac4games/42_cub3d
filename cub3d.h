@@ -119,7 +119,7 @@ typedef struct s_txtrs
 	int		levels;
 	int		*width;
 	int		*height;
-	int		*bits_per_pixel;
+	int		*bpp;
 	int		*line_length;
 	int		*endian;
 }	t_txtrs;
@@ -161,13 +161,13 @@ typedef struct s_cub3d
 	void		*mlx_win;
 	void		*img;
 	char		*addr;
-	int			bits_per_pixel;
+	int			bpp;
 	int			line_length;
 	int			endian;
 	t_map		*map;
 	t_minimap	*minimap;
 	t_vector	*player;
-	t_txtrs		**textures;
+	t_txtrs		**txtrs;
 	int			elems;
 	int			tot_txtrs;
 	int			sqr_size;
@@ -186,7 +186,7 @@ typedef struct s_cub3d
 
 // PARSING
 int			parse_colors(t_cub3d *cub, char *line, int type);
-int			parse_textures(t_cub3d *cub, char *line, int type);
+int			parse_txtrs(t_cub3d *cub, char *line, int type);
 
 // CALC PLAYER MOVS
 int			check_colisions_and_move(t_cub3d *cub);
@@ -276,9 +276,9 @@ void		remove_player_mov(t_cub3d *cub, int key);
 void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
 
-// TOGGLE TEXTURES
+// TOGGLE txtrs
 void		draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type);
-void		change_textures(t_cub3d *cub, int x, int y);
+void		change_txtrs(t_cub3d *cub, int x, int y);
 void		register_elem(t_cub3d *cub, int type);
 
 // UTILITY PRINTS

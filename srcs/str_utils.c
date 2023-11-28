@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:12 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 20:23:52 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:01:32 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	ft_str_end_trim(char *line)
 {
 	int		i;
 
+	i = 0;
 	if (!line)
 		return (0);
 	if (ft_strchr(line, '\n'))
 		i = ft_strlen(line) - 1;
 	else if (!ft_strchr(line, '\n'))
 	{
-		i = 0;
 		while (line[i] != '\0')
 			i++;
 	}

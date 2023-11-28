@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/27 14:08:14 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:50:28 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,51 +63,54 @@ void	destroy_cub(t_cub3d *cub)
 		destroy_matrix(cub->map->map, cub->map->tot_rows);
 		free(cub->map);
 	}
-	if (cub->textures)
+	if (cub->txtrs)
 	{
 		while (++i < cub->tot_txtrs)
 		{
-			if (cub->textures[i]->floor)
-				free(cub->textures[i]->floor);
-			if (cub->textures[i]->ceiling)
-				free(cub->textures[i]->ceiling);
-			if (cub->textures[i]->width)
-				free(cub->textures[i]->width);
-			if (cub->textures[i]->height)
-				free(cub->textures[i]->height);
-			if (cub->textures[i]->path)
+			printf("i: %d\n", i);
+			if (cub->txtrs[i]->floor)
+				free(cub->txtrs[i]->floor);
+			if (cub->txtrs[i]->ceiling)
+				free(cub->txtrs[i]->ceiling);
+			if (cub->txtrs[i]->width)
+				free(cub->txtrs[i]->width);
+			if (cub->txtrs[i]->height)
+				free(cub->txtrs[i]->height);
+			if (cub->txtrs[i]->path)
 			{
 				f = -1;
-				while (++f <= cub->textures[i]->levels)
-					free(cub->textures[i]->path[f]);
-				free(cub->textures[i]->path);
+				while (++f <= cub->txtrs[i]->levels)
+					free(cub->txtrs[i]->path[f]);
+				free(cub->txtrs[i]->path);
 			}
 			if (i == F || i == C)
 			{
-				free(cub->textures[i]);
+				free(cub->txtrs[i]);
 				continue ;
 			}
-			if (cub->textures[i]->bits_per_pixel)
-				free(cub->textures[i]->bits_per_pixel);
-			if (cub->textures[i]->line_length)
-				free(cub->textures[i]->line_length);
-			if (cub->textures[i]->endian)
-				free(cub->textures[i]->endian);
-			if (cub->textures[i]->addrs)
+			if (cub->txtrs[i]->addrs)
 			{
 				f = -1;
-				free(cub->textures[i]->addrs);
+				free(cub->txtrs[i]->addrs);
 			}
-			if (cub->textures[i]->imgs)
+			else
+				continue ;
+			if (cub->txtrs[i]->bpp)
+				free(cub->txtrs[i]->bpp);
+			if (cub->txtrs[i]->line_length)
+				free(cub->txtrs[i]->line_length);
+			if (cub->txtrs[i]->endian)
+				free(cub->txtrs[i]->endian);
+			if (cub->txtrs[i]->imgs)
 			{
 				f = -1;
-				while (++f <= cub->textures[i]->levels - 1)
-					mlx_destroy_image(cub->mlx, cub->textures[i]->imgs[f]);
-				free(cub->textures[i]->imgs);
+				while (++f <= cub->txtrs[i]->levels - 1)
+					mlx_destroy_image(cub->mlx, cub->txtrs[i]->imgs[f]);
+				free(cub->txtrs[i]->imgs);
 			}
-			free(cub->textures[i]);
+			free(cub->txtrs[i]);
 		}
-		free(cub->textures);
+		free(cub->txtrs);
 	}
 }
 

@@ -35,7 +35,7 @@ int	in_key(t_cub3d *cub)
 		if (ret == 0)
 			return (1);
 		ft_memset(cub->addr, 0, WHEI * WWID \
-		* sizeof(cub->bits_per_pixel));
+		* sizeof(cub->bpp));
 		raycasting(cub);
 		redraw_minimap(cub);
 		mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);

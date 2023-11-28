@@ -147,12 +147,12 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 		vec.yi = 0;
 	vec.yf = line_height / 2 + WHEI / 2;
 	while (++counter < vec.yi)
-		my_mlx_pixel_put(cub, i, counter, cub->textures[C]->ceiling[cub->level \
-		% (cub->textures[C]->levels)]);
+		my_mlx_pixel_put(cub, i, counter, cub->txtrs[C]->ceiling[cub->level \
+		% (cub->txtrs[C]->levels)]);
 	counter = vec.yf - 1;
 	while (++counter < WHEI)
-		my_mlx_pixel_put(cub, i, counter, cub->textures[F]->floor[cub->level \
-		% (cub->textures[F]->levels)]);
+		my_mlx_pixel_put(cub, i, counter, cub->txtrs[F]->floor[cub->level \
+		% (cub->txtrs[F]->levels)]);
 	select_img_and_side(cub, ray, &vec, sqr);
 }
 

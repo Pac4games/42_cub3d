@@ -15,10 +15,10 @@
 static void	insert_colors(t_cub3d *cub, char **split, int type, int i)
 {
 	if (type == F)
-		cub->textures[type]->floor[i] = (ft_atoi(split[0]) << 16 \
+		cub->txtrs[type]->floor[i] = (ft_atoi(split[0]) << 16 \
 		| ft_atoi(split[1]) << 8 | ft_atoi(split[2]));
 	else if (type == C)
-		cub->textures[type]->ceiling[i] = (ft_atoi(split[0]) << 16 \
+		cub->txtrs[type]->ceiling[i] = (ft_atoi(split[0]) << 16 \
 		| ft_atoi(split[1]) << 8 | ft_atoi(split[2]));
 }
 
@@ -42,7 +42,7 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 		}
 	}
 	i = -1;
-	while (++i < cub->textures[type]->levels)
+	while (++i < cub->txtrs[type]->levels)
 	{
 		color_split = ft_split(split[i], ',');
 		if (!color_split)
@@ -68,7 +68,7 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	return (1);
 }
 /*
-int	parse_textures(t_cub3d *cub, char *line, int type)
+int	parse_txtrs(t_cub3d *cub, char *line, int type)
 {
 	int		i;
 	int		*fds;

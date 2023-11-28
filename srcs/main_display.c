@@ -20,12 +20,12 @@ void	display_in_canvas(t_cub3d *cub)
 	cub->mlx = mlx_init();
 	cub->mlx_win = mlx_new_window(cub->mlx, WWID, WHEI, "cub3D");
 	cub->img = mlx_new_image(cub->mlx, WWID, WHEI);
-	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel, \
+	cub->addr = mlx_get_data_addr(cub->img, &cub->bpp, \
 	&cub->line_length, &cub->endian);
 	while (++type <= cub->tot_txtrs)
 	{
 		if ((cub->elems >> type & 1))
-			fill_txtrs(cub, type - 1, cub->textures[type - 1]->levels);
+			fill_txtrs(cub, type - 1, cub->txtrs[type - 1]->levels);
 	}
 	raycasting(cub);
 	redraw_minimap(cub);

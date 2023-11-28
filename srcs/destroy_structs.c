@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/28 12:50:28 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:16:33 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	destroy_cub(t_cub3d *cub)
 	{
 		while (++i < cub->tot_txtrs)
 		{
-			printf("i: %d\n", i);
 			if (cub->txtrs[i]->floor)
 				free(cub->txtrs[i]->floor);
 			if (cub->txtrs[i]->ceiling)

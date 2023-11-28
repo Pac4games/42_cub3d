@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/28 12:55:46 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:15:31 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 		cub->txtrs[type]->path[counter], \
 		&cub->txtrs[type]->width[counter], \
 		&cub->txtrs[type]->height[counter]);
-		print_err_cub("one or more invalid textures", cub);
+//		print_err_cub("one or more invalid textures", cub);
 	}
 	counter = -1;
 	while (++counter < i)

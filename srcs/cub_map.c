@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/17 14:36:45 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:47:36 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int check_obj(char **map)
+static int	check_obj(char **map)
 {
 	int	i;
 	int	j;
@@ -23,12 +23,12 @@ static int check_obj(char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] != ZERO && map[i][j] != SPACE &&
-				map[i][j] != WALL && map[i][j] != NORTH &&
-				map[i][j] != SOUTH && map[i][j] != EAST &&
-				map[i][j] != WEST && map[i][j] != DOOR_UP &&
-				map[i][j] != DOOR_DOWN)
-					return (0);
+			if (map[i][j] != ZERO && map[i][j] != SPACE \
+			&& map[i][j] != WALL && map[i][j] != NORTH \
+			&& map[i][j] != SOUTH && map[i][j] != EAST \
+			&& map[i][j] != WEST && map[i][j] != DOOR_UP \
+			&& map[i][j] != DOOR_DOWN)
+				return (0);
 		}
 	}
 	return (1);
@@ -46,9 +46,9 @@ static int	check_player(char **map)
 	{
 		j = -1;
 		while (map[i][++j])
-			if (map[i][j] == NORTH || map[i][j] == SOUTH || \
-				map[i][j] == EAST || map[i][j] == WEST)
-					num++;
+			if (map[i][j] == NORTH || map[i][j] == SOUTH \
+			|| map[i][j] == EAST || map[i][j] == WEST)
+				num++;
 	}
 	if (num != 1)
 		return (0);
@@ -65,10 +65,10 @@ int	check_line(char **map, int i)
 		if (map[i][j] == ZERO || map[i][j] == NORTH || map[i][j] == SOUTH ||
 			map[i][j] == EAST || map[i][j] == WEST)
 		{
-				if (j == 0 || j == ft_strlen(map[i]) - 1)	
-					return (1);
-				if (check_line_lim(map, i, j) || check_line_mid(map, i, j))
-					return (1);
+			if (j == 0 || j == ft_strlen(map[i]) - 1)
+				return (1);
+			if (check_line_lim(map, i, j) || check_line_mid(map, i, j))
+				return (1);
 		}
 		if (map[i][j] == DOOR_UP || map[i][j] == DOOR_DOWN)
 		{

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/13 11:37:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:04:56 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_raycaster(t_cub3d *cub)
 	}
 }
 
-static int	real_distance_calc(t_cub3d *cub, t_ray *ray)
+static char	real_distance_calc(t_cub3d *cub, t_ray *ray)
 {
 	int		hit;
 	char	sqr;
@@ -101,32 +101,57 @@ static void	raycast_step_calc(t_cub3d *cub, t_ray *ray)
 	}
 }
 
+static void	select_img_and_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sqr)
+{
+	double	wall_x;
+
+	if (ray->side == 0)
+		wall_x = cub->player_y + ray->real_dist * ray->dir_y;
+	else
+		wall_x = cub->player_x + ray->real_dist * ray->dir_x;
+	wall_x -= floor(wall_x);
+	ray->x_txtr = (int)(wall_x * 64);
+	if ((ray->side == 0 && ray->dir_x > 0) || \
+	(ray->side == 1 && ray->dir_y < 0))
+		ray->x_txtr = 64 - ray->x_txtr - 1;
+	if (sqr == DOOR_UP)
+		draw_txtrs(cub, ray, vec, UP);
+	else if (sqr == DOOR_DOWN)
+		draw_txtrs(cub, ray, vec, DO);
+	else if (ray->side == 0 && ray->dir_x > 0)
+		draw_txtrs(cub, ray, vec, EA);
+	else if (ray->side == 0 && ray->dir_x < 0)
+		draw_txtrs(cub, ray, vec, WE);
+	else if (ray->side == 1 && ray->dir_y > 0)
+		draw_txtrs(cub, ray, vec, SO);
+	else if (ray->side == 1 && ray->dir_y < 0)
+		draw_txtrs(cub, ray, vec, NO);
+}
+
 static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 {
 	int			line_height;
-	int			color;
 	t_vector	vec;
+	int			counter;
 
+	counter = -1;
 	if (ray->side == 0)
 		ray->real_dist = (ray->dist_x - ray->delta_x);
 	else
 		ray->real_dist = (ray->dist_y - ray->delta_y);
-	line_height = (int)(WHEI / ray->real_dist);
+	line_height = (int)(WHEI / ray->real_dist) + WHEI * 0.1;
 	vec.xi = i;
 	vec.xf = i;
 	vec.yi = -line_height / 2 + WHEI / 2;
-	if (vec.yi < 0 || line_height < 0)
-		vec.yi = 0;
 	vec.yf = line_height / 2 + WHEI / 2;
-	if (vec.yf >= WHEI || line_height < 0)
-		vec.yf = WHEI - 1;
-	if (sqr == DOOR_UP)
-		color = 0x00FFFF;
-	else if (sqr == DOOR_DOWN)
-		color = 0xFF00FF;
-	else
-		color = 0X00ff00 / 2;
-	draw_line(cub, &vec, color);
+	while (++counter < vec.yi)
+		my_mlx_pixel_put(cub, i, counter, cub->txtrs[C]->ceiling[cub->level \
+		% (cub->txtrs[C]->levels)]);
+	counter = vec.yf - 1;
+	while (++counter < WHEI)
+		my_mlx_pixel_put(cub, i, counter, cub->txtrs[F]->floor[cub->level \
+		% (cub->txtrs[F]->levels)]);
+	select_img_and_side(cub, ray, &vec, sqr);
 }
 
 void	raycasting(t_cub3d *cub)
@@ -149,7 +174,6 @@ void	raycasting(t_cub3d *cub)
 		raycast_step_calc(cub, &ray);
 		sqr = real_distance_calc(cub, &ray);
 		raycast_draw_walls(cub, &ray, sqr, i);
-		//dda_side_selector(mlx, &ray, player, info);
 		i++;
 	}
 }

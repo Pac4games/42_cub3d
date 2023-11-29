@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/23 17:27:40 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:15:31 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,35 +83,89 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 	destroy_list(list);
 }
 
-void	insert_txtrs(t_cub3d **cub, char *line, int txtr_type)
+void	fill_txtrs(t_cub3d *cub, int type, int i)
+{
+	int	counter;
+
+	if (type == F || type == C || type == TOT)
+		return ;
+	cub->txtrs[type]->imgs = malloc(sizeof(void *) * i);
+	if (!cub->txtrs[type]->imgs)
+		return ;
+	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->bpp)
+	{
+		free(cub->txtrs[type]->imgs);
+		return ;
+	}
+	cub->txtrs[type]->line_length = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->line_length)
+	{
+		free(cub->txtrs[type]->imgs);
+		free(cub->txtrs[type]->bpp);
+		return ;
+	}
+	cub->txtrs[type]->endian = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->endian)
+	{
+		free(cub->txtrs[type]->imgs);
+		free(cub->txtrs[type]->line_length);
+		free(cub->txtrs[type]->bpp);
+		return ;
+	}
+	counter = -1;
+	cub->txtrs[type]->addrs = malloc(sizeof(char *) * (i + 1));
+	if (!cub->txtrs[type]->addrs)
+	{
+		free(cub->txtrs[type]->endian);
+		free(cub->txtrs[type]->line_length);
+		free(cub->txtrs[type]->bpp);
+		return ;
+	}
+	while (++counter < i)
+	{
+		cub->txtrs[type]->imgs[counter] = mlx_xpm_file_to_image(cub->mlx, \
+		cub->txtrs[type]->path[counter], \
+		&cub->txtrs[type]->width[counter], \
+		&cub->txtrs[type]->height[counter]);
+//		print_err_cub("one or more invalid textures", cub);
+	}
+	counter = -1;
+	while (++counter < i)
+		cub->txtrs[type]->addrs[counter] = mlx_get_data_addr(cub->txtrs[type]->imgs[counter], \
+	&cub->txtrs[type]->bpp[counter], &cub->txtrs[type]->line_length[counter], \
+	&cub->txtrs[type]->endian[counter]);
+	cub->txtrs[type]->addrs[counter] = NULL;
+}
+
+void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 {
 	char		**split;
 	int			i;
-	static int	f;
 
 	i = 0;
-	if (txtr_type == F || txtr_type == C)
-	{
-		if (!parse_colors(*cub, line, txtr_type))
-			return ;
-	}
-	/*
-	else
-		if (!parse_textures(*cub, line, txtr_type))
-			return ;
-	*/
-	if (f > TOT - 1)
+	if (txtr_type > TOT - 1)
 		return ;
 	i += ft_strlen(conv_to_txtr_text(txtr_type));
 	split = ft_split_spaces(&line[i]);
 	if (!split)
 		return ;
 	i = mtx_len(split);
-	if (!(*cub)->all_txtrs)
-		(*cub)->all_txtrs = init_txtrs();
-	(*cub)->all_txtrs->textures[f].path = split;
-	(*cub)->all_txtrs->textures[f].type = txtr_type;
-	(*cub)->all_txtrs->textures[f].levels = i;
-	(*cub)->all_txtrs->textures[f].color = 0;
-	f++;
+	if (!cub->txtrs)
+	{
+		cub->txtrs = malloc(TOT * sizeof(t_txtrs *));
+		if (!cub->txtrs)
+			return ;
+	}
+	cub->txtrs[txtr_type] = init_txtrs(i);
+	cub->txtrs[txtr_type]->path = split;
+	cub->txtrs[txtr_type]->type = txtr_type;
+	cub->txtrs[txtr_type]->levels = i;
+	cub->tot_txtrs++;
+	register_elem(cub, txtr_type);
+	if (txtr_type == F || txtr_type == C)
+	{
+		if (!parse_colors(cub, line, txtr_type))
+			return ;
+	}
 }

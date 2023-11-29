@@ -1,13 +1,13 @@
-NO ./textures/bluestone.xpm ./textures/eagle.xpm
-SO ./textures/eagle.xpm ./textures/redbrick.xpm ./textures/greystone.xpm ./textures/greystone.xpm
-WE ./textures/greystone.xpm ./textures/greystone.xpm ./textures/greystone.xpm
-EA ./textures/redbrick.xpm
+NO assets/bluestone.xpm assets/Door.xpm
+SO assets/eagle.xpm assets/Door.xpm
+WE assets/greystone.xpm assets/Door.xpm
+EA assets/redbrick.xpm assets/Door.xpm
 
-F 0,0,0
-C 255,255,255
+F 66,77,88 0,0,0
+C 122,122,122 255,255,255
 
-UP 50,50,50 ./textures/greystone.xpm
-LO ./textures/redbrick.xpm
+UP assets/Door.xpm
+DO assets/Door.xpm
 
         1111111111111111111111111
         1000000000110000000000001
@@ -20,6 +20,6 @@ LO ./textures/redbrick.xpm
 110000001101010111D0000010001
 10000000000000000000000000001
 100000D0000000001101010010001
-110000U1110101011111011100W0111
+110000U11101010111110111U0W0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111

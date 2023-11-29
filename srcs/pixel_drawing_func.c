@@ -20,7 +20,7 @@ void	minimap_pixel_put(t_cub3d *cub, int x, int y, int color)
 	&& x < WWID * 0.4 && y < WHEI * 0.4)
 	{
 		dst = cub->addr + (y * cub->line_length + \
-		x * (cub->bits_per_pixel / 8));
+		x * (cub->bpp / 8));
 		*(unsigned int *)dst = color;
 	}
 }
@@ -58,7 +58,7 @@ void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 	if (x > 0 && y > 0 && x < WWID && y < WHEI)
 	{
 		dst = cub->addr + (y * cub->line_length + \
-		x * (cub->bits_per_pixel / 8));
+		x * (cub->bpp / 8));
 		*(unsigned int *)dst = color;
 	}
 }

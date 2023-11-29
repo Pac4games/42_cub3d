@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:12 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/09 16:19:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:01:32 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,16 @@ int	ft_str_end_trim(char *line)
 {
 	int		i;
 
+	i = 0;
 	if (!line)
 		return (0);
 	if (ft_strchr(line, '\n'))
 		i = ft_strlen(line) - 1;
 	else if (!ft_strchr(line, '\n'))
 	{
-		i = 0;
 		while (line[i] != '\0')
 			i++;
 	}
-	else
-		i = ft_strlen(line);
 	while (line[i] && line[i] == ' ')
 		i--;
 	return (i);
@@ -70,6 +68,8 @@ char	*conv_to_txtr_text(char c)
 		return (PRT_CEIL);
 	else if (c == UP)
 		return (PRT_UP);
-	else
+	else if (c == DO)
 		return (PRT_LOW);
+	else
+		return (NULL);
 }

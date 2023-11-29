@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/28 17:15:31 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:54:14 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,27 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 	destroy_list(list);
 }
 
-void	fill_txtrs(t_cub3d *cub, int type, int i)
+int	fill_txtrs(t_cub3d *cub, int type, int i)
 {
 	int	counter;
 
 	if (type == F || type == C || type == TOT)
-		return ;
+		return (1);
 	cub->txtrs[type]->imgs = malloc(sizeof(void *) * i);
 	if (!cub->txtrs[type]->imgs)
-		return ;
+		return (0);
 	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
 	if (!cub->txtrs[type]->bpp)
 	{
 		free(cub->txtrs[type]->imgs);
-		return ;
+		return (0);
 	}
 	cub->txtrs[type]->line_length = malloc(sizeof(int) * i);
 	if (!cub->txtrs[type]->line_length)
 	{
 		free(cub->txtrs[type]->imgs);
 		free(cub->txtrs[type]->bpp);
-		return ;
+		return (0);
 	}
 	cub->txtrs[type]->endian = malloc(sizeof(int) * i);
 	if (!cub->txtrs[type]->endian)
@@ -111,7 +111,7 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 		free(cub->txtrs[type]->imgs);
 		free(cub->txtrs[type]->line_length);
 		free(cub->txtrs[type]->bpp);
-		return ;
+		return (0);
 	}
 	counter = -1;
 	cub->txtrs[type]->addrs = malloc(sizeof(char *) * (i + 1));
@@ -120,7 +120,7 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 		free(cub->txtrs[type]->endian);
 		free(cub->txtrs[type]->line_length);
 		free(cub->txtrs[type]->bpp);
-		return ;
+		return (0);
 	}
 	while (++counter < i)
 	{
@@ -128,7 +128,11 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 		cub->txtrs[type]->path[counter], \
 		&cub->txtrs[type]->width[counter], \
 		&cub->txtrs[type]->height[counter]);
-//		print_err_cub("one or more invalid textures", cub);
+		if (!cub->txtrs[type]->width[counter])
+		{
+//			cub->txtrs[type]->levels = counter;
+			return (print_err_ret("one or more invalid textures"));
+		}
 	}
 	counter = -1;
 	while (++counter < i)
@@ -136,6 +140,7 @@ void	fill_txtrs(t_cub3d *cub, int type, int i)
 	&cub->txtrs[type]->bpp[counter], &cub->txtrs[type]->line_length[counter], \
 	&cub->txtrs[type]->endian[counter]);
 	cub->txtrs[type]->addrs[counter] = NULL;
+	return (1);
 }
 
 void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)

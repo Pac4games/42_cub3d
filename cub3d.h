@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/27 14:07:12 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:03:38 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void		init_player_pos(t_cub3d *cub, int x, int y);
 char		**solo_matrix(int rows, int cols);
 void		insert_map_tail(t_list *list, int *data, int len);
 void		list_to_map(t_list *list, t_cub3d *cub);
-void		fill_txtrs(t_cub3d *cub, int type, int i);
+int			fill_txtrs(t_cub3d *cub, int type, int i);
 void		insert_txtrs(t_cub3d *cub, char *line, int txtr_type);
 
 // FIND SQR COORD

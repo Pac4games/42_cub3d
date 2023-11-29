@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/28 17:16:33 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:48:03 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,26 @@ void	destroy_cub(t_cub3d *cub)
 				free(cub->txtrs[i]);
 				continue ;
 			}
+			if (cub->txtrs[i]->imgs)
+			{
+				f = -1;
+//				while (++f <= cub->txtrs[i]->levels)
+//					mlx_destroy_image(cub->mlx, cub->txtrs[i]->imgs[f]);
+				free(cub->txtrs[i]->imgs);
+			}
+			else
+				continue ;
 			if (cub->txtrs[i]->addrs)
 			{
 				f = -1;
 				free(cub->txtrs[i]->addrs);
 			}
-			else
-				continue ;
 			if (cub->txtrs[i]->bpp)
 				free(cub->txtrs[i]->bpp);
 			if (cub->txtrs[i]->line_length)
 				free(cub->txtrs[i]->line_length);
 			if (cub->txtrs[i]->endian)
 				free(cub->txtrs[i]->endian);
-			if (cub->txtrs[i]->imgs)
-			{
-				f = -1;
-				while (++f <= cub->txtrs[i]->levels - 1)
-					mlx_destroy_image(cub->mlx, cub->txtrs[i]->imgs[f]);
-				free(cub->txtrs[i]->imgs);
-			}
 			free(cub->txtrs[i]);
 		}
 		free(cub->txtrs);

@@ -42,8 +42,11 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 	{
 		texture_y = (int)texture_pos & (cub->txtrs[type]->height[cub->level \
 		% (cub->txtrs[type]->levels)] - 1);
-		color = get_color(cub, type, ray->x_txtr, texture_y);
-		my_mlx_pixel_put(cub, vec->xi, y, color);
+		if (y > 0 && y < WHEI)
+		{
+			color = get_color(cub, type, ray->x_txtr, texture_y);
+			my_mlx_pixel_put(cub, vec->xi, y, color);
+		}
 		texture_pos += step;
 		y++;
 	}

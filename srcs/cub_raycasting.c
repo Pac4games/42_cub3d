@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 20:21:14 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:04:56 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,6 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 	vec.xi = i;
 	vec.xf = i;
 	vec.yi = -line_height / 2 + WHEI / 2;
-	if (vec.yi < 0 || line_height < 0)
-		vec.yi = 0;
 	vec.yf = line_height / 2 + WHEI / 2;
 	while (++counter < vec.yi)
 		my_mlx_pixel_put(cub, i, counter, cub->txtrs[C]->ceiling[cub->level \

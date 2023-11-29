@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/15 12:23:07 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:07:12 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # define WHEI 1080
 # define SQR_SIZE 18
 # define STEP 0.1
-# define DOOR_MULTIP 0.35
-# define MY_PI 3.141590
 
 # define ESC 65307
 # define FRONT 119
@@ -46,7 +44,7 @@
 # define PRT_FLOOR "F"
 # define PRT_CEIL "C"
 # define PRT_UP "UP"
-# define PRT_LOW "LO"
+# define PRT_LOW "DO"
 
 typedef struct s_node	t_node;
 
@@ -79,10 +77,10 @@ enum e_map
 	SPACE = ' ',
 	NORTH = 'N',
 	SOUTH = 'S',
-	EAST = 'E',
-	WEST = 'W',
 	DOOR_UP = 'U',
 	DOOR_DOWN = 'D',
+	EAST = 'E',
+	WEST = 'W',
 };
 
 enum e_texture
@@ -91,10 +89,10 @@ enum e_texture
 	SO,
 	EA,
 	WE,
-	UP,
-	DOWN,
 	F,
 	C,
+	UP,
+	DO,
 	TOT,
 };
 
@@ -113,16 +111,18 @@ enum e_directions
 typedef struct s_txtrs
 {
 	char	**path;
-	int		*color;
+	void	**imgs;
+	char	**addrs;
+	int		*floor;
+	int		*ceiling;
 	int		type;
 	int		levels;
+	int		*width;
+	int		*height;
+	int		*bpp;
+	int		*line_length;
+	int		*endian;
 }	t_txtrs;
-
-typedef struct s_all_txtrs
-{
-	t_txtrs		*textures;
-	int			tot_txtrs;
-}	t_all_txtrs;
 
 typedef struct s_minimap
 {
@@ -152,6 +152,7 @@ typedef struct s_ray
 	int		xstep;
 	int		ystep;
 	int		side;
+	int		x_txtr;
 }	t_ray;
 
 typedef struct s_cub3d
@@ -160,12 +161,15 @@ typedef struct s_cub3d
 	void		*mlx_win;
 	void		*img;
 	char		*addr;
-	int			bits_per_pixel;
+	int			bpp;
 	int			line_length;
 	int			endian;
 	t_map		*map;
 	t_minimap	*minimap;
 	t_vector	*player;
+	t_txtrs		**txtrs;
+	int			elems;
+	int			tot_txtrs;
 	int			sqr_size;
 	int			move;
 	int			inverted;
@@ -177,9 +181,12 @@ typedef struct s_cub3d
 	double		plane_y;
 	char		direction;
 	int			level;
-	t_all_txtrs	*all_txtrs;
 	int			map_cols;
 }	t_cub3d;
+
+// PARSING
+int			parse_colors(t_cub3d *cub, char *line, int type);
+int			parse_txtrs(t_cub3d *cub, char *line, int type);
 
 // CALC PLAYER MOVS
 int			check_colisions_and_move(t_cub3d *cub);
@@ -199,7 +206,7 @@ int			read_keys(int key_pressed, t_cub3d *cub);
 // DESTROY STRUCTS
 void		destroy_list(t_list *list);
 void		destroy_cub(t_cub3d *cub);
-void		destroy_txtrs_list(t_all_txtrs *txtrs);
+void		destroy_txtrs_list(t_txtrs *txtrs);
 void		destroy_matrix(char **mat, int tot_rows);
 
 // DRAW MINIMAP
@@ -221,7 +228,8 @@ void		init_player_pos(t_cub3d *cub, int x, int y);
 char		**solo_matrix(int rows, int cols);
 void		insert_map_tail(t_list *list, int *data, int len);
 void		list_to_map(t_list *list, t_cub3d *cub);
-void		insert_txtrs(t_cub3d **cub, char *line, int txtr_type);
+void		fill_txtrs(t_cub3d *cub, int type, int i);
+void		insert_txtrs(t_cub3d *cub, char *line, int txtr_type);
 
 // FIND SQR COORD
 int			rotate_view(t_cub3d *cub);
@@ -230,11 +238,11 @@ void		get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y);
 int			get_sqr_coord(t_cub3d *cub, int xval, int yval, char is_horiz);
 int			get_sqr_size(void);
 
-//INIT STRUCTS
+// INIT STRUCTS
 t_node		*init_node(void);
 void		init_list(t_list *list);
 int			init_cub(t_cub3d *cub);
-t_all_txtrs	*init_txtrs(void);
+t_txtrs		*init_txtrs(int times);
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 
 // MAIN DISPLAY
@@ -268,23 +276,28 @@ void		remove_player_mov(t_cub3d *cub, int key);
 void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
 
-// TOGGLE TEXTURES
-void		change_textures(t_cub3d *cub, int x, int y);
+// TOGGLE txtrs
+void		draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type);
+void		change_txtrs(t_cub3d *cub, int x, int y);
+void		register_elem(t_cub3d *cub, int type);
 
 // UTILITY PRINTS
 void		print_map(t_map *map, int cols);
-void		print_txtrs(t_all_txtrs *txtrs);
+void		print_txtrs(t_txtrs *txtrs);
 void		print_matrix(int **mat, int rows, int cols);
+int			print_err_ret(char *msg);
 void		print_err_cub(char *msg, t_cub3d *cub);
 
 // OTHER UTILS
 void		free_mtx(char **mtx);
+void		print_mtx(char **mtx);
 int			mtx_len(char **mtx);
+int			str_isdigit(char *str);
 
 // VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
-void		check_map(t_cub3d *cub);
+int			check_map(char **map);
 int			check_border(char **map, int i);
 int			check_line_lim(char **map, int i, int j);
 int			check_line_mid(char **map, int i, int j);

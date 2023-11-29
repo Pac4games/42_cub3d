@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:14:06 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/13 11:33:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:25:11 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_valid_elem(char *line)
 	else if (has_seq(line, PRT_UP))
 		return (UP);
 	else if (has_seq(line, PRT_LOW))
-		return (DOWN);
+		return (DO);
 	else if (has_seq(line, PRT_FLOOR))
 		return (F);
 	else if (has_seq(line, PRT_CEIL))

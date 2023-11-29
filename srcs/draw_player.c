@@ -58,7 +58,7 @@ int	reload_player_pos(t_cub3d *cub, int y, int x)
 	cub->plane_x *= -1;
 	cub->plane_y *= -1;
 	cub->inverted = -1;
-	change_textures(cub, y, x);
+	change_txtrs(cub, y, x);
 	return (2);
 }
 

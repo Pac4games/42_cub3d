@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:47:26 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/13 18:15:49 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:41:00 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	free_mtx(char **mtx)
 	free(mtx);
 }
 
+void	print_mtx(char **mtx)
+{
+	int	i;
+
+	i = 0;
+	while (mtx[i])
+		ft_putendl_fd(mtx[i++], STDOUT_FILENO);
+}
+
 int	mtx_len(char **mtx)
 {
 	int	res;
@@ -30,4 +39,15 @@ int	mtx_len(char **mtx)
 	while (mtx[res])
 		res++;
 	return (res);
+}
+
+int	str_isdigit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		if (!ft_isdigit(str[i++]))
+			return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 14:36:26 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/01 09:09:28 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ void	draw_player(t_cub3d *cub, double ycorr, double xcorr)
 {
 	t_vector	vec;
 
-	xcorr++;
-	ycorr++;
-	vec.xi = cub->sqr_size + (cub->player_x - 0.25) * cub->sqr_size;
-	vec.yi = cub->sqr_size + (cub->player_y - 0.25) * cub->sqr_size;
-	vec.xf = cub->sqr_size + (cub->player_x + 0.25) * cub->sqr_size;
-	vec.yf = cub->sqr_size + (cub->player_y + 0.25) * cub->sqr_size;
+	vec.xi = xcorr + cub->sqr_size + (cub->player_x - 0.25) * cub->sqr_size;
+	vec.yi = ycorr + cub->sqr_size + (cub->player_y - 0.25) * cub->sqr_size;
+	vec.xf = xcorr + cub->sqr_size + (cub->player_x + 0.25) * cub->sqr_size;
+	vec.yf = ycorr + cub->sqr_size + (cub->player_y + 0.25) * cub->sqr_size;
 	draw_player_lines(cub, vec, (double)(cub->sqr_size * 0.5), 0x44FF24);
 }
 

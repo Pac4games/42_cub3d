@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:56 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 13:23:09 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/01 09:55:26 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	minimap_pixel_put(t_cub3d *cub, int x, int y, int color)
 	char	*dst;
 
 	if (x > cub->sqr_size && y > cub->sqr_size \
-	&& x < WWID * 0.4 && y < WHEI * 0.4)
+	&& x < WWID * 0.35 && y < WHEI * 0.35)
 	{
 		dst = cub->addr + (y * cub->line_length + \
 		x * (cub->bpp / 8));

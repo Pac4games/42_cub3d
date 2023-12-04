@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/29 11:04:56 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:08:34 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,32 @@ static void	raycast_step_calc(t_cub3d *cub, t_ray *ray)
 static void	select_img_and_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sqr)
 {
 	double	wall_x;
+	int		type;
 
 	if (ray->side == 0)
 		wall_x = cub->player_y + ray->real_dist * ray->dir_y;
 	else
 		wall_x = cub->player_x + ray->real_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
-	ray->x_txtr = (int)(wall_x * 64);
-	if ((ray->side == 0 && ray->dir_x > 0) || \
-	(ray->side == 1 && ray->dir_y < 0))
-		ray->x_txtr = 64 - ray->x_txtr - 1;
 	if (sqr == DOOR_UP)
-		draw_txtrs(cub, ray, vec, UP);
+		type = UP;
 	else if (sqr == DOOR_DOWN)
-		draw_txtrs(cub, ray, vec, DO);
+		type = DO;
 	else if (ray->side == 0 && ray->dir_x > 0)
-		draw_txtrs(cub, ray, vec, EA);
+		type = EA;
 	else if (ray->side == 0 && ray->dir_x < 0)
-		draw_txtrs(cub, ray, vec, WE);
+		type = WE;
 	else if (ray->side == 1 && ray->dir_y > 0)
-		draw_txtrs(cub, ray, vec, SO);
+		type = SO;
 	else if (ray->side == 1 && ray->dir_y < 0)
-		draw_txtrs(cub, ray, vec, NO);
+		type = NO;
+	else
+		return ;
+	ray->x_txtr = (int)(wall_x * \
+	cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels]);
+	if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))
+		ray->x_txtr = cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels] - ray->x_txtr - 1;
+	draw_txtrs(cub, ray, vec, type);
 }
 
 static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
@@ -139,7 +143,7 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 		ray->real_dist = (ray->dist_x - ray->delta_x);
 	else
 		ray->real_dist = (ray->dist_y - ray->delta_y);
-	line_height = (int)(WHEI / ray->real_dist) + WHEI * 0.1;
+	line_height = (int)(WHEI / ray->real_dist);
 	vec.xi = i;
 	vec.xf = i;
 	vec.yi = -line_height / 2 + WHEI / 2;

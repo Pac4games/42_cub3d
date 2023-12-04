@@ -1,13 +1,13 @@
-NO assets/bluestone.xpm assets/Wall3.xpm
-SO assets/eagle.xpm assets/Wall3.xpm
-WE assets/greystone.xpm assets/Wall3.xpm
-EA assets/redbrick.xpm assets/Wall3.xpm
+NO assets/bluestone.xpm assets/Wall0-1.xpm
+SO assets/eagle.xpm assets/Wall0-2.xpm
+WE assets/greystone.xpm assets/Wall0-3.xpm
+EA assets/redbrick.xpm assets/Wall0-4.xpm
 
-F 66,77,88 150,150,180
-C 122,122,122 163,167,169
+F 66,77,88 184,181,185
+C 122,122,122 0,0,0
 
-UP assets/Door2.xpm
-DO assets/Door2.xpm
+UP assets/Door2.xpm assets/Door0Up.xpm
+DO assets/Door2.xpm assets/Door0Down.xpm
 
         1111111111111111111111111
         1000000000110000000000001

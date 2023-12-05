@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 15:09:17 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:19:17 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct s_cub3d
 	double		plane_y;
 	char		direction;
 	int			level;
+	int			max_level;
 	int			map_cols;
 }	t_cub3d;
 

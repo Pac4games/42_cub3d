@@ -34,14 +34,13 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 	int		color;
 	int		y;
 
-	step = 1.0 * cub->txtrs[type]->width[cub->level \
+	step = 1.0 * cub->txtrs[type]->height[cub->level \
 		% (cub->txtrs[type]->levels)] / (vec->yf - vec->yi);
 	texture_pos = (vec->yi - WHEI / 2 + (vec->yf - vec->yi) / 2) * step;
 	y = vec->yi;
 	while (y < vec->yf)
 	{
-		texture_y = (int)texture_pos & (cub->txtrs[type]->height[cub->level \
-		% (cub->txtrs[type]->levels)] - 1);
+		texture_y = (int)texture_pos;
 		if (y >= 0 && y <= WHEI)
 		{
 			color = get_color(cub, type, ray->x_txtr, texture_y);
@@ -54,22 +53,14 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 
 void	change_txtrs(t_cub3d *cub, int y, int x)
 {
-	static int	lastx = 0;
-	static int	lasty = 0;
-
-	if (cub->map->map[y][x] != cub->map->map[lasty][lastx])
-	{
-		if (cub->map->map[y][x] == DOOR_UP)
-			cub->level++;
-		else if (cub->level > 0)
-			cub->level--;
-		else
-			return ;
-		if (cub->level < 0)
-			cub->level = cub->tot_txtrs;
-		lasty = y;
-		lastx = x;
-	}
+	if (cub->map->map[y][x] == DOOR_UP)
+		cub->level++;
+	else if (cub->level > 0)
+		cub->level--;
+	else
+		return ;
+	if (cub->level < 0)
+		cub->level = cub->max_level;
 }
 
 void	register_elem(t_cub3d *cub, int type)

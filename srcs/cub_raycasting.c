@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/04 16:08:34 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 11:06:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ static void	select_img_and_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sq
 	cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels]);
 	if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))
 		ray->x_txtr = cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels] - ray->x_txtr - 1;
+	ray->x_txtr = cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels] - ray->x_txtr;
 	draw_txtrs(cub, ray, vec, type);
 }
 
@@ -149,12 +150,12 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 	vec.yi = -line_height / 2 + WHEI / 2;
 	vec.yf = line_height / 2 + WHEI / 2;
 	while (++counter < vec.yi)
-		my_mlx_pixel_put(cub, i, counter, cub->txtrs[C]->ceiling[cub->level \
-		% (cub->txtrs[C]->levels)]);
+		my_mlx_pixel_put(cub, vec.xi, counter, \
+		cub->txtrs[C]->ceiling[cub->level % (cub->txtrs[C]->levels)]);
 	counter = vec.yf - 1;
 	while (++counter < WHEI)
-		my_mlx_pixel_put(cub, i, counter, cub->txtrs[F]->floor[cub->level \
-		% (cub->txtrs[F]->levels)]);
+		my_mlx_pixel_put(cub, vec.xi, counter, \
+		cub->txtrs[F]->floor[cub->level % (cub->txtrs[F]->levels)]);
 	select_img_and_side(cub, ray, &vec, sqr);
 }
 
@@ -170,7 +171,7 @@ void	raycasting(t_cub3d *cub)
 	{
 		ray.x = get_player_sqr(cub, 1);
 		ray.y = get_player_sqr(cub, 0);
-		camera_ray = 2 * i / (double) WWID - 1;
+		camera_ray = 2.75 * i / (double) WWID - 1;
 		ray.dir_x = cub->dir_x + cub->plane_x * camera_ray;
 		ray.dir_y = cub->dir_y + cub->plane_y * camera_ray;
 		ray.delta_x = fabs(1 / ray.dir_x);

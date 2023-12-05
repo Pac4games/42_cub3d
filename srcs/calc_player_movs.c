@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 18:58:43 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:38:19 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ int	check_colisions_and_move(t_cub3d *cub)
 	disty = 0;
 	sum_movements(cub, &distx, &disty);
 	ret = move_player(cub, distx, disty);
-	ret += check_door_colision(cub, distx, disty);
+	ret += check_door_colision(cub);
 	return (ret);
 }

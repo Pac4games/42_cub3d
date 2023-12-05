@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 19:05:36 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:43:37 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ int	reload_player_pos(t_cub3d *cub, int y, int x)
 
 	if (cub->map->map[y][x] == WALL)
 	{
-		if (cub->map->map[lasty][lastx] == DOOR_UP \
-		|| cub->map->map[lasty][lastx] == DOOR_DOWN)
+		if (lasty != 0 || lastx != 0)
 		{
 			lasty = 0;
 			lastx = 0;
 		}
 		return (1);
 	}
+	if (lasty == y && lastx == x)
+		return (1);
 	cub->dir_x *= -1;
 	cub->dir_y *= -1;
 	cub->plane_x *= -1;

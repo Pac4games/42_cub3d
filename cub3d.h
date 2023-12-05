@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 19:04:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:16:49 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "mlx_linux/mlx.h"
 # include "./libft/libft.h"
 
-# define WWID 1920
-# define WHEI 1080
+# define WWID 1080
+# define WHEI 720
 # define STEP 0.15
 
 # define ESC 65307
@@ -193,7 +193,7 @@ int			check_colisions_and_move(t_cub3d *cub);
 // CHECK COLISIONS
 int			player_colision_x(t_cub3d *cub, double dist, int type);
 int			player_colision_y(t_cub3d *cub, double dist, int type);
-int			check_door_colision(t_cub3d *cub, double distx, double disty);
+int			check_door_colision(t_cub3d *cub);
 
 // DEFINE KEYS
 int			quits(t_cub3d *cub);

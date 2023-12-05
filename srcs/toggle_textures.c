@@ -55,7 +55,7 @@ void	change_txtrs(t_cub3d *cub, int y, int x)
 {
 	if (cub->map->map[y][x] == DOOR_UP)
 		cub->level++;
-	else if (cub->level > 0)
+	else if (cub->map->map[y][x] == DOOR_DOWN && cub->level > 0)
 		cub->level--;
 	else
 		return ;

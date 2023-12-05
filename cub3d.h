@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 17:19:17 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:04:50 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 
 # define WWID 1920
 # define WHEI 1080
-# define SQR_SIZE 18
-# define STEP 0.1
+# define STEP 0.15
 
 # define ESC 65307
 # define FRONT 119
@@ -172,7 +171,6 @@ typedef struct s_cub3d
 	int			tot_txtrs;
 	int			sqr_size;
 	int			move;
-	int			inverted;
 	double		player_x;
 	double		player_y;
 	double		dir_x;

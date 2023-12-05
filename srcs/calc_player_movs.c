@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 15:47:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:58:43 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	sum_movements(t_cub3d *cub, double *distx, double *disty)
 {
 	double	dist;
 
-	dist = STEP;
+	dist = cub->sqr_size * STEP / 18;
 	(*distx) += (cub->move >> MOV_UP & 1) * \
 	sum_movement_x(cub, dist * cub->dir_x);
 	(*disty) += (cub->move >> MOV_UP & 1) * \

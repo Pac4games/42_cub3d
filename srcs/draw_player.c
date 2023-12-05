@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/01 09:09:28 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:05:36 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,27 @@ void	draw_player(t_cub3d *cub, double ycorr, double xcorr)
 
 int	reload_player_pos(t_cub3d *cub, int y, int x)
 {
+	static int	lastx;
+	static int	lasty;
+
 	if (cub->map->map[y][x] == WALL)
+	{
+		if (cub->map->map[lasty][lastx] == DOOR_UP \
+		|| cub->map->map[lasty][lastx] == DOOR_DOWN)
+		{
+			lasty = 0;
+			lastx = 0;
+		}
 		return (1);
+	}
 	cub->dir_x *= -1;
 	cub->dir_y *= -1;
 	cub->plane_x *= -1;
 	cub->plane_y *= -1;
-	cub->inverted = -1;
-	change_txtrs(cub, y, x);
+	if (lasty != y || lastx != x)
+		change_txtrs(cub, y, x);
+	lasty = y;
+	lastx = x;
 	return (2);
 }
 

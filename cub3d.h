@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/01 09:31:03 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:09:17 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,6 @@ int			get_sqr_size(void);
 // INIT STRUCTS
 t_node		*init_node(void);
 void		init_list(t_list *list);
-int			init_cub(t_cub3d *cub);
 t_txtrs		*init_txtrs(int times);
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 

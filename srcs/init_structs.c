@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/28 12:57:48 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:08:21 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,6 @@ t_txtrs	*init_txtrs(int times)
 		return (NULL);
 	}
 	return (txtrs);
-}
-
-int	init_cub(t_cub3d *cub)
-{
-	cub->mlx = NULL;
-	cub->mlx_win = NULL;
-	cub->img = NULL;
-	cub->addr = NULL;
-	cub->txtrs = NULL;
-	cub->minimap = NULL;
-	cub->map = NULL;
-	cub->map_cols = 0;
-	cub->player = NULL;
-	cub->move = 0;
-	cub->direction = 0;
-	cub->level = 0;
-	cub->plane_x = 0;
-	cub->plane_y = 0;
-	cub->inverted = 1;
-	cub->tot_txtrs = 0;
-	cub->elems = 0;
-	return (1);
 }
 
 void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)

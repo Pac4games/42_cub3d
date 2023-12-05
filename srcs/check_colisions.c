@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/13 11:36:59 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:26:26 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	player_colision_y(t_cub3d *cub, double dist, int type)
 
 	y = 0;
 	x = 0;
-	while (y < cub->map->tot_rows - 1 && dist > y + 1)
+	while (y < cub->map->tot_rows - 1 && dist > (double)(y + 1))
 		y++;
 	while (x < cub->map->tot_cols - 1 && x + 1 < cub->player_x - 0.25)
 		x++;

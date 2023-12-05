@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:44:35 by paugonca          #+#    #+#             */
-/*   Updated: 2023/11/26 15:40:38 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:54:45 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,3 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	free_mtx(split);
 	return (1);
 }
-/*
-int	parse_txtrs(t_cub3d *cub, char *line, int type)
-{
-	int		i;
-	int		*fds;
-	void	**tmp;
-	char	**split;
-
-	split = ft_split(&line[3], ' ');
-	if (!split)
-		print_err_cub("failed to allocate memory", cub);
-	fds = malloc(mtx_len(split) * sizeof(int));
-	i = -1;
-	while (split[++i])
-	{
-		fds[i] = open(split[i], O_RDONLY);
-		if (fds[i] == -1)
-			print_err_cub("error opening file", cub);
-	}
-}
-*/

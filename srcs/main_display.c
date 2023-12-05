@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/12/05 14:59:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:44:05 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	display_in_canvas(t_cub3d *cub)
 	{
 		if ((cub->elems >> type & 1))
 			if (!fill_txtrs(cub, type - 1, cub->txtrs[type - 1]->levels))
-			{
-				printf("quitting\n");
 				quits(cub);
-			}
 	}
 	cub->mlx_win = mlx_new_window(cub->mlx, WWID, WHEI, "cub3D");
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bpp, \

@@ -1,0 +1,10 @@
+{
+    "tasks": [
+        {
+            "label": "Build",
+            "command": "make",
+            "args": ["re"]
+        }
+    ],
+    "version": "2.0.0"
+}

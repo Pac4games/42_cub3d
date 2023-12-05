@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:56 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/01 09:55:26 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:53:06 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x > 0 && y > 0 && x < WWID && y < WHEI)
+	if (x >= 0 && y >= 0 && x < WWID && y < WHEI)
 	{
 		dst = cub->addr + (y * cub->line_length + \
 		x * (cub->bpp / 8));

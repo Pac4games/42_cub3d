@@ -1,13 +1,13 @@
-NO assets/Wall2.xpm assets/Wall2.xpm
-SO assets/Wall2.xpm assets/Wall2.xpm
-WE assets/Wall2.xpm assets/Wall2.xpm
-EA assets/Wall2.xpm assets/Wall2.xpm
+NO assets/Wall2.xpm assets/Wall0-1.xpm
+SO assets/Wall2.xpm assets/Wall0-2.xpm
+WE assets/Wall2.xpm assets/Wall0-3.xpm
+EA assets/Wall2.xpm assets/Wall0-4.xpm
 
-F 150,150,180
-C 163,167,169
+F 150,150,180 66,77,88
+C 163,167,169 122,122,122
 
-UP assets/Door3.xpm
-DO assets/Door3.xpm
+UP assets/Door3.xpm assets/Door0Up.xpm
+DO assets/Door3.xpm assets/Door0Down.xpm
 
         1111111111111111111111111
         1000000000110000000000001

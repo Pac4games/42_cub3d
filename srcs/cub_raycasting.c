@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 12:23:11 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:54:47 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void	raycasting(t_cub3d *cub)
 	t_ray	ray;
 
 	i = 0;
+	ft_memset(&ray, 0, sizeof(ray));
 	while (i < WWID)
 	{
 		ray.x = get_player_sqr(cub, 1);

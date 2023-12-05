@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:37:57 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/01 10:04:35 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:01:42 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	redraw_minimap(t_cub3d *cub)
 	draw_walls(cub, cub->map, ycorr, xcorr);
 	draw_doors(cub, cub->map, ycorr, xcorr);
 	draw_player(cub, ycorr, xcorr);
+	ft_memset(&vec, 0, sizeof(vec));
 	vec.xi = cub->sqr_size + cub->player_x * \
 	(double)cub->sqr_size + (double)cub->sqr_size * cub->dir_x;
 	vec.xf = cub->sqr_size + cub->player_x * \

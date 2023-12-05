@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:14:06 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/26 20:25:11 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:22:54 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,5 @@ int	is_valid_elem(char *line)
 		return (F);
 	else if (has_seq(line, PRT_CEIL))
 		return (C);
-	else if (line[0] == '1')
-		return (TOT);
-	return (-1);
+	return (TOT);
 }

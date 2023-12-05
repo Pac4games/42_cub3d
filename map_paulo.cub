@@ -1,13 +1,13 @@
-NO assets/Wall0-1.xpm
-SO assets/Wall0-2.xpm
-WE assets/Wall0-3.xpm
-EA assets/Wall0-4.xpm
+NO assets/Wall0-1.xpm assets/adachi_rotate.xpm
+SO assets/Wall0-2.xpm assets/adachi.xpm
+WE assets/Wall0-3.xpm assets/adachi_rotate.xpm
+EA assets/Wall0-4.xpm assets/adachi.xpm
 
 F 66,77,88 150,150,180
 C 122,122,122 163,167,169
 
-UP assets/Door0Up.xpm
-DO assets/Door0Down.xpm
+UP assets/Door0Up.xpm assets/adachi.xpm
+DO assets/Door0Down.xpm assets/adachi.xpm
 
         1111111111111111111111111
         1000000000110000000000001

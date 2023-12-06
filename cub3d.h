@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 13:18:22 by mnascime         ###   ########.fr       */
+/*   Created: 2023/12/06 14:26:27 by paugonca          #+#    #+#             */
+/*   Updated: 2023/12/06 14:26:30 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "mlx_linux/mlx.h"
 # include "./libft/libft.h"
 
-# define WWID 1080
-# define WHEI 720
+# define WWID 1920
+# define WHEI 1080
 # define STEP 0.15
 
 # define ESC 65307

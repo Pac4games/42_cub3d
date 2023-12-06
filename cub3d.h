@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 10:48:46 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:18:22 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct s_cub3d
 	int			max_level;
 	int			map_cols;
 	int			start;
+	int			incr;
 }	t_cub3d;
 
 // PARSING
@@ -188,12 +189,13 @@ int			parse_colors(t_cub3d *cub, char *line, int type);
 int			parse_txtrs(t_cub3d *cub, char *line, int type);
 
 // CALC PLAYER MOVS
+int			move_player(t_cub3d *cub, double distx, double disty);
 int			check_colisions_and_move(t_cub3d *cub);
 
 // CHECK COLISIONS
 int			player_colision_x(t_cub3d *cub, double dist, int type);
 int			player_colision_y(t_cub3d *cub, double dist, int type);
-int			check_door_colision(t_cub3d *cub);
+int			check_door_colision(t_cub3d *cub, double distx, double disty);
 
 // DEFINE KEYS
 int			quits(t_cub3d *cub);

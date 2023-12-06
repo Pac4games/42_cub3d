@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 09:44:53 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:18:04 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	player_colision_y(t_cub3d *cub, double dist, int type)
 	return (0);
 }
 
-int	check_door_colision(t_cub3d *cub)
+int	check_door_colision(t_cub3d *cub, double distx, double disty)
 {
-	if (player_colision_x(cub, cub->player_x + 0.25, DOOR) == 2 \
-	|| player_colision_x(cub, cub->player_x - 0.25, DOOR) == 2 \
-	|| player_colision_y(cub, cub->player_y + 0.25, DOOR) == 2 \
-	|| player_colision_y(cub, cub->player_y - 0.25, DOOR) == 2)
+	if (player_colision_x(cub, cub->player_x + 0.25 + distx, DOOR) == 2 \
+	|| player_colision_x(cub, cub->player_x - 0.25 + distx, DOOR) == 2 \
+	|| player_colision_y(cub, cub->player_y + 0.25 + disty, DOOR) == 2 \
+	|| player_colision_y(cub, cub->player_y - 0.25 + disty, DOOR) == 2)
 		return (1);
 	return (0);
 }

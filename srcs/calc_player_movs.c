@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 09:52:17 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:18:51 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	move_player(t_cub3d *cub, double distx, double disty)
+int	move_player(t_cub3d *cub, double distx, double disty)
 {
 	int	moved;
 
@@ -80,7 +80,8 @@ int	check_colisions_and_move(t_cub3d *cub)
 	distx = 0;
 	disty = 0;
 	sum_movements(cub, &distx, &disty);
-	ret = move_player(cub, distx, disty);
-	ret += check_door_colision(cub);
+	ret = check_door_colision(cub, distx, disty);
+	if (ret == 0)
+		move_player(cub, distx, disty);
 	return (ret);
 }

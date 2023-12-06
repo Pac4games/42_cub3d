@@ -6,46 +6,57 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/12/06 10:50:33 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 12:54:41 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	draw_sprite(t_cub3d *cub)
+static void	sprite_loop(t_cub3d *cub, t_vector *vec, double step)
 {
-	double		step;
-	double		texture_pos;
-	int			texture_y;
-	int			x;
-	int			y;
-	t_vector	vec;
+	int		x;
+	int		y;
+	double	texture_pos;
+	int		texture_y;
 
-	vec.xi = WWID / 2 - cub->txtrs[SP]->width[cub->level % cub->txtrs[SP]->levels] / 2;
-	vec.yi = WHEI - cub->txtrs[SP]->height[cub->level % cub->txtrs[SP]->levels];
-	vec.xf = vec.xi + cub->txtrs[SP]->width[cub->level % cub->txtrs[SP]->levels];
-	vec.yf = WHEI;
-	step = 1.0 * cub->txtrs[SP]->height[cub->level \
-		% (cub->txtrs[SP]->levels)] / (vec.yf - vec.yi);
-	x = vec.xi;
-	while (x < vec.xf)
+	x = 0;
+	while (x < vec->xf && x * step <= cub->txtrs[SP]->width[cub->level \
+	% (cub->txtrs[SP]->levels)])
 	{
-		y = vec.yi;
-		texture_pos = (vec.yi - WHEI / 2 + (vec.yf - vec.yi) / 2) * step;
-		while (y < vec.yf)
+		y = vec->yi;
+		texture_pos = 0;
+		while (y < vec->yf && texture_pos <= cub->txtrs[SP]->height[cub->level \
+	% (cub->txtrs[SP]->levels)])
 		{
 			texture_y = (int)texture_pos;
-			if (y >= 0 && y < WHEI && get_color(cub, SP, x, texture_y) != 0)
-				my_mlx_pixel_put(cub, x, y, get_color(cub, SP, x, texture_y));
+			if (y >= vec->yi && y < WHEI && \
+			get_color(cub, SP, x * step, texture_y) != 0)
+				my_mlx_pixel_put(cub, vec->xi + x, y, \
+				get_color(cub, SP, x * step, texture_y));
 			texture_pos += step;
 			y++;
 		}
 		x++;
 	}
-	if (cub->start >= 20)
-		cub->start--;
-	else if (cub->start < 0)
-		cub->start++;
+}
+
+void	draw_sprite(t_cub3d *cub)
+{
+	double		step;
+	t_vector	vec;
+
+	vec.xi = cub->start + WWID / 2;
+	vec.yi = WHEI / 2;
+	vec.xf = WWID;
+	vec.yf = WHEI;
+	step = 1.0 * cub->txtrs[SP]->height[cub->level \
+		% (cub->txtrs[SP]->levels)] / (vec.yf - vec.yi);
+	sprite_loop(cub, &vec, step);
+	if (cub->start > 20)
+		cub->incr = -1;
+	else if (cub->start <= 0)
+		cub->incr = 1;
+	cub->start += cub->incr;
 }
 
 void	display_in_canvas(t_cub3d *cub)

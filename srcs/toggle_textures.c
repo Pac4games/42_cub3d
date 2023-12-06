@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:33:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 12:20:35 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:02:19 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ void	register_elem(t_cub3d *cub, int type)
 	int	elems;
 
 	elems = cub->elems;
-	if (type == NO)
+	if (type == F)
+		elems |= (1 << (F + 1));
+	else if (type == C)
+		elems |= (1 << (C + 1));
+	else if (type == NO)
 		elems |= (1 << (NO + 1));
 	else if (type == SO)
 		elems |= (1 << (SO + 1));
@@ -78,9 +82,5 @@ void	register_elem(t_cub3d *cub, int type)
 		elems |= (1 << (DO + 1));
 	else if (type == SP)
 		elems |= (1 << (SP + 1));
-	else if (type == F)
-		elems |= (1 << (F + 1));
-	else if (type == C)
-		elems |= (1 << (C + 1));
 	cub->elems = elems;
 }

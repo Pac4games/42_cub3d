@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/29 12:48:03 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:40:31 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,13 @@ void	destroy_cub(t_cub3d *cub)
 				free(cub->txtrs[i]);
 				continue ;
 			}
+			else
+				continue ;
 			if (cub->txtrs[i]->imgs)
 			{
 				f = -1;
-//				while (++f <= cub->txtrs[i]->levels)
-//					mlx_destroy_image(cub->mlx, cub->txtrs[i]->imgs[f]);
 				free(cub->txtrs[i]->imgs);
 			}
-			else
-				continue ;
 			if (cub->txtrs[i]->addrs)
 			{
 				f = -1;

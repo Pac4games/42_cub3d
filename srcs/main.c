@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 15:08:55 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:58:58 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,26 @@ int	*fill_line_of_list(char *line)
 	return (map_line);
 }
 
-static int	insert_line(t_cub3d *cub, t_list *list, char *line)
+static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
 	if (line[i] && is_valid_elem(&line[i]) != TOT)
+	{
+		if (*check == 2)
+			return (0);
 		insert_txtrs(cub, &line[i], is_valid_elem(&line[i]));
+		*check = 1;
+	}
 	else if (line[i] && is_valid_elem(&line[i]) == TOT)
 	{
 		insert_map_tail(list, fill_line_of_list(line), ft_str_end_trim(line));
 		if (ft_str_end_trim(line) > cub->map_cols)
 			cub->map_cols = ft_str_end_trim(line);
+		*check = 2;
 	}
 	else
 		return (0);
@@ -56,24 +62,28 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 {
 	t_list	list;
 	char	*line;
+	int		check;
 
 	init_list(&list);
 	line = (char *)1;
+	check = 0;
 	while (line)
 	{
 		line = get_next_line(fd);
 		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 \
 		&& line[0] != '\n')
 		{
-			if (!insert_line(cub, &list, line))
+			if (check == 3 || !insert_line(cub, &list, line, &check))
 			{
 				free(line);
 				destroy_list(&list);
-//				if (cub)
-//					destroy_cub(cub);
-				return (0);
+				if (cub)
+					destroy_cub(cub);
+				return (print_err_ret("invalid map formatting"));
 			}
 		}
+		else if (check == 2)
+			check = 3;
 		free(line);
 	}
 	if (list.head && cub)
@@ -81,7 +91,7 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 	return (1);
 }
 
-int	main(int ac, char *av[])
+int	main(int ac, char **av)
 {
 	t_cub3d	cub;
 	int		fd;

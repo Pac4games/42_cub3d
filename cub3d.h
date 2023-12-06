@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 15:09:17 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:48:46 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 # include "mlx_linux/mlx.h"
 # include "./libft/libft.h"
 
-# define WWID 1920
-# define WHEI 1080
-# define SQR_SIZE 18
-# define STEP 0.1
+# define WWID 1080
+# define WHEI 720
+# define STEP 0.15
 
 # define ESC 65307
 # define FRONT 119
@@ -43,8 +42,8 @@
 # define PRT_WEST "WE"
 # define PRT_FLOOR "F"
 # define PRT_CEIL "C"
-# define PRT_UP "UP"
-# define PRT_LOW "DO"
+# define PRT_DOOR "DO"
+# define PRT_SPR "SP"
 
 typedef struct s_node	t_node;
 
@@ -77,8 +76,7 @@ enum e_map
 	SPACE = ' ',
 	NORTH = 'N',
 	SOUTH = 'S',
-	DOOR_UP = 'U',
-	DOOR_DOWN = 'D',
+	DOOR = 'D',
 	EAST = 'E',
 	WEST = 'W',
 };
@@ -91,8 +89,8 @@ enum e_texture
 	WE,
 	F,
 	C,
-	UP,
 	DO,
+	SP,
 	TOT,
 };
 
@@ -172,7 +170,6 @@ typedef struct s_cub3d
 	int			tot_txtrs;
 	int			sqr_size;
 	int			move;
-	int			inverted;
 	double		player_x;
 	double		player_y;
 	double		dir_x;
@@ -181,7 +178,9 @@ typedef struct s_cub3d
 	double		plane_y;
 	char		direction;
 	int			level;
+	int			max_level;
 	int			map_cols;
+	int			start;
 }	t_cub3d;
 
 // PARSING
@@ -194,7 +193,7 @@ int			check_colisions_and_move(t_cub3d *cub);
 // CHECK COLISIONS
 int			player_colision_x(t_cub3d *cub, double dist, int type);
 int			player_colision_y(t_cub3d *cub, double dist, int type);
-int			check_door_colision(t_cub3d *cub, double distx, double disty);
+int			check_door_colision(t_cub3d *cub);
 
 // DEFINE KEYS
 int			quits(t_cub3d *cub);
@@ -245,6 +244,7 @@ t_txtrs		*init_txtrs(int times);
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 
 // MAIN DISPLAY
+void		draw_sprite(t_cub3d *cub);
 void		display_in_canvas(t_cub3d *cub3d);
 
 // MAIN
@@ -276,6 +276,7 @@ void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
 
 // TOGGLE txtrs
+int			get_color(t_cub3d *cub, int type, int tex_x, int tex_y);
 void		draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type);
 void		change_txtrs(t_cub3d *cub, int x, int y);
 void		register_elem(t_cub3d *cub, int type);

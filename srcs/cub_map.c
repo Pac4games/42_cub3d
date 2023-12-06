@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:57:39 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/05 12:55:48 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/06 09:52:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static int	check_obj(char **map)
 			if (map[i][j] != ZERO && map[i][j] != SPACE \
 			&& map[i][j] != WALL && map[i][j] != NORTH \
 			&& map[i][j] != SOUTH && map[i][j] != EAST \
-			&& map[i][j] != WEST && map[i][j] != DOOR_UP \
-			&& map[i][j] != DOOR_DOWN)
+			&& map[i][j] != WEST && map[i][j] != DOOR)
 				return (0);
 		}
 	}
@@ -70,7 +69,7 @@ int	check_line(char **map, int i)
 			if (check_line_lim(map, i, j) || check_line_mid(map, i, j))
 				return (1);
 		}
-		if (map[i][j] == DOOR_UP || map[i][j] == DOOR_DOWN)
+		if (map[i][j] == DOOR)
 		{
 			if (j == 0 || j == ft_strlen(map[i]) - 1)
 				return (1);

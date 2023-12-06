@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/10 10:05:02 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:09:50 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ void	get_h_vector(t_cub3d *cub, t_vector *vec, int y, int x)
 int	get_sqr_size(void)
 {
 	int	dist;
+	int	base;
 
-	dist = SQR_SIZE;
-	if (dist < 18)
-		dist = 18;
+	if (WHEI < WWID)
+		base = WHEI;
+	else
+		base = WWID;
+	dist = (double)(base) * STEP * 0.1;
 	return (dist);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 23:22:31 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 14:26:26 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 09:44:53 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	player_colision_y(t_cub3d *cub, double dist, int type)
 
 	y = 0;
 	x = 0;
-	while (y < cub->map->tot_rows - 1 && dist > (double)(y + 1))
+	while (y < cub->map->tot_rows - 1 && dist > y + 1)
 		y++;
 	while (x < cub->map->tot_cols - 1 && x + 1 < cub->player_x - 0.25)
 		x++;
@@ -60,16 +60,12 @@ int	player_colision_y(t_cub3d *cub, double dist, int type)
 	return (0);
 }
 
-int	check_door_colision(t_cub3d *cub, double distx, double disty)
+int	check_door_colision(t_cub3d *cub)
 {
-	char	door;
-
-	distx++;
-	disty++;
-	door = cub->map->map[get_player_sqr(cub, 0)][get_player_sqr(cub, 1)];
-	if (((door == DOOR_UP || door == DOOR_DOWN) \
-	&& (player_colision_x(cub, cub->player_x + 0.25, door) == 2 \
-	|| player_colision_y(cub, cub->player_y - 0.25, door) == 2)))
+	if (player_colision_x(cub, cub->player_x + 0.25, DOOR) == 2 \
+	|| player_colision_x(cub, cub->player_x - 0.25, DOOR) == 2 \
+	|| player_colision_y(cub, cub->player_y + 0.25, DOOR) == 2 \
+	|| player_colision_y(cub, cub->player_y - 0.25, DOOR) == 2)
 		return (1);
 	return (0);
 }

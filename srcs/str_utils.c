@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:12 by mnascime          #+#    #+#             */
-/*   Updated: 2023/11/28 12:01:32 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/06 09:56:07 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ char	*conv_to_txtr_text(char c)
 		return (PRT_FLOOR);
 	else if (c == C)
 		return (PRT_CEIL);
-	else if (c == UP)
-		return (PRT_UP);
 	else if (c == DO)
-		return (PRT_LOW);
+		return (PRT_DOOR);
+	else if (c == SP)
+		return (PRT_SPR);
 	else
 		return (NULL);
 }

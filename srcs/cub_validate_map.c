@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:14:06 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 14:17:22 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 09:49:36 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	map_line_is_valid(char *line)
 	{
 		if (line[i] != ZERO && line[i] != WALL && line[i] != SPACE \
 		&& line[i] != NORTH && line[i] != SOUTH && line[i] != EAST \
-		&& line[i] != WEST && line[i] != DOOR_UP \
-		&& line[i] != DOOR_DOWN)
+		&& line[i] != WEST && line[i] != DOOR)
 			return (0);
 		i++;
 	}
@@ -47,10 +46,10 @@ int	is_valid_elem(char *line)
 		return (EA);
 	else if (has_seq(line, PRT_WEST))
 		return (WE);
-	else if (has_seq(line, PRT_UP))
-		return (UP);
-	else if (has_seq(line, PRT_LOW))
+	else if (has_seq(line, PRT_DOOR))
 		return (DO);
+	else if (has_seq(line, PRT_SPR))
+		return (SP);
 	else if (has_seq(line, PRT_FLOOR))
 		return (F);
 	else if (has_seq(line, PRT_CEIL))

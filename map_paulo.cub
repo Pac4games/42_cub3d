@@ -6,8 +6,8 @@ EA assets/Wall0-4.xpm
 F 66,77,88 150,150,180 
 C 122,122,122 163,167,169
 
-UP assets/Door0Up.xpm assets/adachi.xpm
-DO assets/Door0Down.xpm assets/adachi.xpm
+UP assets/Door0Up.xpm
+DO assets/Door0Down.xpm
 
 1111111111111111111111111
 100000000011000000000000111111111

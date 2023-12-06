@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 15:57:28 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:19:45 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	cub->txtrs[txtr_type]->path = split;
 	cub->txtrs[txtr_type]->type = txtr_type;
 	cub->txtrs[txtr_type]->levels = i;
+	if (i > cub->max_level)
+		cub->max_level = i;
 	cub->tot_txtrs++;
 	register_elem(cub, txtr_type);
 	if (txtr_type == F || txtr_type == C)

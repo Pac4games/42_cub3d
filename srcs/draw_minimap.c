@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:37:57 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 15:01:42 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 09:52:17 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ void	draw_doors(t_cub3d *cub, t_map *map, double ycorr, double xcorr)
 			get_h_vector(cub, &vec, cub->sqr_size + y * \
 			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
 			position_minimap(&vec, ycorr, xcorr);
-			if (map->map[y][x] == DOOR_UP)
+			if (map->map[y][x] == DOOR)
 				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0x00FFFF);
-			else if (map->map[y][x] == DOOR_DOWN)
-				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0xFF00FF);
 		}
 	}
 }

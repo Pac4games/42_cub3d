@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:38:02 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/01 09:09:28 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:43:52 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	reload_player_pos(t_cub3d *cub, int y, int x)
 	cub->dir_y *= -1;
 	cub->plane_x *= -1;
 	cub->plane_y *= -1;
-	cub->inverted = -1;
 	change_txtrs(cub, y, x);
 	return (2);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 17:29:11 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:37:58 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	real_distance_calc(t_cub3d *cub, t_ray *ray)
 		}
 		sqr = cub->map->map[get_sqr_coord(cub, ray->y, \
 		ray->x, 0)][get_sqr_coord(cub, ray->y, ray->x, 1)];
-		if (sqr == WALL || sqr == DOOR_UP || sqr == DOOR_DOWN)
+		if (sqr == WALL || sqr == DOOR)
 			hit = 1;
 	}
 	return (sqr);
@@ -111,9 +111,7 @@ static void	select_img_and_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sq
 	else
 		wall_x = cub->player_x + ray->real_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
-	if (sqr == DOOR_UP)
-		type = UP;
-	else if (sqr == DOOR_DOWN)
+	if (sqr == DOOR)
 		type = DO;
 	else if (ray->side == 0 && ray->dir_x > 0)
 		type = EA;
@@ -128,7 +126,7 @@ static void	select_img_and_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sq
 	ray->x_txtr = (int)(wall_x * \
 	cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels]);
 	ray->x_txtr = cub->txtrs[type]->width[cub->level \
-	% cub->txtrs[type]->levels] - ray->x_txtr -1;
+	% cub->txtrs[type]->levels] - ray->x_txtr - 1;
 	draw_txtrs(cub, ray, vec, type);
 }
 

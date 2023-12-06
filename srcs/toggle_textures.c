@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-static int	get_color(t_cub3d *cub, int type, int tex_x, int tex_y)
+int	get_color(t_cub3d *cub, int type, int tex_x, int tex_y)
 {
 	int		color;
 	int		offset;
@@ -41,7 +41,7 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 	while (y < vec->yf)
 	{
 		texture_y = (int)texture_pos;
-		if (y >= 0 && y <= WHEI)
+		if (y >= 0 && y < WHEI)
 		{
 			color = get_color(cub, type, ray->x_txtr, texture_y);
 			my_mlx_pixel_put(cub, vec->xi, y, color);
@@ -53,10 +53,8 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 
 void	change_txtrs(t_cub3d *cub, int y, int x)
 {
-	if (cub->map->map[y][x] == DOOR_UP)
+	if (cub->map->map[y][x] == DOOR)
 		cub->level++;
-	else if (cub->map->map[y][x] == DOOR_DOWN && cub->level > 0)
-		cub->level--;
 	else
 		return ;
 	if (cub->level < 0)
@@ -76,10 +74,10 @@ void	register_elem(t_cub3d *cub, int type)
 		elems |= (1 << (EA + 1));
 	else if (type == WE)
 		elems |= (1 << (WE + 1));
-	else if (type == UP)
-		elems |= (1 << (UP + 1));
 	else if (type == DO)
 		elems |= (1 << (DO + 1));
+	else if (type == SP)
+		elems |= (1 << (SP + 1));
 	else if (type == F)
 		elems |= (1 << (F + 1));
 	else if (type == C)

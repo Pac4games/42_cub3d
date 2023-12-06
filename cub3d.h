@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 21:51:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 19:16:49 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:48:46 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@
 # define PRT_WEST "WE"
 # define PRT_FLOOR "F"
 # define PRT_CEIL "C"
-# define PRT_UP "UP"
-# define PRT_LOW "DO"
+# define PRT_DOOR "DO"
+# define PRT_SPR "SP"
 
 typedef struct s_node	t_node;
 
@@ -76,8 +76,7 @@ enum e_map
 	SPACE = ' ',
 	NORTH = 'N',
 	SOUTH = 'S',
-	DOOR_UP = 'U',
-	DOOR_DOWN = 'D',
+	DOOR = 'D',
 	EAST = 'E',
 	WEST = 'W',
 };
@@ -90,8 +89,8 @@ enum e_texture
 	WE,
 	F,
 	C,
-	UP,
 	DO,
+	SP,
 	TOT,
 };
 
@@ -181,6 +180,7 @@ typedef struct s_cub3d
 	int			level;
 	int			max_level;
 	int			map_cols;
+	int			start;
 }	t_cub3d;
 
 // PARSING
@@ -244,6 +244,7 @@ t_txtrs		*init_txtrs(int times);
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 
 // MAIN DISPLAY
+void		draw_sprite(t_cub3d *cub);
 void		display_in_canvas(t_cub3d *cub3d);
 
 // MAIN
@@ -275,6 +276,7 @@ void		add_player_rot(t_cub3d *cub, int key);
 void		remove_player_rot(t_cub3d *cub, int key);
 
 // TOGGLE txtrs
+int			get_color(t_cub3d *cub, int type, int tex_x, int tex_y);
 void		draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type);
 void		change_txtrs(t_cub3d *cub, int x, int y);
 void		register_elem(t_cub3d *cub, int type);

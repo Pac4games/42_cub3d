@@ -3,11 +3,11 @@ SO assets/Wall2.xpm assets/Wall0-2.xpm assets/adachi_rotate.xpm
 WE assets/Wall2.xpm assets/Wall0-3.xpm assets/adachi.xpm
 EA assets/Wall2.xpm assets/Wall0-4.xpm assets/adachi_rotate.xpm
  
+DO assets/Door3.xpm assets/Door0Up.xpm
+SP assets/hand_doom.xpm
+
 F 150,150,180 66,77,88
 C 163,167,169 242,240,229
-
-DO assets/Door3.xpm assets/Door0Down.xpm
-SP assets/Door3.xpm assets/Door0Down.xpm
 
         1111111111111111111111111
         1000000000110000000000001

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 17:19:45 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:24:11 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	i = 0;
 	if (txtr_type > TOT - 1)
 		return ;
+	else if ((cub->elems >> (txtr_type + 1) & 1))
+		print_err_cub("duplicated textures", cub);
 	i += ft_strlen(conv_to_txtr_text(txtr_type));
 	split = ft_split_spaces(&line[i]);
 	if (!split)

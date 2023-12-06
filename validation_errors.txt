@@ -1,0 +1,13 @@
+Erros a tratar:
+
+Deixa passar linhas de texturas duplicadas
+Deixa passar texturas nas cores de floor e ceiling
+Deixa passar com cores separadas por ;
+Deixa passar cores mal formatadas
+Deixa passar linhas de texturas só com o identificador e um espaço
+Deixa passar mapa sem uma das linhas de texturas obrigatórias: NO, SO, WE, EA, Floor ou Ceiling
+Não tendo UP ou DO texture, não pode ter as letras correspondentes no mapa em si
+Mapa tem de estar em último sempre. Ainda passa estando em qualquer lado
+O mapa não pode conter linhas vazias a meio
+Não se pode intercalar linhas de mapa com linhas de outros elementos
+Não printar quitting

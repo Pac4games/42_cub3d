@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:26:27 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/06 14:26:30 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:04:13 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ typedef struct s_cub3d
 	int			map_cols;
 	int			start;
 	int			incr;
+	int			mouse_x;
+	int			mouse_y;
 }	t_cub3d;
 
 // PARSING
@@ -247,6 +249,7 @@ void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 
 // MAIN DISPLAY
 void		draw_sprite(t_cub3d *cub);
+int			move_with_mouse(t_cub3d *cub);
 void		display_in_canvas(t_cub3d *cub3d);
 
 // MAIN

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/12/06 15:12:33 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:38:16 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,33 @@ void	draw_sprite(t_cub3d *cub)
 	cub->start += cub->incr;
 }
 
+int	move_with_mouse(t_cub3d *cub)
+{
+	if (cub->mouse_x > WWID / 4 && cub->mouse_x < WWID / 4 * 3 &&
+	cub->mouse_y > WHEI / 4 && cub->mouse_y < WHEI / 4 * 3)
+	{
+		if (cub->mouse_x < WWID / 5 * 2)
+			add_player_rot(cub, ARROW_LEFT);
+		else if (cub->mouse_x > WWID / 5 * 3)
+			add_player_rot(cub, ARROW_RIGHT);
+	}
+	else
+		return (0);
+	return (1);
+}
+
+int	mouse_position(int x, int y, t_cub3d *cub)
+{
+	if (cub->mouse_x != x || cub->mouse_y != y)
+	{
+		remove_player_rot(cub, ARROW_LEFT);
+		remove_player_rot(cub, ARROW_RIGHT);
+	}
+	cub->mouse_x = x;
+	cub->mouse_y = y;
+	return (1);
+}
+
 void	display_in_canvas(t_cub3d *cub)
 {
 	int	type;
@@ -85,6 +112,7 @@ void	display_in_canvas(t_cub3d *cub)
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
 	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
+	mlx_hook(cub->mlx_win, 6, (1L << 6), mouse_position, cub);
 	mlx_hook(cub->mlx_win, 17, (1L << 1), quits, cub);
 	mlx_do_key_autorepeatoff(cub->mlx);
 	mlx_loop_hook(cub->mlx, in_key, cub);

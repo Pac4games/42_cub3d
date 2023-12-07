@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 13:18:15 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:38:31 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	in_key(t_cub3d *cub)
 	int		ret;
 
 	ret = 0;
-	if (cub->move != 0)
+	if (move_with_mouse(cub) || cub->move != 0)
 	{
 		ret = check_colisions_and_move(cub);
 		ret += rotate_view(cub);
@@ -72,8 +72,8 @@ int	read_keys(int key_pressed, t_cub3d *cub)
 {
 	if (key_pressed == ESC)
 		quits(cub);
-	else if (key_pressed == 119 || key_pressed == 115 \
-	|| key_pressed == 97 || key_pressed == 100 \
+	else if (key_pressed == FRONT || key_pressed == BACK \
+	|| key_pressed == TOLEFT || key_pressed == TORIGHT \
 	|| key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)
 		key_press(key_pressed, cub);
 	return (0);

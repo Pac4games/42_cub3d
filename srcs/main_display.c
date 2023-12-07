@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/12/07 18:38:16 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 22:19:08 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,24 @@ void	draw_sprite(t_cub3d *cub)
 
 int	move_with_mouse(t_cub3d *cub)
 {
-	if (cub->mouse_x > WWID / 4 && cub->mouse_x < WWID / 4 * 3 &&
-	cub->mouse_y > WHEI / 4 && cub->mouse_y < WHEI / 4 * 3)
+	double	times;
+
+	times = WWID / 2 - cub->mouse_x;
+	if (cub->mouse_x > 0 && cub->mouse_x < WWID)
 	{
-		if (cub->mouse_x < WWID / 5 * 2)
-			add_player_rot(cub, ARROW_LEFT);
-		else if (cub->mouse_x > WWID / 5 * 3)
-			add_player_rot(cub, ARROW_RIGHT);
+		if (cub->mouse_x != WWID / 2)
+		{
+			if (times < WWID / 2)
+				add_player_rot(cub, ARROW_LEFT);
+			else
+				add_player_rot(cub, ARROW_RIGHT);
+			rot_raycaster(cub, times * cub->min_ray);
+			if (times < WWID / 2)
+				remove_player_rot(cub, ARROW_LEFT);
+			else
+				remove_player_rot(cub, ARROW_RIGHT);
+		}
+		mlx_mouse_move(cub->mlx, cub->mlx_win, WWID / 2, WHEI / 2);
 	}
 	else
 		return (0);
@@ -76,11 +87,8 @@ int	move_with_mouse(t_cub3d *cub)
 
 int	mouse_position(int x, int y, t_cub3d *cub)
 {
-	if (cub->mouse_x != x || cub->mouse_y != y)
-	{
-		remove_player_rot(cub, ARROW_LEFT);
-		remove_player_rot(cub, ARROW_RIGHT);
-	}
+	if (cub->mouse_x == x && cub->mouse_y == y)
+		return (0);
 	cub->mouse_x = x;
 	cub->mouse_y = y;
 	return (1);
@@ -114,6 +122,7 @@ void	display_in_canvas(t_cub3d *cub)
 	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
 	mlx_hook(cub->mlx_win, 6, (1L << 6), mouse_position, cub);
 	mlx_hook(cub->mlx_win, 17, (1L << 1), quits, cub);
+	mlx_mouse_hide(cub->mlx, cub->mlx_win);
 	mlx_do_key_autorepeatoff(cub->mlx);
 	mlx_loop_hook(cub->mlx, in_key, cub);
 	mlx_loop(cub->mlx);

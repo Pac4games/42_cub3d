@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:26:27 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/07 18:04:13 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:24:40 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ typedef struct s_cub3d
 	int			incr;
 	int			mouse_x;
 	int			mouse_y;
+	double		min_ray;
 }	t_cub3d;
 
 // PARSING

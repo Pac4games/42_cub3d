@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 10:37:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:24:28 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ void	raycasting(t_cub3d *cub)
 		ray.x = get_player_sqr(cub, 1);
 		ray.y = get_player_sqr(cub, 0);
 		camera_ray = 1.7 * WWID / WHEI * i / (double) WWID - 0.85 * WWID / WHEI;
+		if (i == WWID / 2 - 1)
+			cub->min_ray = camera_ray;
 		ray.dir_x = cub->dir_x + cub->plane_x * camera_ray;
 		ray.dir_y = cub->dir_y + cub->plane_y * camera_ray;
 		ray.delta_x = fabs(1 / ray.dir_x);

@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:26:27 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/07 16:18:42 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:11:22 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,10 @@ void		init_player_pos(t_cub3d *cub, int x, int y);
 char		**solo_matrix(int rows, int cols);
 void		insert_map_tail(t_list *list, int *data, int len);
 void		list_to_map(t_list *list, t_cub3d *cub);
+int			fill_txtrs_utils1(t_cub3d *cub, int type, int i);
+int			fill_txtrs_utils2(t_cub3d *cub, int type, int i);
 int			fill_txtrs(t_cub3d *cub, int type, int i);
+void		insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i);
 void		insert_txtrs(t_cub3d *cub, char *line, int txtr_type);
 
 // FIND SQR COORD

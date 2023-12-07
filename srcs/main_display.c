@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:15:22 by margarida         #+#    #+#             */
-/*   Updated: 2023/12/06 15:12:33 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:26:59 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ void	draw_sprite(t_cub3d *cub)
 	cub->start += cub->incr;
 }
 
+static void	do_mlx_magic(t_cub3d *cub)
+{
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
+	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
+	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
+	mlx_hook(cub->mlx_win, 17, (1L << 1), quits, cub);
+	mlx_do_key_autorepeatoff(cub->mlx);
+	mlx_loop_hook(cub->mlx, in_key, cub);
+	mlx_loop(cub->mlx);
+}
+
 void	display_in_canvas(t_cub3d *cub)
 {
 	int	type;
@@ -82,11 +93,5 @@ void	display_in_canvas(t_cub3d *cub)
 	redraw_minimap(cub);
 	if ((cub->elems >> (SP + 1) & 1))
 		draw_sprite(cub);
-	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
-	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
-	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
-	mlx_hook(cub->mlx_win, 17, (1L << 1), quits, cub);
-	mlx_do_key_autorepeatoff(cub->mlx);
-	mlx_loop_hook(cub->mlx, in_key, cub);
-	mlx_loop(cub->mlx);
+	do_mlx_magic(cub);
 }

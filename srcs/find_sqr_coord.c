@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 16:32:27 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:29:01 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int	get_sqr_size(void)
 		base = WHEI;
 	else
 		base = WWID;
-	dist = (double)(base) * STEP * 0.1;
+	dist = (double)(base) *STEP * 0.1;
 	return (dist);
 }

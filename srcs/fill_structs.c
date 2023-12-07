@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 13:18:48 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:13:03 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 
 int	fill_txtrs(t_cub3d *cub, int type, int i)
 {
-	int	counter;
-
 	if (type == F || type == C || type == TOT)
 		return (1);
 	cub->txtrs[type]->imgs = malloc(sizeof(void *) * i);
@@ -105,41 +103,8 @@ int	fill_txtrs(t_cub3d *cub, int type, int i)
 		free(cub->txtrs[type]->bpp);
 		return (0);
 	}
-	cub->txtrs[type]->endian = malloc(sizeof(int) * i);
-	if (!cub->txtrs[type]->endian)
-	{
-		free(cub->txtrs[type]->imgs);
-		free(cub->txtrs[type]->line_length);
-		free(cub->txtrs[type]->bpp);
+	if (!fill_txtrs_utils1(cub, type, i) || !fill_txtrs_utils2(cub, type, i))
 		return (0);
-	}
-	counter = -1;
-	cub->txtrs[type]->addrs = malloc(sizeof(char *) * (i + 1));
-	if (!cub->txtrs[type]->addrs)
-	{
-		free(cub->txtrs[type]->endian);
-		free(cub->txtrs[type]->line_length);
-		free(cub->txtrs[type]->bpp);
-		return (0);
-	}
-	while (++counter < i)
-	{
-		cub->txtrs[type]->imgs[counter] = mlx_xpm_file_to_image(cub->mlx, \
-		cub->txtrs[type]->path[counter], \
-		&cub->txtrs[type]->width[counter], \
-		&cub->txtrs[type]->height[counter]);
-		if (!cub->txtrs[type]->width[counter])
-		{
-//			cub->txtrs[type]->levels = counter;
-			return (print_err_ret("one or more invalid textures"));
-		}
-	}
-	counter = -1;
-	while (++counter < i)
-		cub->txtrs[type]->addrs[counter] = mlx_get_data_addr(cub->txtrs[type]->imgs[counter], \
-	&cub->txtrs[type]->bpp[counter], &cub->txtrs[type]->line_length[counter], \
-	&cub->txtrs[type]->endian[counter]);
-	cub->txtrs[type]->addrs[counter] = NULL;
 	return (1);
 }
 
@@ -168,14 +133,5 @@ void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	cub->txtrs[txtr_type]->path = split;
 	cub->txtrs[txtr_type]->type = txtr_type;
 	cub->txtrs[txtr_type]->levels = i;
-	if (i > cub->max_level)
-		cub->max_level = i;
-	cub->tot_txtrs++;
-	register_elem(cub, txtr_type);
-	if (txtr_type == F || txtr_type == C)
-		if (!parse_colors(cub, line, txtr_type))
-		{
-			destroy_cub(cub);
-			exit(EXIT_FAILURE);
-		}
+	insert_txtrs_utils(cub, txtr_type, line, i);
 }

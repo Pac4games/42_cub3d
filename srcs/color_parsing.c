@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:44:35 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/07 15:42:10 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:31:55 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	insert_colors(t_cub3d *cub, char **split, int type, int i)
 		| ft_atoi(split[1]) << 8 | ft_atoi(split[2]));
 }
 
-//The "c" variable here stands for "color split", it's name was shortened to abide by
-//the norm.
-static int parse_colors_utils(t_cub3d *cub, char **split, int i, int type)
+//The "c" variable here stands for "color split", it's name was shortened to
+//abide by the norm.
+static int	parse_colors_utils(t_cub3d *cub, char **split, int i, int type)
 {
 	int		f;
 	char	**c;
@@ -75,6 +75,6 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	check = parse_colors_utils(cub, split, i, type);
 	if (!check)
 		return (check);
-	free_mtx(split); 
+	free_mtx(split);
 	return (1);
 }

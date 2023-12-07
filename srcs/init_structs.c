@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 15:08:21 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:39:29 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,28 @@ void	init_list(t_list *list)
 	(*list).tot_rows = 0;
 }
 
+static t_txtrs	*init_txtrs_utils(t_txtrs *txtrs, int times)
+{
+	txtrs->width = malloc(sizeof(int) * times);
+	if (!txtrs->width)
+	{
+		free(txtrs->floor);
+		free(txtrs->ceiling);
+		free(txtrs);
+		return (NULL);
+	}
+	txtrs->height = malloc(sizeof(int) * times);
+	if (!txtrs->height)
+	{
+		free(txtrs->floor);
+		free(txtrs->ceiling);
+		free(txtrs->width);
+		free(txtrs);
+		return (NULL);
+	}
+	return (txtrs);
+}
+
 t_txtrs	*init_txtrs(int times)
 {
 	t_txtrs	*txtrs;
@@ -53,24 +75,7 @@ t_txtrs	*init_txtrs(int times)
 		free(txtrs);
 		return (NULL);
 	}
-	txtrs->width = malloc(sizeof(int) * times);
-	if (!txtrs->width)
-	{
-		free(txtrs->floor);
-		free(txtrs->ceiling);
-		free(txtrs);
-		return (NULL);
-	}
-	txtrs->height = malloc(sizeof(int) * times);
-	if (!txtrs->height)
-	{
-		free(txtrs->floor);
-		free(txtrs->ceiling);
-		free(txtrs->width);
-		free(txtrs);
-		return (NULL);
-	}
-	return (txtrs);
+	return (init_txtrs_utils(txtrs, times));
 }
 
 void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)

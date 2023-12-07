@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:07:44 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 10:37:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:44:47 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	raycast_step_calc(t_cub3d *cub, t_ray *ray)
 	}
 }
 
-static void	select_img_and_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sqr)
+static void	select_img_n_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sqr)
 {
 	double	wall_x;
 	int		type;
@@ -153,7 +153,7 @@ static void	raycast_draw_walls(t_cub3d *cub, t_ray *ray, char sqr, int i)
 	while (++counter < WHEI)
 		my_mlx_pixel_put(cub, vec.xi, counter, \
 		cub->txtrs[F]->floor[cub->level % (cub->txtrs[F]->levels)]);
-	select_img_and_side(cub, ray, &vec, sqr);
+	select_img_n_side(cub, ray, &vec, sqr);
 }
 
 void	raycasting(t_cub3d *cub)

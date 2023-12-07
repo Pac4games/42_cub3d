@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:28 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/05 19:09:50 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:32:27 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,32 @@ int	get_sqr_coord(t_cub3d *cub, int yval, int xval, char is_horiz)
 	return (y);
 }
 
-void	get_v_vector(t_cub3d *cub, t_vector *vec, int y, int x)
+void	get_v_vector(t_cub3d *cub, t_vector *vec, int x, int y)
 {
-	vec->xi = x;
-	vec->yi = y;
-	vec->xf = x;
-	vec->yf = y + cub->sqr_size;
+	int	new_x;
+	int	new_y;
+
+	new_x = cub->sqr_size + x * cub->sqr_size;
+	new_y = cub->sqr_size + y * cub->sqr_size;
+	vec->xi = new_x;
+	vec->yi = new_y;
+	vec->xf = new_x;
+	vec->yf = new_y + cub->sqr_size;
+	vec->xi += cub->sqr_size - 1;
+	vec->xf += cub->sqr_size - 1;
 }
 
-void	get_h_vector(t_cub3d *cub, t_vector *vec, int y, int x)
+void	get_h_vector(t_cub3d *cub, t_vector *vec, int x, int y)
 {
-	vec->xi = x;
-	vec->yi = y;
-	vec->xf = x + cub->sqr_size;
-	vec->yf = y;
+	int	new_x;
+	int	new_y;
+
+	new_x = cub->sqr_size + x * cub->sqr_size;
+	new_y = cub->sqr_size + y * cub->sqr_size;
+	vec->xi = new_x;
+	vec->yi = new_y;
+	vec->xf = new_x + cub->sqr_size;
+	vec->yf = new_y;
 }
 
 int	get_sqr_size(void)

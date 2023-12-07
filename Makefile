@@ -5,7 +5,7 @@ SRCS_PATH = srcs
 OBJS_PATH = objs
 LIBFT = libft
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -O3 #-g -fsanitize=address
 
 MLX_INC = -I/usr/include -Imlx_linux
 MLX_LIB = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz

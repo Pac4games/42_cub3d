@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 16:21:40 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:18:48 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,8 @@ void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 {
 	char		**split;
 	int			i;
-	int			j;
 
 	i = 0;
-	j = 0;
 	if (txtr_type > TOT - 1)
 		return ;
 	else if ((cub->elems >> (txtr_type + 1) & 1))

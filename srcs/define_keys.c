@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 15:12:42 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:18:15 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,23 @@ int	quits(t_cub3d *cub)
 
 int	in_key(t_cub3d *cub)
 {
-	check_colisions_and_move(cub);
-	rotate_view(cub);
-	ft_memset(cub->addr, 0, WHEI * WWID \
-	* sizeof(cub->bpp));
-	raycasting(cub);
-	redraw_minimap(cub);
-	if ((cub->elems >> (SP + 1) & 1))
-		draw_sprite(cub);
-	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
+	int		ret;
+
+	ret = 0;
+	if (cub->move != 0)
+	{
+		ret = check_colisions_and_move(cub);
+		ret += rotate_view(cub);
+		if (ret == 0)
+			return (1);
+		ft_memset(cub->addr, 0, WHEI * WWID \
+		* sizeof(cub->bpp));
+		raycasting(cub);
+		redraw_minimap(cub);
+		if ((cub->elems >> (SP + 1) & 1))
+			draw_sprite(cub);
+		mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
+	}
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 14:26:27 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/07 21:24:40 by mnascime         ###   ########.fr       */
+/*   Created: 2023/12/08 11:37:15 by paugonca          #+#    #+#             */
+/*   Updated: 2023/12/08 11:46:36 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,10 @@ void		init_player_pos(t_cub3d *cub, int x, int y);
 char		**solo_matrix(int rows, int cols);
 void		insert_map_tail(t_list *list, int *data, int len);
 void		list_to_map(t_list *list, t_cub3d *cub);
+int			fill_txtrs_utils1(t_cub3d *cub, int type, int i);
+int			fill_txtrs_utils2(t_cub3d *cub, int type, int i);
 int			fill_txtrs(t_cub3d *cub, int type, int i);
+void		insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i);
 void		insert_txtrs(t_cub3d *cub, char *line, int txtr_type);
 
 // FIND SQR COORD
@@ -250,6 +253,7 @@ void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 
 // MAIN DISPLAY
 void		draw_sprite(t_cub3d *cub);
+int			mouse_position(int x, int y, t_cub3d *cub);
 int			move_with_mouse(t_cub3d *cub);
 void		display_in_canvas(t_cub3d *cub3d);
 

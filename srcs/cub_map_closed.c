@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:35:23 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/06 09:52:17 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:15:59 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static int	check_line_obj(char c, int obj)
 
 int	check_line_lim(char **map, int i, int j)
 {
-	if (j == 1 && (check_line_obj(map[i][0], 1) || 
-		check_line_obj(map[i][2], 0) || check_line_obj(map[i + 1][1], 0) ||
+	if (j == 1 && (check_line_obj(map[i][0], 1) || \
+		check_line_obj(map[i][2], 0) || check_line_obj(map[i + 1][1], 0) || \
 		check_line_obj(map[i - 1][1], 0)))
 		return (1);
 	else if (j == ft_strlen(map[i]) - 2)

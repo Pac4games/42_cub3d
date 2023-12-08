@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 16:58:58 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:23:27 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,10 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 	return (1);
 }
 
-int	fill_in_cub(t_cub3d *cub, int fd)
+static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 {
-	t_list	list;
-	char	*line;
-	int		check;
+	int	check;
 
-	init_list(&list);
-	line = (char *)1;
 	check = 0;
 	while (line)
 	{
@@ -73,10 +69,10 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 \
 		&& line[0] != '\n')
 		{
-			if (check == 3 || !insert_line(cub, &list, line, &check))
+			if (check == 3 || !insert_line(cub, list, line, &check))
 			{
 				free(line);
-				destroy_list(&list);
+				destroy_list(list);
 				if (cub)
 					destroy_cub(cub);
 				return (print_err_ret("invalid map formatting"));
@@ -86,6 +82,18 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 			check = 3;
 		free(line);
 	}
+	return (1);
+}
+
+int	fill_in_cub(t_cub3d *cub, int fd)
+{
+	t_list	list;
+	char	*line;
+
+	init_list(&list);
+	line = (char *)1;
+	if (!fill_in_cub_utils(cub, fd, line, &list))
+		return (0);
 	if (list.head && cub)
 		list_to_map(&list, cub);
 	return (1);
@@ -103,12 +111,11 @@ int	main(int ac, char **av)
 		ft_memset(&cub, 0, sizeof(cub));
 		if (fd <= 0 || !fill_in_cub(&cub, fd) \
 		|| close(fd) == -1 || !check_map(cub.map->map))
-			return (0);
+			return (EXIT_FAILURE);
 		cub.sqr_size = get_sqr_size();
 		init_player_pos(&cub, -1, -1);
 		init_raycaster(&cub);
 		display_in_canvas(&cub);
-//		destroy_cub(&cub);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:50 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 16:21:08 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:23:17 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ char	**ft_split_spaces(char const *s)
 		return (NULL);
 	i = 0;
 	ptrs = malloc(sizeof(char *) * (ft_strlen(s) + count_c(s) + 1));
-	if (!ptrs)
-		return (NULL);
 	while (s[i])
 	{
 		while (ft_isspace(s[i]))

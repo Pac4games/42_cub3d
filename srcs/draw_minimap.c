@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:37:57 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/06 09:52:17 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:30:12 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	draw_doors(t_cub3d *cub, t_map *map, double ycorr, double xcorr)
 		x = -1;
 		while (++x < map->tot_cols)
 		{
-			get_h_vector(cub, &vec, cub->sqr_size + y * \
-			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
+			get_h_vector(cub, &vec, x, y);
 			position_minimap(&vec, ycorr, xcorr);
 			if (map->map[y][x] == DOOR)
 				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0x00FFFF);
@@ -59,8 +58,7 @@ void	draw_walls(t_cub3d *cub, t_map *map, double ycorr, double xcorr)
 		x = -1;
 		while (++x < map->tot_cols)
 		{
-			get_h_vector(cub, &vec, cub->sqr_size + y * \
-			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
+			get_h_vector(cub, &vec, x, y);
 			position_minimap(&vec, ycorr, xcorr);
 			if (map->map[y][x] == WALL)
 				draw_paralell_hlines(cub, &vec, cub->sqr_size, 0xF2F2F2);
@@ -69,10 +67,7 @@ void	draw_walls(t_cub3d *cub, t_map *map, double ycorr, double xcorr)
 			else
 				continue ;
 			minimap_draw_line(cub, &vec, 0x000000);
-			get_v_vector(cub, &vec, cub->sqr_size + y * \
-			cub->sqr_size, cub->sqr_size + x * cub->sqr_size);
-			vec.xi += cub->sqr_size - 1;
-			vec.xf += cub->sqr_size - 1;
+			get_v_vector(cub, &vec, x, y);
 			position_minimap(&vec, ycorr, xcorr);
 			minimap_draw_line(cub, &vec, 0x000000);
 		}

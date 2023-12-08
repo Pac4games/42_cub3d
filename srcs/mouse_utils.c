@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:44:50 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 11:56:45 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:32:05 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	move_with_mouse(t_cub3d *cub)
 			add_player_rot(cub, arrow);
 			rot_raycaster(cub, times * cub->min_ray);
 			remove_player_rot(cub, arrow);
+			mlx_mouse_move(cub->mlx, cub->mlx_win, WWID / 2, WHEI / 2);
 		}
-		mlx_mouse_move(cub->mlx, cub->mlx_win, WWID / 2, WHEI / 2);
+		else
+			return (0);
 	}
 	else
 		return (0);

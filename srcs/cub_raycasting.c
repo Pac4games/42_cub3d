@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_raycasting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:36:44 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 11:36:46 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:05:49 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static void	select_img_n_side(t_cub3d *cub, t_ray *ray, t_vector *vec, char sqr)
 		return ;
 	ray->x_txtr = (int)(wall_x * \
 	cub->txtrs[type]->width[cub->level % cub->txtrs[type]->levels]);
-	ray->x_txtr = cub->txtrs[type]->width[cub->level \
+	if (type == SO || type == WE)
+		ray->x_txtr = cub->txtrs[type]->width[cub->level \
 	% cub->txtrs[type]->levels] - ray->x_txtr - 1;
 	draw_txtrs(cub, ray, vec, type);
 }

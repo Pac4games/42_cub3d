@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:44:50 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 11:45:38 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:56:45 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 int	move_with_mouse(t_cub3d *cub)
 {
 	double	times;
+	int		arrow;
 
-	times = (double)WWID / 2 - cub->mouse_x;
+	times = WWID / 2 - cub->mouse_x;
 	if (cub->mouse_x > 0 && cub->mouse_x < WWID)
 	{
 		if (cub->mouse_x != WWID / 2)
 		{
-			if (times < (double)WWID / 2)
-				add_player_rot(cub, ARROW_LEFT);
+			if (times < WWID / 2)
+				arrow = ARROW_LEFT;
 			else
-				add_player_rot(cub, ARROW_RIGHT);
+				arrow = ARROW_RIGHT;
+			add_player_rot(cub, arrow);
 			rot_raycaster(cub, times * cub->min_ray);
-			if (times < (double)WWID / 2)
-				remove_player_rot(cub, ARROW_LEFT);
-			else
-				remove_player_rot(cub, ARROW_RIGHT);
+			remove_player_rot(cub, arrow);
 		}
 		mlx_mouse_move(cub->mlx, cub->mlx_win, WWID / 2, WHEI / 2);
 	}

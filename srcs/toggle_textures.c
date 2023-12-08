@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 21:33:17 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 12:09:21 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:22:33 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_txtrs(t_cub3d *cub, t_ray *ray, t_vector *vec, int type)
 
 	step = 1.0 * cub->txtrs[type]->height[cub->level \
 		% (cub->txtrs[type]->levels)] / (vec->yf - vec->yi);
-	texture_pos = (vec->yi - WHEI / 2 + (vec->yf - vec->yi) / 2) * step;
+	texture_pos = (vec->yi - (double)WHEI / 2 + (vec->yf - vec->yi) / 2) * step;
 	y = vec->yi;
 	while (y < vec->yf)
 	{

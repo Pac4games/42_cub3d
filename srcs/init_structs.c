@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 16:39:29 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:37:25 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,26 @@ void	init_list(t_list *list)
 	(*list).tot_rows = 0;
 }
 
-static t_txtrs	*init_txtrs_utils(t_txtrs *txtrs, int times)
+static int	init_txtrs_utils(t_txtrs **txtrs, int times)
 {
-	txtrs->width = malloc(sizeof(int) * times);
-	if (!txtrs->width)
+	(*txtrs)->width = malloc(sizeof(int) * times);
+	if (!(*txtrs)->width)
 	{
-		free(txtrs->floor);
-		free(txtrs->ceiling);
-		free(txtrs);
-		return (NULL);
+//		free((*txtrs)->floor);
+//		free((*txtrs)->ceiling);
+//		free((*txtrs));
+		return (0);
 	}
-	txtrs->height = malloc(sizeof(int) * times);
-	if (!txtrs->height)
+	(*txtrs)->height = malloc(sizeof(int) * times);
+	if (!(*txtrs)->height)
 	{
-		free(txtrs->floor);
-		free(txtrs->ceiling);
-		free(txtrs->width);
-		free(txtrs);
-		return (NULL);
+//		free((*txtrs)->floor);
+//		free((*txtrs)->ceiling);
+		free((*txtrs)->width);
+//		free((*txtrs));
+		return (0);
 	}
-	return (txtrs);
+	return (1);
 }
 
 t_txtrs	*init_txtrs(int times)
@@ -75,7 +75,14 @@ t_txtrs	*init_txtrs(int times)
 		free(txtrs);
 		return (NULL);
 	}
-	return (init_txtrs_utils(txtrs, times));
+	if (!init_txtrs_utils(&txtrs, times))
+	{
+		free(txtrs->floor);
+		free(txtrs->ceiling);
+		free(txtrs);
+		return (NULL);
+	}
+	return (txtrs);
 }
 
 void	init_matrix(t_cub3d *cub, int tot_rows, int tot_cols)

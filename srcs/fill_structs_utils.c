@@ -6,7 +6,7 @@
 /*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:48:19 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/07 17:10:50 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:11:54 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	fill_txtrs_utils2(t_cub3d *cub, int type, int i)
 		cub->txtrs[type]->path[counter], \
 		&cub->txtrs[type]->width[counter], \
 		&cub->txtrs[type]->height[counter]);
-		if (!cub->txtrs[type]->width[counter])
+		if (!cub->txtrs[type]->imgs[counter])
 			return (print_err_ret("one or more invalid textures"));
 	}
 	counter = -1;
@@ -67,6 +67,7 @@ void	insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i)
 	{
 		if (!parse_colors(cub, line, txtr_type))
 		{
+			free(line);
 			destroy_cub(cub);
 			exit(EXIT_FAILURE);
 		}

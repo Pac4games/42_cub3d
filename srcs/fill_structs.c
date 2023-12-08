@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 17:13:03 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:39:41 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,13 @@ void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	split = ft_split_spaces(&line[i]);
 	if (!split)
 		print_err_cub("invalid texture formatting", cub);
-	i = mtx_len(split);
 	if (!cub->txtrs)
 	{
 		cub->txtrs = malloc(TOT * sizeof(t_txtrs *));
 		if (!cub->txtrs)
 			return ;
 	}
+	i = mtx_len(split);
 	cub->txtrs[txtr_type] = init_txtrs(i);
 	cub->txtrs[txtr_type]->path = split;
 	cub->txtrs[txtr_type]->type = txtr_type;

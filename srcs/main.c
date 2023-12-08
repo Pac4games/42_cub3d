@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 17:23:27 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:37:55 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,10 @@ int	main(int ac, char **av)
 	- 4], ".cub", ft_strlen(av[1])))
 	{
 		fd = open(av[1], O_RDONLY);
+		if (fd <= 0)
+			return (print_err_ret("failed to open map") + 1);
 		ft_memset(&cub, 0, sizeof(cub));
-		if (fd <= 0 || !fill_in_cub(&cub, fd) \
+		if (!fill_in_cub(&cub, fd) \
 		|| close(fd) == -1 || !check_map(cub.map->map))
 			return (EXIT_FAILURE);
 		cub.sqr_size = get_sqr_size();

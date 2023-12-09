@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_structs_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:48:19 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 22:11:54 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:43:47 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,28 @@
 
 int	fill_txtrs_utils1(t_cub3d *cub, int type, int i)
 {
+	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->bpp)
+		return (0);
+	cub->txtrs[type]->line_length = malloc(sizeof(int) * i);
+	if (!cub->txtrs[type]->line_length)
+	{
+		free(cub->txtrs[type]->bpp);
+		return (0);
+	}
 	cub->txtrs[type]->endian = malloc(sizeof(int) * i);
 	if (!cub->txtrs[type]->endian)
 	{
-		free(cub->txtrs[type]->imgs);
-		free(cub->txtrs[type]->line_length);
 		free(cub->txtrs[type]->bpp);
+		free(cub->txtrs[type]->line_length);
 		return (0);
 	}
 	cub->txtrs[type]->addrs = malloc(sizeof(char *) * (i + 1));
 	if (!cub->txtrs[type]->addrs)
 	{
-		free(cub->txtrs[type]->endian);
-		free(cub->txtrs[type]->line_length);
 		free(cub->txtrs[type]->bpp);
+		free(cub->txtrs[type]->line_length);
+		free(cub->txtrs[type]->endian);
 		return (0);
 	}
 	return (1);
@@ -45,7 +53,11 @@ int	fill_txtrs_utils2(t_cub3d *cub, int type, int i)
 		&cub->txtrs[type]->width[counter], \
 		&cub->txtrs[type]->height[counter]);
 		if (!cub->txtrs[type]->imgs[counter])
+		{
+			while (--counter >= 0)
+				mlx_destroy_image(cub->mlx, cub->txtrs[type]->imgs[counter]);
 			return (print_err_ret("one or more invalid textures"));
+		}
 	}
 	counter = -1;
 	while (++counter < i)
@@ -57,7 +69,7 @@ int	fill_txtrs_utils2(t_cub3d *cub, int type, int i)
 	return (1);
 }
 
-void	insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i)
+int	insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i)
 {
 	if (i > cub->max_level)
 		cub->max_level = i;
@@ -66,10 +78,7 @@ void	insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i)
 	if (txtr_type == F || txtr_type == C)
 	{
 		if (!parse_colors(cub, line, txtr_type))
-		{
-			free(line);
-			destroy_cub(cub);
-			exit(EXIT_FAILURE);
-		}
+			return (0);
 	}
+	return (1);
 }

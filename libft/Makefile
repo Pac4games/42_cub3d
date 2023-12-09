@@ -7,7 +7,7 @@ SRCS := ft_strlen.c ft_printf.c ft_putnbr_base.c\
         ft_atoi.c ft_itoa.c ft_strtrim.c ft_strchr.c\
         ft_split_spaces.c ft_memset.c ft_isdigit.c\
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
-		ft_memcpy.c ft_strdup.c
+		ft_memcpy.c ft_strdup.c ft_isspace.c
 
 OBJS := $(SRCS:.c=.o)
 

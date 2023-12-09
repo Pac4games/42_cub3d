@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:37:15 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 11:46:36 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:33:22 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,10 @@ typedef struct s_cub3d
 	t_map		*map;
 	t_minimap	*minimap;
 	t_vector	*player;
-	t_txtrs		**txtrs;
+	t_txtrs		*txtrs[TOT];
 	int			elems;
+	int			elem_imgs;
+	int			elem_allocs;
 	int			tot_txtrs;
 	int			sqr_size;
 	int			move;
@@ -235,8 +237,8 @@ void		list_to_map(t_list *list, t_cub3d *cub);
 int			fill_txtrs_utils1(t_cub3d *cub, int type, int i);
 int			fill_txtrs_utils2(t_cub3d *cub, int type, int i);
 int			fill_txtrs(t_cub3d *cub, int type, int i);
-void		insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i);
-void		insert_txtrs(t_cub3d *cub, char *line, int txtr_type);
+int			insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i);
+int			insert_txtrs(t_cub3d *cub, char *line, int txtr_type);
 
 // FIND SQR COORD
 int			rotate_view(t_cub3d *cub);
@@ -248,7 +250,7 @@ int			get_sqr_size(void);
 // INIT STRUCTS
 t_node		*init_node(void);
 void		init_list(t_list *list);
-t_txtrs		*init_txtrs(int times);
+t_txtrs		*init_txtrs(int times, int type);
 void		init_matrix(t_cub3d *cub, int tot_rows, int tot_cols);
 
 // MAIN DISPLAY

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_display.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:39:44 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 11:46:41 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:30:54 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void	draw_sprite(t_cub3d *cub)
 static void	do_mlx_magic(t_cub3d *cub)
 {
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
+	mlx_mouse_hide(cub->mlx, cub->mlx_win);
 	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
 	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
 	mlx_hook(cub->mlx_win, 6, (1L << 6), mouse_position, cub);
 	mlx_hook(cub->mlx_win, 17, (1L << 1), quits, cub);
-	mlx_mouse_hide(cub->mlx, cub->mlx_win);
 	mlx_do_key_autorepeatoff(cub->mlx);
 	mlx_loop_hook(cub->mlx, in_key, cub);
 	mlx_loop(cub->mlx);
@@ -85,7 +85,7 @@ void	display_in_canvas(t_cub3d *cub)
 	cub->img = mlx_new_image(cub->mlx, WWID, WHEI);
 	type = 0;
 	while (++type <= cub->tot_txtrs)
-		if ((cub->elems >> type & 1))
+		if ((cub->elems >> type & 1) && cub->txtrs[type - 1]->levels)
 			if (!fill_txtrs(cub, type - 1, cub->txtrs[type - 1]->levels))
 				quits(cub);
 	cub->mlx_win = mlx_new_window(cub->mlx, WWID, WHEI, "cub3D");

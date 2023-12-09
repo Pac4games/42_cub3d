@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 22:37:25 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:21:02 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,55 +33,49 @@ void	init_list(t_list *list)
 	(*list).tot_rows = 0;
 }
 
-static int	init_txtrs_utils(t_txtrs **txtrs, int times)
+static int	init_txtrs_utils(t_txtrs *txtrs, int times)
 {
-	(*txtrs)->width = malloc(sizeof(int) * times);
-	if (!(*txtrs)->width)
+	txtrs->width = malloc(sizeof(int) * times);
+	if (!txtrs->width)
 	{
-//		free((*txtrs)->floor);
-//		free((*txtrs)->ceiling);
-//		free((*txtrs));
+		free(txtrs);
 		return (0);
 	}
-	(*txtrs)->height = malloc(sizeof(int) * times);
-	if (!(*txtrs)->height)
+	txtrs->height = malloc(sizeof(int) * times);
+	if (!txtrs->height)
 	{
-//		free((*txtrs)->floor);
-//		free((*txtrs)->ceiling);
-		free((*txtrs)->width);
-//		free((*txtrs));
+		free(txtrs->width);
+		free(txtrs);
 		return (0);
 	}
 	return (1);
 }
 
-t_txtrs	*init_txtrs(int times)
+t_txtrs	*init_txtrs(int times, int type)
 {
 	t_txtrs	*txtrs;
 
 	txtrs = malloc(sizeof(t_txtrs));
 	if (!txtrs)
 		return (NULL);
-	txtrs->floor = malloc(sizeof(int) * times);
-	if (!txtrs->floor)
+	if (type == F || type == C)
 	{
-		free(txtrs);
-		return (NULL);
+		txtrs->floor = malloc(sizeof(int) * times);
+		if (!txtrs->floor)
+		{
+			free(txtrs);
+			return (NULL);
+		}
+		txtrs->ceiling = malloc(sizeof(int) * times);
+		if (!txtrs->ceiling)
+		{
+			free(txtrs->floor);
+			free(txtrs);
+			return (NULL);
+		}
 	}
-	txtrs->ceiling = malloc(sizeof(int) * times);
-	if (!txtrs->ceiling)
-	{
-		free(txtrs->floor);
-		free(txtrs);
+	else if (!init_txtrs_utils(txtrs, times))
 		return (NULL);
-	}
-	if (!init_txtrs_utils(&txtrs, times))
-	{
-		free(txtrs->floor);
-		free(txtrs->ceiling);
-		free(txtrs);
-		return (NULL);
-	}
 	return (txtrs);
 }
 

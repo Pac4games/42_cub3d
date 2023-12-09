@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 22:39:41 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:24:00 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,53 +85,48 @@ void	list_to_map(t_list *list, t_cub3d *cub)
 
 int	fill_txtrs(t_cub3d *cub, int type, int i)
 {
-	if (type == F || type == C || type == TOT)
+	if (type == F || type == C || !(cub->elems >> (type + 1) & 1))
 		return (1);
 	cub->txtrs[type]->imgs = malloc(sizeof(void *) * i);
 	if (!cub->txtrs[type]->imgs)
 		return (0);
-	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
-	if (!cub->txtrs[type]->bpp)
+	if (!fill_txtrs_utils1(cub, type, i))
 	{
 		free(cub->txtrs[type]->imgs);
 		return (0);
 	}
-	cub->txtrs[type]->line_length = malloc(sizeof(int) * i);
-	if (!cub->txtrs[type]->line_length)
-	{
-		free(cub->txtrs[type]->imgs);
-		free(cub->txtrs[type]->bpp);
+	cub->elem_imgs |= (1 << (type + 1));
+	if (!fill_txtrs_utils2(cub, type, i))
 		return (0);
-	}
-	if (!fill_txtrs_utils1(cub, type, i) || !fill_txtrs_utils2(cub, type, i))
-		return (0);
+	cub->elem_allocs |= (1 << (type + 1));
 	return (1);
 }
 
-void	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
+int	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 {
 	char		**split;
 	int			i;
 
 	i = 0;
 	if (txtr_type > TOT - 1)
-		return ;
+		return (0);
 	else if ((cub->elems >> (txtr_type + 1) & 1))
 		print_err_cub("duplicated textures", cub);
 	i += ft_strlen(conv_to_txtr_text(txtr_type));
 	split = ft_split_spaces(&line[i]);
 	if (!split)
 		print_err_cub("invalid texture formatting", cub);
-	if (!cub->txtrs)
-	{
-		cub->txtrs = malloc(TOT * sizeof(t_txtrs *));
-		if (!cub->txtrs)
-			return ;
-	}
 	i = mtx_len(split);
-	cub->txtrs[txtr_type] = init_txtrs(i);
+	cub->txtrs[txtr_type] = init_txtrs(i, txtr_type);
+	if (!cub->txtrs[txtr_type])
+	{
+		free(split);
+		return (0);
+	}
 	cub->txtrs[txtr_type]->path = split;
 	cub->txtrs[txtr_type]->type = txtr_type;
 	cub->txtrs[txtr_type]->levels = i;
-	insert_txtrs_utils(cub, txtr_type, line, i);
+	if (!insert_txtrs_utils(cub, txtr_type, line, i))
+		return (0);
+	return (1);
 }

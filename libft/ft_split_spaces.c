@@ -6,18 +6,11 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:50 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/07 15:23:17 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:01:28 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_isspace(int c)
-{
-	if ((c >= '\t' && c <= '\r') || c == ' ')
-		return (1);
-	return (0);
-}
 
 static int	beg_trim(const char *s, int i)
 {
@@ -61,6 +54,18 @@ static int	count_c(const char *s)
 	return (f);
 }
 
+int	pre_check(char const *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] && ft_isspace(s[i]))
+		i++;
+	if (!s[i])
+		return (0);
+	return (1);
+}
+
 char	**ft_split_spaces(char const *s)
 {
 	size_t	i;
@@ -69,14 +74,11 @@ char	**ft_split_spaces(char const *s)
 
 	i = 0;
 	j = 0;
-	if (!s)
+	if (!s || !pre_check(s))
 		return (NULL);
-	while (s[i] && ft_isspace(s[i]))
-		i++;
-	if (!s[i])
-		return (NULL);
-	i = 0;
 	ptrs = malloc(sizeof(char *) * (ft_strlen(s) + count_c(s) + 1));
+	if (!ptrs)
+		return (NULL);
 	while (s[i])
 	{
 		while (ft_isspace(s[i]))

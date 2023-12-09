@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/08 21:58:51 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/09 11:51:33 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 	{
 		if (*check == 2)
 			return (0);
-		insert_txtrs(cub, &line[i], is_valid_elem(&line[i]));
+		if (!insert_txtrs(cub, &line[i], is_valid_elem(&line[i])))
+			return (0);
 		*check = 1;
 	}
 	else if (line[i] && is_valid_elem(&line[i]) == TOT)

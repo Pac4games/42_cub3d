@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 19:18:24 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/26 00:09:07 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 11:20:43 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strread(const char *s)
+int	ft_strread(const char *s)
 {
 	int	i;
 

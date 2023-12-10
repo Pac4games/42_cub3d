@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:50 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/09 14:01:28 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 11:48:36 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,6 @@ static int	beg_trim(const char *s, int i)
 	while (s[i] != '\0' && !ft_isspace(s[i]))
 		i++;
 	return (i);
-}
-
-static char	*strs(const char *s, int i, int f)
-{
-	char	*str;
-	int		j;
-
-	j = 0;
-	str = malloc(sizeof(char *) * (f - i));
-	if (!str)
-		return (NULL);
-	while (s[i] && i < f)
-	{
-		str[j] = s[i++];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
 }
 
 static int	count_c(const char *s)
@@ -54,7 +36,7 @@ static int	count_c(const char *s)
 	return (f);
 }
 
-int	pre_check(char const *s)
+static int	pre_check(char const *s)
 {
 	size_t	i;
 
@@ -86,6 +68,11 @@ char	**ft_split_spaces(char const *s)
 		if (s[i] == '\0')
 			break ;
 		ptrs[j++] = strs(s, i, beg_trim(s, i));
+		if (!ptrs[j - 1])
+		{
+			ft_free_split(ptrs);
+			return (NULL);
+		}
 		i = beg_trim(s, i);
 	}
 	ptrs[j] = NULL;

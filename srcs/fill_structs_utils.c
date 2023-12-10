@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:48:19 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/09 15:43:47 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 10:48:07 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	fill_txtrs_utils1(t_cub3d *cub, int type, int i)
 {
+	(void)i;
 	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
 	if (!cub->txtrs[type]->bpp)
 		return (0);

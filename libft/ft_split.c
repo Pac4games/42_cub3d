@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:50 by mnascime          #+#    #+#             */
-/*   Updated: 2023/10/28 13:18:20 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 11:48:25 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,6 @@ static int	beg_trim(const char *s1, char c, int i)
 	while (s1[i] != '\0' && s1[i] != c)
 		i++;
 	return (i);
-}
-
-static char	*strs(const char *s, int i, int f)
-{
-	char	*str;
-	int		j;
-
-	j = 0;
-	str = malloc(sizeof(char *) * (f - i));
-	if (!str)
-		return (NULL);
-	while (s[i] && i < f)
-	{
-		str[j] = s[i++];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
 }
 
 static int	count_c(const char *s, char c)

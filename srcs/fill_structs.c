@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 11:36:14 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:19:32 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,6 @@ int	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	cub->txtrs[txtr_type]->type = txtr_type;
 	cub->txtrs[txtr_type]->levels = i;
 	if (!insert_txtrs_utils(cub, txtr_type, line, i))
-	{
-		free(split);
 		return (0);
-	}
 	return (1);
 }

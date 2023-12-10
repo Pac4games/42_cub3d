@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:44:35 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/07 17:31:55 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:38:31 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	int		check;
 	char	**split;
 
-	split = ft_split(&line[2], ' ');
+	split = ft_split_spaces(&line[2]);
 	if (!split)
 		print_err_cub("failed to allocate memory", cub);
 	i = -1;

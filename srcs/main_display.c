@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:39:44 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/09 15:30:54 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:13:54 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_sprite(t_cub3d *cub)
 static void	do_mlx_magic(t_cub3d *cub)
 {
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
-	mlx_mouse_hide(cub->mlx, cub->mlx_win);
+	//mlx_mouse_hide(cub->mlx, cub->mlx_win);
 	mlx_hook(cub->mlx_win, 2, (1L << 0), read_keys, cub);
 	mlx_hook(cub->mlx_win, 3, (1L << 1), key_release, cub);
 	mlx_hook(cub->mlx_win, 6, (1L << 6), mouse_position, cub);
@@ -76,8 +76,8 @@ void	display_in_canvas(t_cub3d *cub)
 {
 	int	type;
 
-	type = 1;
-	while ((cub->elems >> type & 1))
+	type = 0;
+	while ((cub->elems >> (type + 1) & 1))
 		type++;
 	if (type < 6)
 		print_err_cub("not enough textures", cub);

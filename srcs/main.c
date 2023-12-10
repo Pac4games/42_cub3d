@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 11:46:39 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:21:58 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 		*check = 2;
 	}
 	else
-		return (0);
+		return (print_err_ret("invalid map formatting"));
 	return (1);
 }
 
@@ -76,7 +76,7 @@ static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 				destroy_list(list);
 				if (cub)
 					destroy_cub(cub);
-				return (print_err_ret("invalid map formatting"));
+				return (0);
 			}
 		}
 		else if (check == 2)

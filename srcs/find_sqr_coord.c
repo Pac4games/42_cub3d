@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_sqr_coord.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paugonca <paugonca@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:37:29 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/08 11:37:38 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:13:51 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int	get_sqr_size(void)
 		base = WHEI;
 	else
 		base = WWID;
-	dist = (double)(base) *STEP * 0.1;
+	dist = (double)(base) * STEP * 0.1;
 	return (dist);
 }

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:37:15 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/10 11:49:25 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:58:14 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "mlx_linux/mlx.h"
 # include "./libft/libft.h"
 
-# define WWID 1920
-# define WHEI 1080
+# define WWID 780
+# define WHEI 1020
 # define STEP 0.15
 
 # define ESC 65307

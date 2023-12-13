@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:46 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 11:09:25 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:47:52 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	init_list(t_list *list)
 static int	init_txtrs_utils(t_txtrs *txtrs, int times)
 {
 	(void)times;
+	txtrs->floor = NULL;
+	txtrs->ceiling = NULL;
 	txtrs->width = malloc(sizeof(int) * times);
 	if (!txtrs->width)
 	{

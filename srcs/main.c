@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 12:21:58 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:59:31 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ int	main(int ac, char **av)
 	t_cub3d	cub;
 	int		fd;
 
-	if (ac == 2 && ft_strnstr(&av[1][ft_strlen(av[1]) \
-	- 4], ".cub", ft_strlen(av[1])))
+	if (ac == 2)
 	{
+		if (!ft_strnstr(&av[1][ft_strlen(av[1]) - 4], ".cub", ft_strlen(av[1])))
+			return (print_err_ret("invalid map format") + 1);
 		fd = open(av[1], O_RDONLY);
 		if (fd <= 0)
 			return (print_err_ret("failed to open map") + 1);

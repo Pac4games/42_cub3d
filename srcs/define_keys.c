@@ -6,13 +6,13 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 12:03:00 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:03:40 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	quits(t_cub3d *cub)
+int	quits(t_cub3d *cub, int exit_stts)
 {
 	destroy_cub(cub);
 	if (cub->mlx_win)
@@ -24,7 +24,7 @@ int	quits(t_cub3d *cub)
 	mlx_destroy_image(cub->mlx, cub->img);
 	mlx_destroy_display(cub->mlx);
 	free(cub->mlx);
-	exit(EXIT_SUCCESS);
+	exit(exit_stts);
 }
 
 int	in_key(t_cub3d *cub)
@@ -72,7 +72,7 @@ int	key_release(int key_pressed, t_cub3d *cub)
 int	read_keys(int key_pressed, t_cub3d *cub)
 {
 	if (key_pressed == ESC)
-		quits(cub);
+		quits(cub, EXIT_SUCCESS);
 	else if (key_pressed == FRONT || key_pressed == BACK \
 	|| key_pressed == TOLEFT || key_pressed == TORIGHT \
 	|| key_pressed == ARROW_LEFT || key_pressed == ARROW_RIGHT)

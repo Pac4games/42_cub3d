@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 11:39:44 by paugonca          #+#    #+#             */
-/*   Updated: 2023/12/10 12:13:54 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:03:54 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	display_in_canvas(t_cub3d *cub)
 	while (++type <= cub->tot_txtrs)
 		if ((cub->elems >> type & 1) && cub->txtrs[type - 1]->levels)
 			if (!fill_txtrs(cub, type - 1, cub->txtrs[type - 1]->levels))
-				quits(cub);
+				quits(cub, EXIT_FAILURE);
 	cub->mlx_win = mlx_new_window(cub->mlx, WWID, WHEI, "cub3D");
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bpp, \
 	&cub->line_length, &cub->endian);

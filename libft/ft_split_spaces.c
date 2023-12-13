@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 17:38:50 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 11:48:36 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:53:04 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,13 @@ static int	pre_check(char const *s)
 	return (1);
 }
 
-char	**ft_split_spaces(char const *s)
+char	**ft_split_spaces_utils(const char *s, char **ptrs)
 {
 	size_t	i;
 	size_t	j;
-	char	**ptrs;
 
 	i = 0;
 	j = 0;
-	if (!s || !pre_check(s))
-		return (NULL);
-	ptrs = malloc(sizeof(char *) * (ft_strlen(s) + count_c(s) + 1));
-	if (!ptrs)
-		return (NULL);
 	while (s[i])
 	{
 		while (ft_isspace(s[i]))
@@ -77,4 +71,16 @@ char	**ft_split_spaces(char const *s)
 	}
 	ptrs[j] = NULL;
 	return (ptrs);
+}
+
+char	**ft_split_spaces(char const *s)
+{
+	char	**ptrs;
+
+	if (!s || !pre_check(s))
+		return (NULL);
+	ptrs = malloc(sizeof(char *) * (ft_strlen(s) + count_c(s) + 1));
+	if (!ptrs)
+		return (NULL);
+	return (ft_split_spaces_utils(s, ptrs));
 }

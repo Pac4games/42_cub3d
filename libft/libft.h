@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 13:13:08 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/10 11:48:44 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:51:41 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_putendl_fd(char *str, int fd);
 void	*ft_memcpy(void *dst, const void *src, size_t len);
 char	*ft_strdup(const char *str);
 int		ft_isspace(int c);
-void    ft_free_split(char **split);
+void	ft_free_split(char **split);
 char	*strs(const char *s, int i, int f);
 
 #endif

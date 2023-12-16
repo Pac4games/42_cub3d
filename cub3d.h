@@ -309,7 +309,7 @@ int			str_isdigit(char *str);
 // VALIDATE MAP
 int			map_line_is_valid(char *line);
 int			is_valid_elem(char *line);
-int			check_map(char **map);
+int			check_map(char **map, int has_door);
 int			check_border(char **map, int i);
 int			check_line_lim(char **map, int i, int j);
 int			check_line_mid(char **map, int i, int j);

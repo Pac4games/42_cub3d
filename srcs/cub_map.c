@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-static int	check_obj(char **map)
+static int	check_obj(char **map, int has_door)
 {
 	int	i;
 	int	j;
@@ -26,7 +26,8 @@ static int	check_obj(char **map)
 			if (map[i][j] != ZERO && map[i][j] != SPACE \
 			&& map[i][j] != WALL && map[i][j] != NORTH \
 			&& map[i][j] != SOUTH && map[i][j] != EAST \
-			&& map[i][j] != WEST && map[i][j] != DOOR)
+			&& map[i][j] != WEST && (map[i][j] != DOOR \
+			|| (map[i][j] == DOOR && !has_door)))
 				return (0);
 		}
 	}
@@ -99,9 +100,9 @@ static int	check_closed(char **map)
 	return (res);
 }
 
-int	check_map(char **map)
+int	check_map(char **map, int has_door)
 {
-	if (!check_obj(map))
+	if (!check_obj(map, has_door))
 		return (print_err_ret("one or more invalid objects in map"));
 	else if (!check_player(map))
 		return (print_err_ret("invalid player in map"));

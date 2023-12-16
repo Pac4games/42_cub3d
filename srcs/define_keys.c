@@ -18,7 +18,6 @@ int	quits(t_cub3d *cub, int exit_stts)
 	if (cub->mlx_win)
 	{
 		mlx_do_key_autorepeaton(cub->mlx);
-		//mlx_mouse_show(cub->mlx, cub->mlx_win);
 		mlx_destroy_window (cub->mlx, cub->mlx_win);
 	}
 	mlx_destroy_image(cub->mlx, cub->img);

@@ -14,7 +14,6 @@
 
 int	fill_txtrs_utils1(t_cub3d *cub, int type, int i)
 {
-	(void)i;
 	cub->txtrs[type]->bpp = malloc(sizeof(int) * i);
 	if (!cub->txtrs[type]->bpp)
 		return (0);

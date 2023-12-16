@@ -121,21 +121,16 @@ void	raycasting(t_cub3d *cub)
 {
 	int		i;
 	char	sqr;
-	double	mid;
 	double	camera_ray;
 	t_ray	ray;
 
 	i = 0;
-	if (WWID > WHEI)
-		mid = WWID / WHEI;
-	else
-		mid = WHEI / WWID;
 	ft_memset(&ray, 0, sizeof(ray));
 	while (i < WWID)
 	{
 		ray.x = get_player_sqr(cub, 1);
 		ray.y = get_player_sqr(cub, 0);
-		camera_ray = 1.7 * mid * i / (double) WWID - 0.85 * mid;
+		camera_ray = 1.7 * WWID / WHEI * i / (double) WWID - 0.85 * WWID / WHEI;
 		if (i == WWID / 2 - 1)
 			cub->min_ray = camera_ray;
 		ray.dir_x = cub->dir_x + cub->plane_x * camera_ray;

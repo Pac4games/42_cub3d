@@ -82,6 +82,6 @@ int	get_sqr_size(void)
 		base = WHEI;
 	else
 		base = WWID;
-	dist = (double)(base) * STEP * 0.1;
+	dist = (double)base * STEP * 0.1;
 	return (dist);
 }

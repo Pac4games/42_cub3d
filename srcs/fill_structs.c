@@ -112,11 +112,11 @@ int	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 	if (txtr_type > TOT - 1)
 		return (0);
 	else if ((cub->elems >> (txtr_type + 1) & 1))
-		print_err_cub("duplicated textures", cub);
+		return (print_err_ret("duplicated textures"));
 	i += ft_strlen(conv_to_txtr_text(txtr_type));
 	split = ft_split_spaces(&line[i]);
 	if (!split)
-		print_err_cub("invalid texture formatting", cub);
+		return (print_err_ret("invalid texture formatting"));
 	i = mtx_len(split);
 	cub->txtrs[txtr_type] = init_txtrs(i, txtr_type);
 	if (!cub->txtrs[txtr_type])
@@ -125,9 +125,5 @@ int	insert_txtrs(t_cub3d *cub, char *line, int txtr_type)
 		return (0);
 	}
 	cub->txtrs[txtr_type]->path = split;
-	cub->txtrs[txtr_type]->type = txtr_type;
-	cub->txtrs[txtr_type]->levels = i;
-	if (!insert_txtrs_utils(cub, txtr_type, line, i))
-		return (0);
-	return (1);
+	return (insert_txtrs_utils(cub, txtr_type, line, i));
 }

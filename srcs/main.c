@@ -34,7 +34,8 @@ int	*fill_line_of_list(char *line)
 
 static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 {
-	int			i;
+	int		i;
+	int		result;
 
 	i = 0;
 	while (ft_isspace(line[i]))
@@ -42,10 +43,11 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 	if (line[i] && is_valid_elem(&line[i]) != TOT)
 	{
 		if (*check == 2)
-			return (0);
-		if (!insert_txtrs(cub, &line[i], is_valid_elem(&line[i])))
-			return (0);
-		*check = 1;
+			return (print_err_ret("invalid element line"));
+		result = insert_txtrs(cub, &line[i], is_valid_elem(&line[i]));
+		if (result)
+			*check = 1;
+		return (result);
 	}
 	else if (line[i] && is_valid_elem(&line[i]) == TOT)
 	{
@@ -62,6 +64,7 @@ static int	insert_line(t_cub3d *cub, t_list *list, char *line, int *check)
 static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 {
 	int	check;
+	int	result;
 
 	check = 0;
 	while (line)
@@ -70,13 +73,14 @@ static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 \
 		&& line[0] != '\n')
 		{
-			if (check == 3 || !insert_line(cub, list, line, &check))
+			result = insert_line(cub, list, line, &check);
+			if (check == 3 || !result)
 			{
 				free(line);
 				destroy_list(list);
 				if (cub)
 					destroy_cub(cub);
-				return (0);
+				return (result);
 			}
 		}
 		else if (check == 2)

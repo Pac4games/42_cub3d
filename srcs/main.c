@@ -115,7 +115,11 @@ int	main(int ac, char **av)
 		ft_memset(&cub, 0, sizeof(cub));
 		if (!fill_in_cub(&cub, fd) || close(fd) == -1 \
 		|| !cub.map || !check_map(cub.map->map, (cub.elems >> (DO + 1) & 1)))
+		{
+			if (cub.map)
+				destroy_cub(&cub);
 			return (EXIT_FAILURE);
+		}
 		cub.sqr_size = get_sqr_size();
 		init_player_pos(&cub, -1, -1);
 		init_raycaster(&cub);

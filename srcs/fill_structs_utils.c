@@ -71,14 +71,13 @@ int	fill_txtrs_utils2(t_cub3d *cub, int type, int i)
 
 int	insert_txtrs_utils(t_cub3d *cub, int txtr_type, char *line, int i)
 {
+	cub->txtrs[txtr_type]->type = txtr_type;
+	cub->txtrs[txtr_type]->levels = i;
 	if (i > cub->max_level)
 		cub->max_level = i;
 	cub->tot_txtrs++;
 	register_elem(cub, txtr_type);
 	if (txtr_type == F || txtr_type == C)
-	{
-		if (!parse_colors(cub, line, txtr_type))
-			return (0);
-	}
+		return (parse_colors(cub, line, txtr_type));
 	return (1);
 }

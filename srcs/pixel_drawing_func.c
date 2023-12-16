@@ -62,29 +62,3 @@ void	my_mlx_pixel_put(t_cub3d *cub, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
-
-void	draw_line(t_cub3d *cub, t_vector *vector, int color)
-{
-	double	dx;
-	double	dy;
-	double	pxx;
-	double	pxy;
-	int		pxs;
-
-	pxx = vector->xi;
-	pxy = vector->yi;
-	dx = vector->xf - vector->xi;
-	dy = vector->yf - vector->yi;
-	pxs = sqrt((dx * dx) + (dy * dy));
-	dx /= pxs;
-	dy /= pxs;
-	pxx = vector->xi;
-	pxy = vector->yi;
-	while (pxs)
-	{
-		my_mlx_pixel_put(cub, pxx, pxy, color);
-		pxx += dx;
-		pxy += dy;
-		--pxs;
-	}
-}

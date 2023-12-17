@@ -65,6 +65,8 @@ int	check_line(char **map, int i)
 		if (map[i][j] == ZERO || map[i][j] == NORTH || map[i][j] == SOUTH ||
 			map[i][j] == EAST || map[i][j] == WEST)
 		{
+			if (check_door(map, i, j))
+				return (1);
 			if (j == 0 || j == ft_strlen(map[i]) - 1)
 				return (1);
 			if (check_line_lim(map, i, j) || check_line_mid(map, i, j))

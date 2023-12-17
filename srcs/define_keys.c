@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:57:34 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/17 11:29:18 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/17 16:17:39 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	quits(t_cub3d *cub, int exit_stts)
 	if (cub->mlx_win)
 	{
 		mlx_do_key_autorepeaton(cub->mlx);
-		mlx_mouse_show(cub->mlx, cub->mlx_win);
 		mlx_destroy_window (cub->mlx, cub->mlx_win);
 	}
 	mlx_destroy_image(cub->mlx, cub->img);

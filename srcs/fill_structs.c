@@ -18,13 +18,13 @@ char	**solo_matrix(int rows, int cols)
 	char	**mat;
 
 	(void)cols;
-	mat = malloc((sizeof(char *) + 1) * rows);
+	mat = malloc(sizeof(char *) * (1 + rows));
 	if (!mat)
 		return (NULL);
 	i = 0;
 	while (i < rows)
 	{
-		mat[i] = malloc((sizeof(char) + 1) * cols);
+		mat[i] = malloc(sizeof(char) * (1 + cols));
 		if (!mat[i])
 		{
 			i = -1;

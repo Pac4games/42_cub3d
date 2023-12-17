@@ -70,17 +70,16 @@ static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (line && !is_only_spaces(line) && ft_strlen(line) > 0 \
-		&& line[0] != '\n')
+		if ((line && !is_only_spaces(line) && ft_strlen(line) > 0 \
+		&& line[0] != '\n') || check == 3)
 		{
-			result = insert_line(cub, list, line, &check);
+			if (check != 3)
+				result = insert_line(cub, list, line, &check);
 			if (check == 3 || !result)
 			{
 				free(line);
 				destroy_list(list);
-				if (cub)
-					destroy_cub(cub);
-				return (result);
+				return (0);
 			}
 		}
 		else if (check == 2)
@@ -98,7 +97,11 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 	init_list(&list);
 	line = (char *)1;
 	if (!fill_in_cub_utils(cub, fd, line, &list))
+	{
+		if (cub)
+			destroy_cub(cub);
 		return (0);
+	}
 	if (list.head && cub)
 		list_to_map(&list, cub);
 	return (1);

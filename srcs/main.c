@@ -121,7 +121,7 @@ int	main(int ac, char **av)
 			return (print_err_ret("failed to open map") + 1);
 		ft_memset(&cub, 0, sizeof(cub));
 		if (!fill_in_cub(&cub, fd) || close(fd) == -1 \
-		|| !cub.map || !check_map(cub.map->map, (cub.elems >> (DO + 1) & 1)))
+		|| !cub.map || !check_map(cub.map, (cub.elems >> (DO + 1) & 1)))
 		{
 			if (cub.map)
 				destroy_cub(&cub);

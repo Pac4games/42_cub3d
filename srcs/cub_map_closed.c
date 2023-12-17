@@ -59,10 +59,12 @@ int	check_line_mid(char **map, int i, int j)
 	return (0);
 }
 
-int	check_door(char **map, int i, int j)
+int	check_door(char **map, int i, int j, int cols)
 {
-	if (map[i][j - 1] == SPACE || map[i][j + 1] == SPACE ||
-		map[i - 1][j] == SPACE || map[i + 1][j] == SPACE)
+	if ((j > 0 && map[i][j - 1] == SPACE) \
+	|| (j < cols && map[i][j + 1] == SPACE) \
+	|| (i > 0 && map[i - 1][j] == SPACE) \
+	|| (i < cols && map[i + 1][j] == SPACE))
 		return (1);
 	return (0);
 }

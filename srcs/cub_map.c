@@ -55,7 +55,7 @@ static int	check_player(char **map)
 	return (1);
 }
 
-int	check_line(char **map, int i)
+int	check_line(char **map, int i, int cols)
 {
 	int	j;
 
@@ -65,7 +65,7 @@ int	check_line(char **map, int i)
 		if (map[i][j] == ZERO || map[i][j] == NORTH || map[i][j] == SOUTH ||
 			map[i][j] == EAST || map[i][j] == WEST)
 		{
-			if (check_door(map, i, j))
+			if (check_door(map, i, j, cols))
 				return (1);
 			if (j == 0 || j == ft_strlen(map[i]) - 1)
 				return (1);
@@ -76,39 +76,39 @@ int	check_line(char **map, int i)
 		{
 			if (j == 0 || j == ft_strlen(map[i]) - 1)
 				return (1);
-			if (check_door(map, i, j))
+			if (check_door(map, i, j, cols))
 				return (1);
 		}
 	}
 	return (0);
 }
 
-static int	check_closed(char **map)
+static int	check_closed(t_map *map, int cols)
 {
 	int	i;
 	int	res;
 
 	i = -1;
 	res = 0;
-	while (map[++i])
+	while (map->map[++i])
 	{
-		if (i == 0 || i == mtx_len(map) - 1)
-			res += check_border(map, i);
+		if (i == 0 || i == mtx_len(map->map) - 1)
+			res += check_border(map->map, i);
 		else
-			res += check_line(map, i);
+			res += check_line(map->map, i, cols);
 		if (res != 0)
 			break ;
 	}
 	return (res);
 }
 
-int	check_map(char **map, int has_door)
+int	check_map(t_map *map, int has_door)
 {
-	if (!check_obj(map, has_door))
+	if (!check_obj(map->map, has_door))
 		return (print_err_ret("one or more invalid objects in map"));
-	else if (!check_player(map))
+	else if (!check_player(map->map))
 		return (print_err_ret("invalid player in map"));
-	else if (check_closed(map))
+	else if (check_closed(map, map->tot_cols))
 		return (print_err_ret("map isn't closed"));
 	return (1);
 }

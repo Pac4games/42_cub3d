@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/18 09:15:24 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:38:30 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 	{
 		line = get_next_line(fd);
 		if ((line && !is_only_spaces(line) && ft_strlen(line) > 0 \
-		&& line[0] != '\n') || check == 3)
+		&& line[0] != '\n'))
 		{
 			if (check != 3)
 				result = insert_line(cub, list, line, &check);

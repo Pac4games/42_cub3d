@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/13 18:59:31 by paugonca         ###   ########.fr       */
+/*   Updated: 2023/12/18 09:15:24 by mnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ int	fill_in_cub(t_cub3d *cub, int fd)
 	}
 	if (list.head && cub)
 		list_to_map(&list, cub);
+	else
+	{
+		if (cub)
+			destroy_cub(cub);
+		return (print_err_ret("map not detected"));
+	}
 	return (1);
 }
 

@@ -40,8 +40,7 @@ static int	parse_colors_utils(t_cub3d *cub, char **split, int i, int type)
 		f = -1;
 		while (++f <= 2)
 		{
-			if (!c[f] || ft_atoi(c[f]) < 0 \
-			|| ft_atoi(c[f]) > 255 || !str_isdigit(c[f]))
+			if (ft_atoi(c[f]) < 0 || ft_atoi(c[f]) > 255 || !str_isdigit(c[f]))
 			{
 				free_mtx(split);
 				free_mtx(c);
@@ -51,6 +50,27 @@ static int	parse_colors_utils(t_cub3d *cub, char **split, int i, int type)
 		insert_colors(cub, c, type, i);
 		free_mtx(c);
 	}
+	return (1);
+}
+
+static int	correct_divisor_num(char *color_str)
+{
+	int	i;
+	int	counter;
+
+	i = -1;
+	counter = 0;
+	while (color_str[++i])
+	{
+		if (color_str[i] == ',')
+		{
+			if (i == 0 || i == ft_strlen(color_str) - 1)
+				return (0);
+			counter++;
+		}
+	}
+	if (counter != 2)
+		return (0);
 	return (1);
 }
 
@@ -66,7 +86,8 @@ int	parse_colors(t_cub3d *cub, char *line, int type)
 	i = -1;
 	while (split[++i])
 	{
-		if (ft_strlen(split[i]) < 5 || ft_strlen(split[i]) > 11 + 1)
+		if (ft_strlen(split[i]) < 5 || ft_strlen(split[i]) > 11 + 1 \
+		|| !correct_divisor_num(split[i]))
 		{
 			free_mtx(split);
 			return (print_err_ret("incorrect color formatting"));

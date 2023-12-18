@@ -79,7 +79,7 @@ static int	fill_in_cub_utils(t_cub3d *cub, int fd, char *line, t_list *list)
 			{
 				free(line);
 				destroy_list(list);
-				return (0);
+				return (print_err_ret("invalid map structure"));
 			}
 		}
 		else if (check == 2)

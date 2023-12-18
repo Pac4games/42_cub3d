@@ -40,7 +40,8 @@ static int	parse_colors_utils(t_cub3d *cub, char **split, int i, int type)
 		f = -1;
 		while (++f <= 2)
 		{
-			if (ft_atoi(c[f]) < 0 || ft_atoi(c[f]) > 255 || !str_isdigit(c[f]))
+			if (!c[f] || ft_atoi(c[f]) < 0 \
+			|| ft_atoi(c[f]) > 255 || !str_isdigit(c[f]))
 			{
 				free_mtx(split);
 				free_mtx(c);

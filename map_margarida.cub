@@ -1,10 +1,10 @@
-NO assets/Wall2.xpm assets/Wall0-1.xpm assets/adachi.xpm
-SO assets/Wall2.xpm assets/Wall0-2.xpm assets/adachi_rotate.xpm
-WE assets/Wall2.xpm assets/Wall0-3.xpm assets/adachi.xpm
-EA assets/Wall2.xpm assets/Wall0-4.xpm assets/adachi_rotate.xpm 
+NO assets/Wall2.xpm assets/Wall0-1.xpm assets/teste.xpm
+SO assets/Wall2.xpm assets/Wall0-2.xpm assets/teste1.xpm
+WE assets/Wall2.xpm assets/Wall0-3.xpm assets/teste2.xpm
+EA assets/Wall2.xpm assets/Wall0-4.xpm assets/teste3.xpm
 
-F 150,150,180 66,77,8 
-C 163,167,169 242,240,200
+F 150,150,180 66,77,8 255,78,69
+C 163,167,169 242,240,200 154,108,252
 
 DO assets/Door3.xpm assets/Door0Up.xpm
 SP assets/light.xpm assets/Coffee.xpm

@@ -6,7 +6,7 @@
 /*   By: mnascime <mnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:59:52 by mnascime          #+#    #+#             */
-/*   Updated: 2023/12/18 18:38:30 by mnascime         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:37:45 by paugonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,5 @@ int	main(int ac, char **av)
 		init_raycaster(&cub);
 		display_in_canvas(&cub);
 	}
-	return (0);
+	return (print_err_ret("invalid number of arguments") + 1);
 }

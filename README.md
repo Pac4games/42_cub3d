@@ -106,3 +106,9 @@ C 225,30,0
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 ```
+
+### But wait, there's more!
+
+As a bonus, we have added the ability to walk through doors to allow you to have multiple textures and colors for
+all the elements of a map! By having more than one texture or color per line, every time you walk through a door
+the game will cycle through your textures, giving the appearance of exploring different environments.

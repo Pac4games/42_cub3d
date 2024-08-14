@@ -1,5 +1,5 @@
 # Cub3D
-> Yeah, your setup looks great, but can it ***run doom though?***
+> Yeah, your setup looks great, but can it ***run Doom though?***
 
 This project is a 3D first-person game written in C, where we achieve a three-dimensional perspective through the use
 of [Raycasting](https://en.wikipedia.org/wiki/Ray_casting) and the [miniLibX](https://github.com/42Paris/minilibx-linux) 
